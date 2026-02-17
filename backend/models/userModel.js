@@ -28,9 +28,9 @@ const User = sequelize.define(
       allowNull: false,
     },
     role: {
-      type: DataTypes.ENUM("guest","developer","tester","Designer","Maintainer","Owner"),
+      type: DataTypes.ENUM("Guest","Developer","Tester","Designer","Maintainer","Owner"),
       allowNull: false,
-      defaultValue: "guest",
+      defaultValue: "Guest",
     },
     is_verified: {
       type: DataTypes.BOOLEAN,

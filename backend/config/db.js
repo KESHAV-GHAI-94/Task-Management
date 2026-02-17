@@ -17,6 +17,9 @@ module.exports = sequelize;
 require("../models/userModel");
 require("../models/tasksModel");
 require("../models/commentsModel");
+require("../models/ForgetpassOtp");
+require("../models/taskassignment");
+require("../models/indexModel");
 
 (async () => {
   try {

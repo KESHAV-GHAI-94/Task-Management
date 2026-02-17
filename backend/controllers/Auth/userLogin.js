@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const User = require("../models/userModel");
+const User = require("../../models/userModel");
 const loginuser = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -24,7 +24,6 @@ const loginuser = async (req, res) => {
       });
     }
     const isMatch = await bcrypt.compare(password, user.password_hash);
-
     if (!isMatch) {
       return res.status(401).json({
         message: "Invalid password",
@@ -34,6 +33,7 @@ const loginuser = async (req, res) => {
       {
         id: user.id,
         email: user.email,
+        role: user.role,
       },
       process.env.JWT_SECRET,
       {
@@ -51,13 +51,17 @@ const loginuser = async (req, res) => {
         id: user.id,
         name: user.name,
         email: user.email,
+        role: user.role,
       },
     });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({
-      message: "Server error",
-    });
-  }
+  }catch (err) {
+  console.error("LOGIN ERROR:", err.message);
+  console.error(err);
+
+  res.status(500).json({
+    message: err.message,
+  });
+}
+
 };
 module.exports = loginuser;

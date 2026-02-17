@@ -35,13 +35,15 @@ const Task = sequelize.define(
       type: DataTypes.DATE,
       default: null,
     },
-    assigned_to: {
-      type: DataTypes.UUID,
-      references: {
-        model: "users",
-        key: "id",
-      },
+    image: {
+      type: DataTypes.BLOB("long"),
+      allowNull: true,
     },
+
+    image_mimetype: {
+      type: DataTypes.STRING,
+    },
+
     created_by: {
       type: DataTypes.UUID,
       references: {

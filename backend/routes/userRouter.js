@@ -1,7 +1,8 @@
 const express = require('express');
 const userRouter = express.Router();
-const {signup,verifySignupOtp} = require("../controllers/userRegister");
-const loginuser = require("../controllers/userLogin");
+const {signup,verifySignupOtp} = require("../controllers/Auth/userRegister");
+const loginuser = require("../controllers/Auth/userLogin");
+const {sendotpforget,checkforgetotp,changePassword} = require("../controllers/Auth/userForgetPassword");
 userRouter.get("/", (req, res) => {
   res.send("User route is working");
 });
@@ -18,4 +19,13 @@ userRouter.get("/login", (req, res) => {
 });
 userRouter.post("/login",loginuser);
 
+//forget password route
+userRouter.post("/forget-password",sendotpforget);
+userRouter.post("/check-forget-otp",checkforgetotp);
+userRouter.post("/change-password",changePassword);
+
+userRouter.post("/logout", (req, res) => {
+  res.clearCookie("token");
+  res.json({ message: "Logged out successfully" });
+});
 module.exports = userRouter;

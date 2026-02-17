@@ -1,7 +1,7 @@
 const bcrypt = require("bcrypt");
 const { v4: uuidv4 } = require("uuid");
-const User = require("../models/userModel");
-const { sendEmailotp } = require("../utils/sendVerifyotp");
+const User = require("../../models/userModel");
+const { sendEmailotp } = require("../../utils/sendVerifyotp");
 const signup = async (req, res) => {
   try {
     const { name, email, password, phone } = req.body;
