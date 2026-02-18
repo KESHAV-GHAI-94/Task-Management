@@ -3,7 +3,7 @@ const AdminRouter = express.Router();
 const verifyToken = require("../middleware/authmiddleware");
 const authorizeRoles = require("../middleware/authroles");
 // const {assignrole, removeRole} = require("../controllers/Functionalitywise/Admincontrol");
-const {createTask,DeleteTask,ViewTask,UpdateTask} = require("../controllers/TaskController");
+const {createTask,DeleteTask,ViewTask,UpdateTask,UpdateTaskStatus} = require("../controllers/TaskController");
 
 // Admin routes for role management Change user role
 // AdminRouter.post("/assign-role",verifyToken,authorizeRoles("Owner"),assignrole);
@@ -21,5 +21,6 @@ AdminRouter.get("/view-task/:taskId",verifyToken,authorizeRoles("Owner","Maintai
 
 //update task - only Owner and Maintainer can update task
 AdminRouter.post("/update-task/:taskId",verifyToken,authorizeRoles("Owner","Maintainer"),UpdateTask);
-
+//update task status- only Owner and Maintainer can update task
+AdminRouter.post("/update-task-status/:taskId",verifyToken,authorizeRoles("Owner","Maintainer"),UpdateTaskStatus);
 module.exports = AdminRouter;

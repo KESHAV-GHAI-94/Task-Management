@@ -6,6 +6,9 @@ const {sendotpforget,checkforgetotp,changePassword} = require("../controllers/Au
 const verifyToken = require("../middleware/authmiddleware");
 const {createGroup,showGroups}  = require("../controllers/Group/CreateGroup");
 const {addGroupMember,showGroupMembers} = require("../controllers/Group/AddGroupMember");
+const {GetGroupTasks,GetMyTasks} = require("../controllers/Group/CreateGroup");
+const {GetKanbanTasks} = require("../controllers/kanban");
+const authorizeRoles = require("../middleware/authroles");
 userRouter.get("/", (req, res) => {
   res.send("User route is working");
 });
@@ -39,7 +42,10 @@ userRouter.post("/groups/:groupId/members", verifyToken, addGroupMember);
 userRouter.get("/groups", verifyToken, showGroups);
 //show group members route
 userRouter.get("/groups/:groupId/members",verifyToken,showGroupMembers);
-
-
-
+// SHOW TASk of all group
+userRouter.post("/groups/:groupId/tasks", verifyToken,GetGroupTasks);
+// show my tasks 
+userRouter.post("/groups/tasks", verifyToken,GetMyTasks);
+//kanban section view
+userRouter.post("/groups/:groupId/kanbanSection",verifyToken,authorizeRoles("Owner", "Maintainer", "Developer", "Tester"),GetKanbanTasks);
 module.exports = userRouter;

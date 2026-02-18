@@ -1,3 +1,5 @@
+const   Task = require("../../models/tasksModel");
+const User = require("../../models/userModel");
 const Group = require("../../models/groupmodel");
 const GroupMember = require("../../models/groupmembersmodel");
 
@@ -62,5 +64,83 @@ const showGroups = async (req, res) => {
     });
   }
 };
+const GetGroupTasks = async (req, res) => {
+  try {
+    const { groupId } = req.params;
+    const userId = req.user.id;
+    const membership = await GroupMember.findOne({
+      where: {
+        group_id: groupId,
+        user_id: userId,
+        },
+    });
+    if (!membership) {
+        return res.status(403).json({
+            message: "You are not a member of this group",
+            });
+    }
+    const tasks = await Task.findAll({
+      where: {
+        group_id: groupId,
+         },
+        include: {
+            model: User,
+            as: "assignedUsers",
+            attributes: ["id", "name", "email"],
+            through: { attributes: [] },
+        },
+        });
+    res.status(200).json({
+      tasks,
+     });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+        message: err.message,
+        });
+    }
+};
+const GetMyTasks = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const tasks = await Task.findAll({
+      include: [
+        {
+          model: User,
+          as: "assignedUsers",
+          attributes: ["id", "name", "email"],
+          through: { attributes: [] },
+          where: { id: userId },
+          include: [
+            {
+              model: GroupMember,
+              as:"userMemberships",
+              attributes: ["role"],
+              where: { user_id: userId },
+              required: false,
+            }
+          ]
+        }
+      ],
+      attributes: [
+        "id",
+        "title",
+        "description",
+        "priority",
+        "status",
+        "group_id",
+        "created_by",
+      ]
+    });
+    res.status(200).json({
+      tasks,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      message: err.message,
+    });
+  }
+};
 
-module.exports = {createGroup ,showGroups};
+module.exports = {createGroup ,GetGroupTasks,showGroups,GetMyTasks};

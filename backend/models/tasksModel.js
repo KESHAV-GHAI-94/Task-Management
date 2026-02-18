@@ -10,14 +10,14 @@ const Task = sequelize.define(
       autoIncrement: true,
     },
     group_id: {
-  type: DataTypes.INTEGER,
-  allowNull: false,
-  references: {
-    model: "groups",
-    key: "id",
-  },
-  onDelete: "CASCADE",
-},
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: "groups",
+        key: "id",
+      },
+      onDelete: "CASCADE",
+    },
 
     title: {
       type: DataTypes.STRING(255),

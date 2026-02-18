@@ -27,9 +27,9 @@ const ForgetpassOtp = sequelize.define(
       },
     },
     is_used: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: false,
-      },
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
 
     otp: {
       type: DataTypes.STRING,
@@ -44,7 +44,7 @@ const ForgetpassOtp = sequelize.define(
   {
     tableName: "password_reset_otps",
     timestamps: false,
-  }
+  },
 );
 
 module.exports = ForgetpassOtp;

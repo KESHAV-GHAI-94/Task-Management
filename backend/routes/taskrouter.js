@@ -8,7 +8,7 @@ taskRouter.get("/", (req, res) => {
 }       
 );
 //create task 
-taskRouter.post("/create",verifyToken,upload.single("image"),createTask);
+// taskRouter.post("/create",verifyToken,upload.single("image"),createTask);
 
 
 module.exports = taskRouter;

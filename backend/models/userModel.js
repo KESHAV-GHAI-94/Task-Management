@@ -45,12 +45,6 @@ const User = sequelize.define(
     signup_otp_expiry: {
       type: DataTypes.DATE,
     },
-    reset_otp: {
-      type: DataTypes.STRING(6),
-    },
-    reset_otp_expiry: {
-      type: DataTypes.DATE,
-    },
     profile_image: {
       type: DataTypes.TEXT,
     },

@@ -178,4 +178,25 @@ const UpdateTask = async (req, res) => {
     });
   }
 };
-module.exports = { createTask, DeleteTask, ViewTask, UpdateTask };
+const UpdateTaskStatus = async (req, res) => {
+  try {
+    const { taskId } = req.params;
+    const { status } = req.body;
+    const task = await Task.findByPk(taskId);
+    if (!task) {
+      return res.status(404).json({
+        message: "Task not found",
+      });
+    }
+    await task.update({ status });
+    res.status(200).json({
+      message: `Task status updated to ${status}`,
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: err.message,
+    });
+  }
+};
+
+module.exports = { createTask, DeleteTask,UpdateTaskStatus, ViewTask, UpdateTask };
