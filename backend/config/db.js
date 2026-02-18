@@ -20,6 +20,8 @@ require("../models/commentsModel");
 require("../models/ForgetpassOtp");
 require("../models/taskassignment");
 require("../models/indexModel");
+require("../models/groupmodel");
+require("../models/groupmembersmodel");
 
 (async () => {
   try {

@@ -1,6 +1,7 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../../models/userModel");
+const { name } = require("ejs");
 const loginuser = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -32,6 +33,7 @@ const loginuser = async (req, res) => {
     const token = jwt.sign(
       {
         id: user.id,
+        name: user.name,
         email: user.email,
         role: user.role,
       },

@@ -49,10 +49,10 @@ const sendotpforget = async (req, res) => {
     res.status(200).json({
       message: "OTP sent to your email",
     });
+    
   } catch (err) {
     console.error("LOGIN ERROR:", err.message);
     console.error(err);
-
     res.status(500).json({
       message: err.message,
     });

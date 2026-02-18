@@ -5,12 +5,12 @@ const Comment = sequelize.define(
   "Comment",
   {
     id: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
+      type: DataTypes.INTEGER,
       primaryKey: true,
+      autoIncrement: true,
     },
     task_id: {
-      type: DataTypes.UUID,
+      type: DataTypes.INTEGER,
       allowNull: false,
       references: {
         model: "tasks",
@@ -18,7 +18,7 @@ const Comment = sequelize.define(
       },
     },
     user_id: {
-      type: DataTypes.UUID,
+      type: DataTypes.INTEGER,
       allowNull: false,
       references: {
         model: "users",
@@ -30,7 +30,7 @@ const Comment = sequelize.define(
       allowNull: false,
     },
     parent_comment_id: {
-      type: DataTypes.UUID,
+      type: DataTypes.INTEGER,
       allowNull: true,
       references: {
         model: "comments",

@@ -1,5 +1,4 @@
 const bcrypt = require("bcrypt");
-const { v4: uuidv4 } = require("uuid");
 const User = require("../../models/userModel");
 const { sendEmailotp } = require("../../utils/sendVerifyotp");
 const signup = async (req, res) => {
@@ -32,14 +31,13 @@ const signup = async (req, res) => {
     const otpExpiry = new Date(Date.now() + 10 * 60 * 1000);
 
     const user = await User.create({
-      id: uuidv4(),
       name,
       email,
       password_hash,
       phone,
       signup_otp: otp,
       signup_otp_expiry: otpExpiry,
-      role: "guest",
+      role: "Guest",
       is_verified: false,
       is_active: false,
     });

@@ -5,9 +5,9 @@ const User = sequelize.define(
   "User",
   {
     id: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
+      type: DataTypes.INTEGER,
       primaryKey: true,
+      autoIncrement: true,
     },
     name: {
       type: DataTypes.STRING(100),
@@ -26,11 +26,6 @@ const User = sequelize.define(
     password_hash: {
       type: DataTypes.TEXT,
       allowNull: false,
-    },
-    role: {
-      type: DataTypes.ENUM("Guest","Developer","Tester","Designer","Maintainer","Owner"),
-      allowNull: false,
-      defaultValue: "Guest",
     },
     is_verified: {
       type: DataTypes.BOOLEAN,

@@ -5,10 +5,20 @@ const Task = sequelize.define(
   "Task",
   {
     id: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
+      type: DataTypes.INTEGER,
       primaryKey: true,
+      autoIncrement: true,
     },
+    group_id: {
+  type: DataTypes.INTEGER,
+  allowNull: false,
+  references: {
+    model: "groups",
+    key: "id",
+  },
+  onDelete: "CASCADE",
+},
+
     title: {
       type: DataTypes.STRING(255),
       allowNull: false,
@@ -39,17 +49,18 @@ const Task = sequelize.define(
       type: DataTypes.BLOB("long"),
       allowNull: true,
     },
-
     image_mimetype: {
       type: DataTypes.STRING,
     },
-
     created_by: {
-      type: DataTypes.UUID,
+      type: DataTypes.INTEGER,
+      allowNull: true,
       references: {
         model: "users",
         key: "id",
       },
+      onDelete: "SET NULL",
+      onUpdate: "CASCADE",
     },
     is_deleted: {
       type: DataTypes.BOOLEAN,
