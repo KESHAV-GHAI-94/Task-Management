@@ -7,7 +7,7 @@ const verifyToken = require("../middleware/authmiddleware");
 const {createGroup,showGroups}  = require("../controllers/Group/CreateGroup");
 const {addGroupMember,showGroupMembers} = require("../controllers/Group/AddGroupMember");
 const {GetGroupTasks,GetMyTasks} = require("../controllers/Group/CreateGroup");
-const {GetKanbanTasks} = require("../controllers/kanban");
+const {GetKanbanTasks,GetTaskDetails} = require("../controllers/Kanban/kanbanview");
 const authorizeRoles = require("../middleware/authroles");
 userRouter.get("/", (req, res) => {
   res.send("User route is working");
@@ -48,4 +48,6 @@ userRouter.post("/groups/:groupId/tasks", verifyToken,GetGroupTasks);
 userRouter.post("/groups/tasks", verifyToken,GetMyTasks);
 //kanban section view
 userRouter.post("/groups/:groupId/kanbanSection",verifyToken,authorizeRoles("Owner", "Maintainer", "Developer", "Tester"),GetKanbanTasks);
+//get task details
+userRouter.post("/tasks/:taskId/details",verifyToken,authorizeRoles("Owner", "Maintainer", "Developer", "Tester"),GetTaskDetails);
 module.exports = userRouter;

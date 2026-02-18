@@ -9,6 +9,9 @@ const authorizeRoles = (...allowedRoles) => {
       if (req.body && req.body.group_id) {
         group_id = req.body.group_id;
       }
+      else if (req.params.groupId) {
+        group_id = req.params.groupId;
+      }
       else if (req.params.taskId) {
         const task = await Task.findByPk(req.params.taskId);
         if (!task) {

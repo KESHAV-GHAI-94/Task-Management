@@ -5,7 +5,7 @@ const GroupMember = require("../models/groupmembersmodel");
 const createTask = async (req, res) => {
   try {
     const { title, description, priority, assigned_to } = req.body;
-    const group_id = req.group_id; 
+    const group_id = req.group_id;
     const created_by = req.user.id;
 
     let imageBuffer = null;
@@ -15,25 +15,34 @@ const createTask = async (req, res) => {
       imageBuffer = req.file.buffer;
       mimetype = req.file.mimetype;
     }
-    let validUserIds = [];
 
-    if (assigned_to && assigned_to.length > 0) {
-      const validMembers = await GroupMember.findAll({
-        where: {
-          group_id: group_id,
-          user_id: assigned_to,
-        },
-        attributes: ["user_id"],
-      });
+    let assignedUsersArray = [];
 
-      validUserIds = validMembers.map(m => m.user_id);
-
-      if (validUserIds.length !== assigned_to.length) {
-        return res.status(400).json({
-          message: "One or more assigned users are not members of this group",
-        });
-      }
+    if (assigned_to) {
+      assignedUsersArray = Array.isArray(assigned_to)
+        ? assigned_to
+        : [assigned_to];
     }
+    if (!assignedUsersArray.includes(created_by)) {
+      assignedUsersArray.push(created_by);
+    }
+
+    const validMembers = await GroupMember.findAll({
+      where: {
+        group_id: group_id,
+        user_id: assignedUsersArray,
+      },
+      attributes: ["user_id"],
+    });
+
+    const validUserIds = validMembers.map(m => m.user_id);
+
+    if (validUserIds.length !== assignedUsersArray.length) {
+      return res.status(400).json({
+        message: "One or more assigned users are not members of this group",
+      });
+    }
+
     const task = await Task.create({
       title,
       description,
@@ -43,24 +52,16 @@ const createTask = async (req, res) => {
       image: imageBuffer,
       image_mimetype: mimetype,
     });
-    
-    if (assigned_to?.length > 0) {
-      const validMembers = await GroupMember.findAll({
-        where: {
-          group_id,
-          user_id: assigned_to,
-        },
-        attributes: ["user_id"],
-      });
 
-      const validUserIds = validMembers.map((m) => m.user_id);
+    await task.setAssignedUsers(validUserIds);
 
-      await task.setAssignedUsers(validUserIds);
-    }
     res.status(201).json({
       message: "Task created successfully",
       taskId: task.id,
+      assignedUsers: validUserIds,
+      creator: created_by,
     });
+
   } catch (err) {
     console.error(err);
     res.status(500).json({
@@ -68,6 +69,7 @@ const createTask = async (req, res) => {
     });
   }
 };
+
 
 const DeleteTask = async (req, res) => {
   try {

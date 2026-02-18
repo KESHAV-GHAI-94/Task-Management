@@ -20,7 +20,7 @@ AdminRouter.post("/delete-task/:taskId",verifyToken,authorizeRoles("Owner","Main
 AdminRouter.get("/view-task/:taskId",verifyToken,authorizeRoles("Owner","Maintainer","Developer","Tester"),ViewTask);
 
 //update task - only Owner and Maintainer can update task
-AdminRouter.post("/update-task/:taskId",verifyToken,authorizeRoles("Owner","Maintainer"),UpdateTask);
+AdminRouter.post("/update-task/:taskId",verifyToken,authorizeRoles("Owner","Maintainer"), UpdateTask);
 //update task status- only Owner and Maintainer can update task
 AdminRouter.post("/update-task-status/:taskId",verifyToken,authorizeRoles("Owner","Maintainer"),UpdateTaskStatus);
 module.exports = AdminRouter;
