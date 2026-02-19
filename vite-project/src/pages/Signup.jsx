@@ -26,10 +26,10 @@ const Signup = () => {
   } = useSignup();
   return (
     <>
-      <div className="flex justify-start lg:px-20 p-5 items-center min-h-screen backdrop-blur-md bg-black/30 bg-cover" style={{ backgroundImage: `url(${backgroundsignup})`  }}>
+      <div className="flex justify-center md:justify-center lg:justify-start lg:px-20 p-5 items-center min-h-screen backdrop-blur-md bg-black/30 bg-cover" style={{ backgroundImage: `url(${backgroundsignup})`  }}>
         <form
           onSubmit={handleSubmit}
-          className="bg-white p-4 md:p-8 lg:p-10 rounded-xl shadow-lg w-120"
+          className="bg-white/88 p-4 md:p-8 lg:p-10 rounded-xl shadow-lg w-120"
         >
           <h2 className="text-2xl font-bold mb-6 text-center">
             Create Account
@@ -42,7 +42,7 @@ const Signup = () => {
               value={form.name}
               onChange={handleChange}
               onBlur={handleBlur}
-              className="w-full p-3 border rounded-lg text-lg"
+              className="w-full p-1.5 sm:p-3 border rounded-lg text-lg"
             />
             <p className="text-red-500 text-sm">{errors.name}</p>
           </div>
@@ -54,7 +54,7 @@ const Signup = () => {
               value={form.email}
               onChange={handleChange}
               onBlur={handleBlur}
-              className="w-full p-3 border rounded-lg text-lg"
+              className="w-full p-1.5 sm:p-3 border rounded-lg text-lg"
             />
             <p className="text-red-500 text-sm">{errors.email}</p>
           </div>
@@ -67,7 +67,7 @@ const Signup = () => {
               value={form.phone}
               onChange={handleChange}
               onBlur={handleBlur}
-              className="w-full p-3 border rounded-lg text-lg"
+              className="w-full p-1.5 sm:p-3 border rounded-lg text-lg"
             />
             <p className="text-red-500 text-sm">{errors.phone}</p>
           </div>
@@ -80,12 +80,12 @@ const Signup = () => {
               value={form.password}
               onChange={handleChange}
               onBlur={handleBlur}
-              className="w-full p-3 border rounded-lg text-lg"
+              className="w-full p-1.5 sm:p-3 border rounded-lg text-lg"
             />
             <button
               type="button"
               onClick={() => setShowPass(!showPass)}
-              className="absolute right-3 top-10"
+              className="absolute right-3 top-8 sm:top-10"
             >
               {showPass ? <Eye /> : <EyeOff />}
             </button>
@@ -100,12 +100,12 @@ const Signup = () => {
               value={form.cpassword}
               onChange={handleChange}
               onBlur={handleBlur}
-              className="w-full p-3 border rounded-lg text-lg"
+              className="w-full p-1.5 sm:p-3 border rounded-lg text-lg"
             />
             <button
               type="button"
               onClick={() => setShowCPass(!showCPass)}
-              className="absolute right-3 top-10"
+              className="absolute right-3 top-8 sm:top-10"
             >
               {showCPass ? <Eye /> : <EyeOff />}
             </button>
@@ -114,9 +114,9 @@ const Signup = () => {
           <button
             type="submit"
             disabled={loading}
-            className={`w-full p-3 mb-5 rounded-lg text-lg font-semibold text-white 
+            className={`w-full p-2 md:p-3 mb-3 md:mb-5 mt-4 md:mt-5 rounded-lg text-lg font-semibold text-white 
   ${
-    loading ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600"
+    loading ? "bg-gray-400 cursor-not-allowed" : "bg-taupe-800 hover:bg-taupe-600"
   }`}
           >
             {loading ? "Creating User..." : "Sign Up"}

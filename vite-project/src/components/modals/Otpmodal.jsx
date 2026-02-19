@@ -11,7 +11,7 @@ const OtpModal = ({
 }) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/40 z-50 px-3">
-      <div className="bg-white p-6 sm:p-8 rounded-xl shadow-lg w-full  max-w-[380px] relative">
+      <div className="bg-white p-6 sm:p-8 rounded-xl shadow-lg   max-w-auto relative">
         <button
           onClick={onClose}
           className="absolute top-3 right-3 text-gray-500 hover:text-gray-700"
@@ -29,13 +29,13 @@ const OtpModal = ({
           placeholder="Enter OTP"
           value={otp}
           onChange={(e) => setOtp(e.target.value)}
-          className="w-full border border-gray-300 rounded-lg p-3 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          className="w-full border border-gray-300 rounded-lg p-3 mb-4 focus:outline-none focus:ring-2 focus:ring-taupe-600"
         />
         <button
           onClick={onVerify}
           disabled={loading}
           className={`w-full p-3 rounded-lg text-white font-semibold
-            ${loading ? "bg-gray-400" : "bg-blue-500 hover:bg-blue-600"}
+            ${loading ? "bg-gray-400" : "bg-taupe-800 hover:bg-taupe-600"}
           `}
         >
           {loading ? "Verifying..." : buttonText}
