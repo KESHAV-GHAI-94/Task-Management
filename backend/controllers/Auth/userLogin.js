@@ -39,13 +39,14 @@ const loginuser = async (req, res) => {
       },
       process.env.JWT_SECRET,
       {
-        expiresIn: "1h",
+        expiresIn: "1d",
       },
     );
     res.cookie("authToken", token, {
-      maxAge: 60 * 60 * 1000,
+      maxAge: 24*60 * 60 * 1000,
       httpOnly: true,
       secure: false,
+      sameSite:"Lax"
     });
     res.status(200).json({
       message: "Login successful",

@@ -102,27 +102,10 @@ const GetGroupTasks = async (req, res) => {
 };
 
 const GetMyTasks = async (req, res) => {
+
   try {
     const userId = req.user.id;
     const tasks = await Task.findAll({
-      include: [
-        {
-          model: User,
-          as: "assignedUsers",
-          attributes: ["id", "name", "email"],
-          through: { attributes: [] },
-          where: { id: userId },
-          include: [
-            {
-              model: GroupMember,
-              as:"userMemberships",
-              attributes: ["role"],
-              where: { user_id: userId },
-              required: false,
-            }
-          ]
-        }
-      ],
       attributes: [
         "id",
         "title",
@@ -130,18 +113,53 @@ const GetMyTasks = async (req, res) => {
         "priority",
         "status",
         "group_id",
-        "created_by",
+        "created_by"
+      ],
+      include: [
+        {
+          model: User,
+          as: "assignedUsers",
+          attributes: [],
+          through: { attributes: [] },
+          where: { id: userId }
+        },
+        {
+          model: Group,
+          as: "group",
+          attributes: ["id", "name"],
+          include: [
+            {
+              model: GroupMember,
+              as: "groupMembers",
+              attributes: ["role"],
+              where: { user_id: userId },
+              required: false
+            }
+          ]
+        }
       ]
     });
+    const formattedTasks = tasks.map(task => ({
+      id: task.id,
+      title: task.title,
+      description: task.description,
+      priority: task.priority,
+      status: task.status,
+      group: {
+        id: task.group?.id,
+        name: task.group?.name
+      },
+      role: task.group?.groupMembers?.[0]?.role || null
+    }));
     res.status(200).json({
-      tasks,
+      tasks: formattedTasks
     });
-  } catch (err) {
+  }
+  catch (err) {
     console.error(err);
     res.status(500).json({
-      message: err.message,
+      message: err.message
     });
   }
 };
-
 module.exports = {createGroup ,GetGroupTasks,showGroups,GetMyTasks};
