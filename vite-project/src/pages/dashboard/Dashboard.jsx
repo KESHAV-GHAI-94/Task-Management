@@ -120,7 +120,7 @@ const Dashboard = () => {
           >
             {/* Groups */}
             <div className="bg-white rounded-xl shadow-sm p-4 sm:p-5">
-              <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center justify-between pe-1 mb-2">
                 <div className="flex items-center gap-2">
                   <FolderKanban className="text-blue-500" size={20} />
                   <h2 className="font-semibold text-lg text-gray-800">
@@ -148,9 +148,7 @@ const Dashboard = () => {
                     >
                       <ChevronLeft size={18} />
                     </button>
-                    <span className="text-sm text-gray-500 min-w-[60px] text-center">
-                      {currentGroupPage + 1} / {totalGroupPages}
-                    </span>
+                    
                     <button
                       onClick={() =>
                         setCurrentGroupPage((prev) =>
@@ -222,7 +220,7 @@ const Dashboard = () => {
 
             <div
               className="
-  bg-gradient-to-r
+  bg-linear-to-r
   from-orange-400
   to-yellow-400
   text-white
@@ -268,7 +266,7 @@ const Dashboard = () => {
               </div>
             </div>
             {/* Productivity */}
-            <div className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-xl shadow-sm p-5 lg:p-16">
+            <div className="bg-linear-to-r from-blue-500 to-indigo-600 text-white rounded-xl shadow-sm p-5 lg:p-16">
               <h2 className="font-semibold text-lg mb-2">Productivity</h2>
               <p className="text-sm opacity-90">
                 Completed {stats.completed || 0} tasks
@@ -318,9 +316,6 @@ const Dashboard = () => {
                   >
                     <ChevronLeft size={18} />
                   </button>
-                  <span className="text-sm text-gray-500">
-                    {currentTaskPage + 1} / {totalTaskPages}
-                  </span>
                   <button
                     onClick={() =>
                       setCurrentTaskPage((prev) =>
@@ -444,7 +439,7 @@ const StatusBadge = ({ status }) => {
     <span
       className={`
       inline-block
-      min-w-[90px]
+      min-w-auto
       text-center
       px-3 py-1
       rounded-full
@@ -467,7 +462,7 @@ const PriorityBadge = ({ priority }) => {
     <span
       className={`
       inline-block
-      min-w-[80px]
+      min-w-auto
       text-center
       font-medium text-sm
       ${colors[priority]}
