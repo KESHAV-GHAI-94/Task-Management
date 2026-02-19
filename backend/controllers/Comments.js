@@ -109,10 +109,39 @@ const replyToComment = async (req, res) => {
     const { commentId } = req.params;
     const { comment } = req.body;
     const userId = req.user.id;
+    if (!comment || comment.trim() === "") {
+      return res.status(400).json({
+        message: "Reply cannot be empty"
+      });
+    }
     const parentComment = await Comment.findByPk(commentId);
     if (!parentComment) {
       return res.status(404).json({
         message: "Parent comment not found",
+      });
+    }
+    if (parentComment.is_deleted) {
+      return res.status(403).json({
+        message: "Cannot reply to deleted comment"
+      });
+    }
+    const task = await Task.findByPk(parentComment.task_id);
+
+    if (!task) {
+      return res.status(404).json({
+        message: "Task not found"
+      });
+    }
+    const membership = await GroupMember.findOne({
+      where: {
+        group_id: task.group_id,
+        user_id: userId
+      }
+    });
+
+    if (!membership) {
+      return res.status(403).json({
+        message: "You are not a member of this group"
       });
     }
     const reply = await Comment.create({

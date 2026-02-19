@@ -129,6 +129,7 @@ const ViewTask = async (req, res) => {
     });
   }
 };
+
 const UpdateTask = async (req, res) => {
   try {
     const { taskId } = req.params;
