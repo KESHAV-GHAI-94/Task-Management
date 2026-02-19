@@ -16,20 +16,35 @@ const signup = async (req, res) => {
       where: { email },
     });
 
-    if (existingUser) {
+    if (existingUser && existingUser.is_active === true) {
       return res.status(400).json({
         success: false,
         message: "Email already registered",
       });
     }
-
+    
     const saltRounds = 10;
     const password_hash = await bcrypt.hash(password, saltRounds);
 
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
 
     const otpExpiry = new Date(Date.now() + 10 * 60 * 1000);
-
+    if (existingUser && existingUser.is_active === false) {
+      await existingUser.update({
+        name,
+        password,
+        phone,
+        signup_otp: otp,
+        signup_otp_expiry: otpExpiry,
+        is_verified: false,
+      });
+      await sendEmailotp(email, otp);
+      return res.status(200).json({
+        success: true,
+        message: "OTP resent. Verify your account.",
+        userId: existingUser.id,
+      });
+    }
     const user = await User.create({
       name,
       email,

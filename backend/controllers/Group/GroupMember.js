@@ -174,6 +174,7 @@ const showGroupMembers = async (req, res) => {
     });
   }
 };
+
 //delete group member
 const removeGroupMember = async (req, res) => {
   try {

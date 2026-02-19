@@ -58,7 +58,6 @@ User.belongsToMany(Group, {
   as: "groups",
 });
 
-
 GroupMember.belongsTo(Group, {
   foreignKey: "group_id",
   as: "group",
