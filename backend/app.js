@@ -22,5 +22,5 @@ app.get('/', (req, res) => {
 }
 );
 app.listen(process.env.PORT || 4000, () => {
-  console.log('Example app listening on port 3000!');
+  console.log('listening on port 4000!');
 });

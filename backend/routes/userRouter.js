@@ -5,10 +5,11 @@ const loginuser = require("../controllers/Auth/userLogin");
 const {sendotpforget,checkforgetotp,changePassword} = require("../controllers/Auth/userForgetPassword");
 const verifyToken = require("../middleware/authmiddleware");
 const {createGroup,showGroups}  = require("../controllers/Group/CreateGroup");
-const {addGroupMember,showGroupMembers} = require("../controllers/Group/AddGroupMember");
+const {addGroupMember,showGroupMembers,searchUsers, removeGroupMember} = require("../controllers/Group/GroupMember");
 const {GetGroupTasks,GetMyTasks} = require("../controllers/Group/CreateGroup");
-const {GetKanbanTasks,GetTaskDetails} = require("../controllers/Kanban/kanbanview");
+const {GetKanbanTasks,GetTaskDetails} = require("../controllers/page view/kanbanview");
 const authorizeRoles = require("../middleware/authroles");
+
 userRouter.get("/", (req, res) => {
   res.send("User route is working");
 });
@@ -30,14 +31,24 @@ userRouter.post("/forget-password",sendotpforget);
 userRouter.post("/check-forget-otp",checkforgetotp);
 userRouter.post("/change-password",changePassword);
 
+//logout
 userRouter.post("/logout", (req, res) => {
   res.clearCookie("token");
   res.json({ message: "Logged out successfully" });
 });
+
 //making group route
 userRouter.post("/groups", verifyToken, createGroup);
+
+//searching members for adding in a group
+userRouter.get("/search",verifyToken,authorizeRoles("Owner"),searchUsers);
+
 //adding group member route
 userRouter.post("/groups/:groupId/members", verifyToken, addGroupMember);
+
+//remove group members from goup :
+userRouter.post("/groups/:groupId/members/:userId/remove",verifyToken,authorizeRoles("Owner"),removeGroupMember);
+
 //show groups route
 userRouter.get("/groups", verifyToken, showGroups);
 //show group members route
@@ -50,4 +61,5 @@ userRouter.post("/groups/tasks", verifyToken,GetMyTasks);
 userRouter.post("/groups/:groupId/kanbanSection",verifyToken,authorizeRoles("Owner", "Maintainer", "Developer", "Tester"),GetKanbanTasks);
 //get task details
 userRouter.post("/tasks/:taskId/details",verifyToken,authorizeRoles("Owner", "Maintainer", "Developer", "Tester"),GetTaskDetails);
+
 module.exports = userRouter;

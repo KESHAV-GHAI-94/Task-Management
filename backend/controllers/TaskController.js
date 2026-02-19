@@ -70,7 +70,6 @@ const createTask = async (req, res) => {
   }
 };
 
-
 const DeleteTask = async (req, res) => {
   try {
     const { taskId } = req.params;
@@ -134,6 +133,7 @@ const UpdateTask = async (req, res) => {
   try {
     const { taskId } = req.params;
     const { title, description, priority, assigned_to } = req.body;
+
     const task = await Task.findByPk(taskId);
 
     if (!task) {
@@ -141,38 +141,55 @@ const UpdateTask = async (req, res) => {
         message: "Task not found",
       });
     }
-    
     const updateData = {};
-    if (title !== undefined) {
-      updateData.title = title;
-    }
-    if (description !== undefined) {
-      updateData.description = description;
-    }
-    if (priority !== undefined) {
-      updateData.priority = priority;
-    }
+
+    if (title !== undefined) updateData.title = title;
+    if (description !== undefined) updateData.description = description;
+    if (priority !== undefined) updateData.priority = priority;
+
     if (req.file) {
       updateData.image = req.file.buffer;
       updateData.image_mimetype = req.file.mimetype;
     }
+
     if (Object.keys(updateData).length > 0) {
       await task.update(updateData);
     }
+
     if (assigned_to !== undefined) {
+
+      const assignedArray = Array.isArray(assigned_to)
+        ? assigned_to
+        : [assigned_to];
+
       const validMembers = await GroupMember.findAll({
         where: {
           group_id: task.group_id,
-          user_id: assigned_to,
+          user_id: assignedArray,
         },
         attributes: ["user_id"],
       });
-      await task.setAssignedUsers(validMembers.map(m => m.user_id));
+
+      const validUserIds = validMembers.map(m => m.user_id);
+
+      const invalidUsers = assignedArray.filter(
+        id => !validUserIds.includes(id)
+      );
+
+      if (invalidUsers.length > 0) {
+        return res.status(400).json({
+          message: "Some users are not members of this group",
+          invalidUsers,
+        });
+      }
+      await task.setAssignedUsers(validUserIds);
     }
+
     res.status(200).json({
       message: `Task updated successfully by ${req.user.name} (${req.groupRole})`,
       taskId: task.id,
     });
+
   } catch (err) {
     console.error(err);
     res.status(500).json({
@@ -180,6 +197,7 @@ const UpdateTask = async (req, res) => {
     });
   }
 };
+
 const UpdateTaskStatus = async (req, res) => {
   try {
     const { taskId } = req.params;

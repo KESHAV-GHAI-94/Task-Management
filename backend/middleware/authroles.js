@@ -2,17 +2,16 @@ const GroupMember = require("../models/groupmembersmodel");
 const Task = require("../models/tasksModel");
 
 const authorizeRoles = (...allowedRoles) => {
-
   return async (req, res, next) => {
     try {
       let group_id;
       if (req.body && req.body.group_id) {
         group_id = req.body.group_id;
-      }
-      else if (req.params.groupId) {
+      } else if (req.params.groupId) {
         group_id = req.params.groupId;
-      }
-      else if (req.params.taskId) {
+      } else if (req.query.groupId) {
+        group_id = req.query.groupId;
+      } else if (req.params.taskId) {
         const task = await Task.findByPk(req.params.taskId);
         if (!task) {
           return res.status(404).json({
@@ -20,11 +19,9 @@ const authorizeRoles = (...allowedRoles) => {
           });
         }
         group_id = task.group_id;
-      }
-      else if (req.group_id) {
+      } else if (req.group_id) {
         group_id = req.group_id;
-      }
-      else {
+      } else {
         return res.status(400).json({
           message: "Group ID not found",
         });

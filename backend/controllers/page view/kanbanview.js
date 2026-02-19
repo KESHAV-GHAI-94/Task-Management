@@ -2,7 +2,7 @@ const { Op } = require("sequelize");
 const Task = require("../../models/tasksModel");
 const User = require("../../models/userModel");
 const Comment = require("../../models/commentsModel");
-const TaskAssignment = require("../../models/taskassignment");
+
 const GetKanbanTasks = async (req, res) => {
   try {
     const groupId = req.group_id;
@@ -54,7 +54,6 @@ const GetKanbanTasks = async (req, res) => {
 
 const GetTaskDetails = async (req, res) => {
   try {
-
     const { taskId } = req.params;
     const task = await Task.findOne({
       where: {
@@ -74,7 +73,7 @@ const GetTaskDetails = async (req, res) => {
           include: [
             {
               model: User,
-              as: "user",
+              as: "author",
               attributes: ["id", "name"]
             }
           ]
