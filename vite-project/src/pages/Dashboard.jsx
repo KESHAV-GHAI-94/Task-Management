@@ -1,11 +1,11 @@
 import React from "react";
-import Sidebar from "../../components/Sidebar";
-import Navbar from "../../components/Navbar";
-import Stats from "../../components/dashboard Components/Stats";
-import Groupsection from "../../components/dashboard Components/Groupsection";
-import KanbanViewSection from "../../components/dashboard Components/KanbanViewSection";
-import Progressbar from "../../components/dashboard Components/Progressbar";
-import TasksSection from "../../components/dashboard Components/TasksSection";
+import Sidebar from "../components/Sidebar";
+import Navbar from "../components/Navbar";
+import Stats from "../components/dashboard Components/Stats";
+import Groupsection from "../components/dashboard Components/Groupsection";
+import KanbanViewSection from "../components/dashboard Components/KanbanViewSection";
+import Progressbar from "../components/dashboard Components/Progressbar";
+import TasksSection from "../components/dashboard Components/TasksSection";
 const Dashboard = () => {
   return (
     <div className="flex min-h-screen w-full bg-gray-100 overflow-x-hidden">
@@ -24,7 +24,6 @@ const Dashboard = () => {
             <KanbanViewSection />
             <Progressbar />
           </div>
-          {/* tasksection */}
           <TasksSection />
         </div>
       </div>

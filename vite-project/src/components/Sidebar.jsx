@@ -13,7 +13,7 @@ const Sidebar = () => {
   const location = useLocation();
 
   return (
-    <div className="w-64 h-screen bg-taupe-900 text-taupe-100 flex flex-col border-r border-taupe-800">
+    <div className="w-64 h-full bg-taupe-800 text-taupe-100 flex flex-col border-r border-taupe-800">
 
       <div className="px-5 py-6 border-b border-taupe-800">
         <h1 className="text-xl font-semibold text-taupe-50">
@@ -86,8 +86,7 @@ const Sidebar = () => {
         <Link
           to="/settings"
           className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition
-            ${
-              location.pathname === "/settings"
+            ${location.pathname === "/settings"
                 ? "bg-taupe-700 text-white"
                 : "text-taupe-300 hover:bg-taupe-800 hover:text-white"
             }`}

@@ -1,0 +1,41 @@
+import React from 'react';
+import { useState } from 'react';
+
+const CreateGroupModal = () => {
+  const [gname,setgname]=useState();
+  // const [CreategpModal, setCreategpModal] = useState();
+  return (
+    <div className="fixed inset-0 flex items-center justify-center bg-black/40 z-50 px-3">
+      <div className="bg-white h-auto w- p-6 sm:p-8 rounded-xl shadow-lg   max-w-auto relative">
+        <button
+          // onClick={onClose}
+          className="absolute top-3 right-3 text-gray-500 hover:text-gray-700"
+        >
+          ✕
+        </button>
+        <h2 className="text-xl font-semibold text-center mb-4"> Create Your Own Group  </h2>
+        {/* {email && (
+          <p className="text-sm text-gray-500 text-center mb-4">
+            OTP sent to <span className="font-medium">{email}</span>
+          </p>
+        )} */}
+        <label>Group Name</label>
+        <input
+          type="text"
+          placeholder="Enter Group name."
+          value={gname}
+          onChange={(e) => setgname(e.target.value)}
+          className="w-full border border-gray-300 rounded-lg p-3 mb-4 focus:outline-none focus:ring-2 focus:ring-taupe-600"
+        />
+        {/* <button onClick={onVerify} disabled={loading} className={`w-full p-3 rounded-lg text-white font-semibold
+            ${loading ? "bg-gray-400" : "bg-taupe-800 hover:bg-taupe-600"}
+          `}
+        >
+          {loading ? "Verifying..." : buttonText}
+        </button> */}
+      </div>
+    </div>
+  );
+};
+
+export default CreateGroupModal;
