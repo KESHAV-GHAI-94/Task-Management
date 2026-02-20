@@ -1,5 +1,4 @@
 import React from "react";
-import backgroundsignup from "../assets/backgroundsignup.jpg"
 import UseSignin from "../hooks/UseSignin";
 import { Link } from "react-router-dom";
 import {Eye,EyeOff} from "lucide-react";
@@ -17,10 +16,10 @@ const Login = () => {
   } = UseSignin();
   return (
     <>
-      <div className="flex justify-center md:justify-center lg:justify-start lg:px-20 p-5 items-center min-h-screen backdrop-blur-md bg-black/30 bg-cover" style={{ backgroundImage: `url(${backgroundsignup})`  }}>
+      <div className="flex flex-col md:flex-row justify-center md:justify-between items-center min-h-screen px-4 sm:px-6 md:px-10 lg:px-20 py-6 bg-[#F4F4F9]">
         <form
           onSubmit={handleSubmit}
-          className="bg-white/88 p-4 md:p-10 lg:p-10 rounded-xl shadow-lg w-120"
+          className="bg-white/88 p-4 sm:p-6 md:p-10 rounded-xl shadow-lg w-full max-w-md"
         >
           <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
           <div className="mb-4">
@@ -31,7 +30,7 @@ const Login = () => {
               value={form.email}
               onChange={handleChange}
               onBlur={handleBlur}
-              className="w-full p-1.5 sm:p-3 border rounded-lg text-lg"
+              className="w-full p-2 sm:p-3 border rounded-lg text-base sm:text-lg"
             />
             {touched.email && errors.email && (
               <p className="text-red-500 text-sm">{errors.email}</p>
@@ -86,6 +85,10 @@ const Login = () => {
             </Link>
           </div>
         </form>
+        <div className="hidden md:flex flex-col justify-center ml-10 max-w-lg">
+  <h1 className="hero-title"><span className="text-taupe-700">Focus</span> on What <span className="h text-[#3b82f6]">Matters.</span></h1>
+  <p className="hero-tagline text-left">Plan less, accomplish more. Streamline your workflow with our intuitive, clutter-free dashboard.</p>
+</div>
       </div>
     </>
   );

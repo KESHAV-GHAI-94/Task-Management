@@ -2,8 +2,7 @@ import React from "react";
 import useSignup from "../hooks/useSignup";
 import { Link } from "react-router-dom";
 import OtpModal from "../components/modals/Otpmodal";
-import {Eye,EyeOff} from "lucide-react"
-import backgroundsignup from "../assets/backgroundsignup.jpg";
+import {Eye,EyeOff} from "lucide-react";
 
 const Signup = () => {
   const {
@@ -26,12 +25,12 @@ const Signup = () => {
   } = useSignup();
   return (
     <>
-      <div className="flex justify-center md:justify-center lg:justify-start lg:px-20 p-5 items-center min-h-screen backdrop-blur-md bg-black/30 bg-cover" style={{ backgroundImage: `url(${backgroundsignup})`  }}>
+      <div className="flex flex-col md:flex-row justify-center md:justify-between items-center min-h-screen p-2 lg:px-20 bg-[#F4F4F9]">
         <form
           onSubmit={handleSubmit}
-          className="bg-white/88 p-4 md:p-8 lg:p-10 rounded-xl shadow-lg w-120"
+          className="bg-white/88 p-4 md:p-8 lg:p-10 rounded-xl shadow-lg w-full max-w-md"
         >
-          <h2 className="text-2xl font-bold mb-6 text-center">
+          <h2 className="text-2xl font-bold mb-4 text-center">
             Create Account
           </h2>
           <div className="mb-2">
@@ -129,6 +128,10 @@ const Signup = () => {
             </Link>
           </div>
         </form>
+        <div className="hidden md:flex flex-col justify-center ml-10 max-w-lg">
+  <h1 className="hero-title">From <span className="text-taupe-700">Chaos</span> to <span className="highlight text-[#3b82f6]">Clarity.</span></h1>
+  <p className="hero-tagline text-center">Master your day with effortless tracking. Your journey to peak productivity starts right here.</p>
+</div>
         {showOtpModal && (
   <OtpModal
     otp={otp}

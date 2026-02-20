@@ -8,81 +8,95 @@ import {
   Users,
   Settings
 } from "lucide-react";
+
 const Sidebar = () => {
   const location = useLocation();
-  const menu = [
-    {
-      name: "Dashboard",
-      icon: <LayoutDashboard size={18} />
-    },
-    {
-      name: "Groups",
-      icon: <FolderKanban size={18} />
-    },
-    {
-      name: "My Tasks",
-      icon: <CheckSquare size={18} />
-    },
-    {
-      name: "Kanban",
-      icon: <Columns size={18} />
-    },
-    {
-      name: "Members",
-      icon: <Users size={18} />
-    },
-    {
-      name: "Settings",
-      icon: <Settings size={18} />
-    }
-  ];
+
   return (
-    <div className="
-      w-64
-      h-screen
-      bg-gray-900
-      text-white
-      flex
-      flex-col
-      border-r
-      border-gray-800
-    ">
-      {/* Logo */}
-      <div className="px-5 py-6 border-b border-gray-800">
-        <h1 className="text-xl font-bold tracking-wide">
-          Task Manager
+    <div className="w-64 h-screen bg-taupe-900 text-taupe-100 flex flex-col border-r border-taupe-800">
+
+      <div className="px-5 py-6 border-b border-taupe-800">
+        <h1 className="text-xl font-semibold text-taupe-50">
+          Quick Task Manager
         </h1>
       </div>
-      {/* Menu */}
-      <div className="flex-1 px-3 py-4">
-        <ul className="space-y-1">
-          {menu.map(item => {
-            const isActive = location.pathname === item.path;
-            return (
-              <li key={item.name}>
-                <Link
-                  to={item.path}
-                  className={`
-                    flex items-center gap-3
-                    px-3 py-2.5
-                    rounded-lg
-                    text-sm
-                    transition
-                    ${isActive
-                      ? "bg-blue-600 text-white"
-                      : "text-gray-300 hover:bg-gray-800 hover:text-white"}
-                  `}
-                >
-                  {item.icon}
-                  {item.name}
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
+
+      <div className="flex-1 px-3 py-4 space-y-1">
+        <Link
+          to="/dashboard"
+          className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition
+            ${
+              location.pathname === "/dashboard"
+                ? "bg-taupe-700 text-white"
+                : "text-taupe-300 hover:bg-taupe-800 hover:text-white"
+            }`}
+        >
+          <LayoutDashboard size={18} />
+          Dashboard
+        </Link>
+        <Link
+          to="/groups"
+          className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition
+            ${
+              location.pathname === "/groups"
+                ? "bg-taupe-700 text-white"
+                : "text-taupe-300 hover:bg-taupe-800 hover:text-white"
+            }`}
+        >
+          <FolderKanban size={18} />
+          Groups
+        </Link>
+        <Link
+          to="/tasks"
+          className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition
+            ${
+              location.pathname === "/tasks"
+                ? "bg-taupe-700 text-white"
+                : "text-taupe-300 hover:bg-taupe-800 hover:text-white"
+            }`}
+        >
+          <CheckSquare size={18} />
+          My Tasks
+        </Link>
+        
+        <Link
+          to="/kanban"
+          className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition
+            ${
+              location.pathname === "/kanban"
+                ? "bg-taupe-700 text-white"
+                : "text-taupe-300 hover:bg-taupe-800 hover:text-white"
+            }`}
+        >
+          <Columns size={18} />
+          Kanban
+        </Link>
+        <Link
+          to="/members"
+          className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition
+            ${
+              location.pathname === "/members"
+                ? "bg-taupe-700 text-white"
+                : "text-taupe-300 hover:bg-taupe-800 hover:text-white"
+            }`}
+        >
+          <Users size={18} />
+          Members
+        </Link>
+        <Link
+          to="/settings"
+          className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition
+            ${
+              location.pathname === "/settings"
+                ? "bg-taupe-700 text-white"
+                : "text-taupe-300 hover:bg-taupe-800 hover:text-white"
+            }`}
+        >
+          <Settings size={18} />
+          Settings
+        </Link>
       </div>
-      {/* Bottom section */}
-      <div className="px-4 py-4 border-t border-gray-800 text-xs text-gray-400">
+      <div className="px-4 py-4 border-t border-taupe-800 text-xs text-taupe-400">
         Logged in as User
       </div>
     </div>
