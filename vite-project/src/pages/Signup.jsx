@@ -123,7 +123,6 @@ const Signup = () => {
           <div className="flex justify-center gap-5">
             <p>Already have an account.</p>
             <Link className="loginlink  text-blue-700" to="/login">
-              {" "}
               Sign in.
             </Link>
           </div>

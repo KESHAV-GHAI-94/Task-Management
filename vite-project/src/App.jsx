@@ -10,6 +10,7 @@ import Tasks from './pages/Tasks';
 import Kanban from "./pages/Kanban";
 import Members from "./pages/Members";
 import Settings from './pages/Settings';
+import MainGroupPage from './pages/MainGroupPage';
 const App = () => {
   return (
     <div>
@@ -23,7 +24,8 @@ const App = () => {
     <Route path="/kanban" element={<Kanban/>}/>
     <Route path="/Members" element={<Members/>}/>
     <Route path="/settings" element={<Settings/>}/>
-    </Routes>
+    <Route path="/groups/:id/members" element={<MainGroupPage/>} />
+        </Routes>
   </div>
   <ToastContainer position="top-right" autoClose={3000} />
   </div>

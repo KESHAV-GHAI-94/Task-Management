@@ -122,7 +122,7 @@ const addGroupMember = async (req, res) => {
 
 const showGroupMembers = async (req, res) => {
   try {
-    const { groupId } = req.params;
+    const groupId  = req.params.groupId;
     const userId = req.user.id;
     const membership = await GroupMember.findOne({
       where: {
@@ -165,6 +165,7 @@ const showGroupMembers = async (req, res) => {
         id: group.id,
         name: group.name,
       },
+      currentUserId:userId,
       members: formattedMembers,
     });
   } catch (err) {

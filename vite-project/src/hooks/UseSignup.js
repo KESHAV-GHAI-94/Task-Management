@@ -12,8 +12,9 @@ export default function useSignup() {
   const [showPass, setShowPass] = useState(false);
   const [showCPass, setShowCPass] = useState(false);
   const [loading, setLoading] = useState(false);
+  
   const navigate = useNavigate();
-
+  
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -107,9 +108,7 @@ export default function useSignup() {
         hasError = true;
       }
     });
-    
     if (hasError) return;
-
     try {
       setLoading(true);
       const res = await axios.post("http://localhost:4000/user/register", {

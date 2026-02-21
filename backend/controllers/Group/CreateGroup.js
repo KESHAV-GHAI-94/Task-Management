@@ -7,7 +7,6 @@ const createGroup = async (req, res) => {
   try {
     const { name } = req.body;
     const userId = req.user.id; 
-
     if (!name) {
       return res.status(400).json({
         message: "Group name is required",
@@ -46,6 +45,13 @@ const showGroups = async (req, res) => {
           model: Group,
           as: "group",
           attributes: ["id", "name"],
+          include:[
+            {
+              model: GroupMember,
+              as: "groupMembers",
+              attributes: ["id"],
+            }
+          ]
         },
       ],
     });
@@ -53,6 +59,7 @@ const showGroups = async (req, res) => {
       id: m.group.id, 
       name: m.group.name,
       role: m.role,
+      memberCount: m.group.groupMembers.length,
     }));
     res.status(200).json({
       groups,
