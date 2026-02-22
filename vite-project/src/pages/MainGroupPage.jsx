@@ -12,6 +12,7 @@ const MainGroupPage = () => {
   const [member, setmember] = useState([]);
   const [loading, setloading] = useState(true);
   const [currentUserId, setCurrentUserId] = useState(null);
+  const isOwner = groupMember?.owner_id === currentUserId;
   const fetchMember = async () => {
     try {
       const res = await axios.get(
@@ -77,11 +78,18 @@ const MainGroupPage = () => {
             </div>
           </div>
           <div className="flex gap-2">
+            <Link to={`/groups/${id}/create-task`} >
+            <button className="bg-taupe-500 hover:bg-taupe-600 text-white cursor-pointer px-3 py-1 rounded">
+              + Create Task
+            </button>
+            </Link>
+            {isOwner && (
             <Link to={`/groups/${id}/members/add`} >
-            <button className="bg-blue-500 text-white cursor-pointer px-3 py-1 rounded">
+            <button className="bg-taupe-700 hover:bg-taupe-500 text-white cursor-pointer px-3 py-1 rounded">
               Add Member
             </button>
             </Link>
+            )}
           </div>
         </div>
       )}
@@ -101,7 +109,7 @@ const MainGroupPage = () => {
                 <p className="text-sm text-gray-500">{m.role}</p>
               </div>
             </div>
-            {m.id !== currentUserId && (
+            {isOwner && m.id !== groupMember.owner_id &&  (
               <button
   onClick={() => removeMember(m.id)}
   className="bg-red-500 text-white px-2 py-1 rounded text-sm"

@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../Context/AuthContext";
 import { toast } from "react-toastify";
 import axios from "axios";
 export default function UseSignin() {
   const navigate = useNavigate();
+  const { setUser } = useContext(AuthContext);
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -100,8 +102,8 @@ export default function UseSignin() {
         },
       );
       toast.success(res.data.message);
+      setUser(res.data.user);
       navigate("/dashboard", { state: { email: form.email } });
-      window.location.reload();
     } catch (err) {
       toast.error(err.response?.data?.message || "login failed");
     } finally {

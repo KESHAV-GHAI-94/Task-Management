@@ -3,6 +3,7 @@ import Sidebar from '../components/Sidebar';
 import Navbar from '../components/Navbar';
 import axios from "axios";
 import { useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 const AddMemberGroup = () => {
 const {id} =useParams();
 const [query,setquery]= useState("");
@@ -38,13 +39,13 @@ const AddMember = async (userId) => {
         withCredentials: true,
       }
     );
-    alert(res.data.message);
+    toast.success(res.data.message);
     setUsers(users.filter(u => u.id !== userId));
     setSelectedUserId(null);
     setSelectedRole("Guest");
   } catch (err) {
     console.error(err);
-    alert(err.response?.data?.message || "Error adding member");
+    toast.error(err.response?.data?.message || "Error adding member");
   }
 };
 

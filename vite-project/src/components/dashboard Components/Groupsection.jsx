@@ -36,7 +36,7 @@ const Groupsection = () => {
                   setCurrentGroupPage((prev) => Math.max(prev - 1))
                 }
                 disabled={currentGroupPage === 0}
-                className="flex items-center z-50 justify-center w-8 h-8 rounded-md border border-gray-200 hover:bg-gray-100disabled:opacity-40 disabled:cursor-not-allowed transition"
+                className="flex items-center z-50 justify-center w-8 h-8 rounded-md border border-gray-200 hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed transition"
               >
                 <ChevronLeft size={18} />
               </button>

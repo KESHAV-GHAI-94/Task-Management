@@ -5,7 +5,7 @@ const GroupMember = require("../models/groupmembersmodel");
 const createTask = async (req, res) => {
   try {
     const { title, description, priority, assigned_to } = req.body;
-    const group_id = req.group_id;
+    const group_id = parseInt(req.params.groupId)
     const created_by = req.user.id;
 
     let imageBuffer = null;

@@ -12,9 +12,9 @@ const KanbanViewSection = () => {
                   </p>
                 </div>
                 <div className="flex gap-1">
-                  <div className="w-2 h-6 bg-white/80 rounded"></div>
+                  <div className="mt-2 w-2 h-6 bg-white/80 rounded"></div>
                   <div className="w-2 h-10 bg-white/80 rounded"></div>
-                  <div className="w-2 h-6 bg-white/80 rounded"></div>
+                  <div className="w-2 mt-2 h-6 bg-white/80 rounded"></div>
                 </div>
               </div>
               <div className="mt-4">

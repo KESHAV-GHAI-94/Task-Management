@@ -137,7 +137,7 @@ const showGroupMembers = async (req, res) => {
       });
     }
     const group = await Group.findByPk(groupId, {
-      attributes: ["id", "name"],
+      attributes: ["id", "name","created_by"],
     });
     if (!group) {
       return res.status(404).json({
@@ -165,6 +165,7 @@ const showGroupMembers = async (req, res) => {
       group: {
         id: group.id,
         name: group.name,
+        owner_id:group.created_by,
       },
       currentUserId:userId,
       members: formattedMembers,

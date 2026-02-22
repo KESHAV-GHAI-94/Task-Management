@@ -10,7 +10,7 @@ taskRouter.get("/", (req, res) => {
 );
 
 //all roles who can create task - Owner, Maintainer, Developer, Tester, Designer
-taskRouter.post("/create-task",verifyToken,authorizeRoles("Owner","Maintainer","Developer","Tester"),createTask);
+taskRouter.post("/:groupId/create-task",verifyToken,authorizeRoles("Owner","Maintainer","Developer","Tester"),createTask);
 
 //delete task - only Owner and Maintainer can delete task
 taskRouter.post("/delete-task/:taskId",verifyToken,authorizeRoles("Owner","Maintainer"),DeleteTask);

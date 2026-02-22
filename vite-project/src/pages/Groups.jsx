@@ -1,4 +1,5 @@
-  import React, { useState, useEffect } from "react";
+  import React, { useState, useEffect,useContext } from "react";
+  import {GroupContext} from "../Context/GroupContext";
   import Sidebar from "../components/Sidebar";
   import Navbar from "../components/Navbar";
   import CreateGroupModal from "../components/modals/CreateGroupModal";
@@ -6,6 +7,7 @@
   import {Link} from "react-router-dom"
   import {UsersRound} from "lucide-react"
   const Groups = () => {
+    const {setSelectedGroup }= useContext(GroupContext)
     const [showModal, setShowModal] = useState(false);
     const [groups, setGroups] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -47,24 +49,22 @@
             ) : (
               <div className="grid grid-cols-1 lg:grid-cols-2   gap-2 sm:gap-4">
                 {groups.map(group => (
-                  <>
-                  <Link to={`/groups/${group.id}/members`} className="GroupData">
-                  <div
-                    key={group.id}
-                    className="bg-white p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-4 rounded-xl shadow hover:shadow-md cursor-pointer transition"
-                  >
+                  <Link key={group.id} to={`/groups/${group.id}/members`} onClick={() => setSelectedGroup(group)} className="GroupData">
+                  <div className="bg-white p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-4 rounded-xl shadow hover:shadow-md cursor-pointer transition"
+                  ><div>
                     <h3 className="font-semibold text-base sm:text-lg">
                       {group.name}
-                    </h3>
+                    </h3></div>
+                    <div>
                     <p className="text-xs sm:text-sm text-gray-500">
                       Role: {group.role}
-                    </p>
+                    </p></div>
+                    <div>
                     <p className="text-sm flex text-gray-500">
                       <UsersRound className="text-blue-500" size={20} /> {group.memberCount}
-                    </p>
+                    </p></div>
                   </div>
                   </Link>
-                  </>
                 ))}
               </div>
             )}

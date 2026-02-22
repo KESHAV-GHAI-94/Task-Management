@@ -8,10 +8,11 @@ import Dashboard from './pages/Dashboard';
 import Groups from './pages/Groups';
 import Tasks from './pages/Tasks';
 import Kanban from "./pages/Kanban";
-import Members from "./pages/Members";
+// import ProtectedRoutes from './routes/ProtectedRoutes';
 import Settings from './pages/Settings';
 import MainGroupPage from './pages/MainGroupPage';
 import AddMemberGroup from './pages/AddMemberGroup';
+import CreateTask from './pages/CreateTask';
 const App = () => {
   return (
     <div>
@@ -19,6 +20,7 @@ const App = () => {
     <Routes>
     <Route path="/signup" element={<Signup/>}/>
     <Route path ="/login" element={<Signin/>}/>
+    {/* <Route element={<ProtectedRoutes />}> */}
     <Route path="/dashboard" element={<Dashboard/>}/>
     <Route path="/groups" element={<Groups/>}/>
     <Route path="/tasks" element={<Tasks/>}/>
@@ -26,6 +28,8 @@ const App = () => {
     <Route path="/settings" element={<Settings/>}/>
     <Route path="/groups/:id/members" element={<MainGroupPage/>} />
     <Route path ="/groups/:id/members/add" element={<AddMemberGroup/>}/>
+    <Route path ="/groups/:id/create-task" element={<CreateTask/>}/>
+    {/* </Route> */}
     </Routes>
   </div>
   <ToastContainer position="top-right" autoClose={3000} />
