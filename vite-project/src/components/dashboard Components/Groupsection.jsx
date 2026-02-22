@@ -60,6 +60,7 @@ const Groupsection = () => {
         ) : (
           <div >
             {visibleGroups.map((group) => (
+              <Link to={`/groups/${group.id}/members`} className="GroupData">
               <div
                 key={group.id}
                 className="flex bg-[#F4F4F9]  items-center justify-between p-2.5 mb-1 rounded-xl hover:bg-blue-50 cursor-pointer transition group"
@@ -71,6 +72,7 @@ const Groupsection = () => {
                   {group.role}
                 </span>
               </div>
+              </Link>
             ))}
           </div>
         )}

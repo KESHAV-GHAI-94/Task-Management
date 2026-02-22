@@ -14,23 +14,29 @@
       return () => clearInterval(interval);
     }, []);
     const PageTitle = () => {
-      switch (location.pathname) {
-        case "/dashboard":
-          return "Dashboard";
-        case "/groups":
-          return "Groups";
-        case "/tasks":
-          return "My Tasks";
-        case "/kanban":
-          return "Kanban";
-        case "/members":
-          return "Members";
-        case "/settings":
-          return "Settings";
-        default:
-          return "Dashboard";
-      }
-    };
+
+  switch (true) {
+
+    case location.pathname.startsWith("/dashboard"):
+      return "Dashboard";
+
+    case location.pathname.startsWith("/groups"):
+      return "Groups";
+
+    case location.pathname.startsWith("/tasks"):
+      return "Tasks";
+
+    case location.pathname.startsWith("/kanban"):
+      return "Kanban";
+
+    case location.pathname.startsWith("/settings"):
+      return "Settings";
+
+    default:
+      return "Dashboard";
+  }
+
+};
 
     return (
       <div className="bg-taupe-100 border-b border-taupe-200 px-6 py-3 flex justify-between items-center shadow-sm">

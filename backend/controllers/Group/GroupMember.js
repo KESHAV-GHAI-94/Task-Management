@@ -50,17 +50,18 @@ const searchUsers = async (req, res) => {
           },
         ],
       },
-      attributes: ["id", "name", "email"],
+      attributes: ["id", "name", "email","phone"],
       limit: 20,
     });
     res.status(200).json({
       users,
     });
   } catch (err) {
-    res.status(500).json({
-      message: err.message,
-    });
-  }
+  console.error("Search error:", err);
+  res.status(500).json({
+    message: err.message,
+  });
+}
 };
 
 const addGroupMember = async (req, res) => {

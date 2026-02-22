@@ -72,18 +72,6 @@ const Sidebar = () => {
           Kanban
         </Link>
         <Link
-          to="/members"
-          className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition
-            ${
-              location.pathname === "/members"
-                ? "bg-taupe-700 text-white"
-                : "text-taupe-300 hover:bg-taupe-800 hover:text-white"
-            }`}
-        >
-          <Users size={18} />
-          Members
-        </Link>
-        <Link
           to="/settings"
           className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition
             ${location.pathname === "/settings"
