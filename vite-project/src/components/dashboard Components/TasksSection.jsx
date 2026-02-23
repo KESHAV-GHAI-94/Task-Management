@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-const TasksSection = () => {
+const TasksSection = ({tasksPerPage}) => {
   const [tasks, setTasks] = useState([]);
   const [currentTaskPage, setCurrentTaskPage] = useState(0);
-  const tasksPerPage = 3;
   const totalTaskPages = Math.ceil(tasks.length / tasksPerPage);
   const visibleTasks = tasks.slice(
     currentTaskPage * tasksPerPage,
@@ -24,7 +23,6 @@ const TasksSection = () => {
   useEffect(() => {
     fetchTasks();
   });
-
   return (
     <div className="bg-white rounded-xl shadow-sm md:p-2 sm:p-5 mt-4">
       <div className="flex justify-between p-3 lg:py-0  items-center ">
@@ -105,7 +103,6 @@ const TasksSection = () => {
           </tbody>
         </table>
       </div>
-
       {/* mobile */}
       <div className="block p-3 pt-3  md:hidden">
         {tasks.length === 0 ? (

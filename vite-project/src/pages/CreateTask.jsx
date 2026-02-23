@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useContext } from "react";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import {TaskContext} from "../Context/TaskContext";
 const CreateTask = () => {
 const {id} = useParams();
 const navigate= useNavigate();
+const {setTasks}= useContext(TaskContext);
 const [members, setMembers] = useState([]);
 const [form, setForm] = useState({
     title: "",
@@ -61,7 +63,8 @@ const [form, setForm] = useState({
         { withCredentials: true }
       );
       toast.success(res.data.message);
-      navigate(`/groups/${id}/tasks`);
+      setTasks(res.data.message);
+      navigate(`/tasks`); //update it later till then i am redirecting to to tasks section
     } catch (err) {
       toast.error(err.response?.data?.message || "Task creation failed");
     } finally {

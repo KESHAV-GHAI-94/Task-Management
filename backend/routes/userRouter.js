@@ -6,7 +6,7 @@ const {sendotpforget,checkforgetotp,changePassword} = require("../controllers/Au
 const verifyToken = require("../middleware/authmiddleware");
 const {createGroup,showGroups}  = require("../controllers/Group/CreateGroup");
 const {addGroupMember,showGroupMembers,searchUsers, removeGroupMember} = require("../controllers/Group/GroupMember");
-const {GetGroupTasks,GetMyTasks} = require("../controllers/Group/CreateGroup");
+const {GetGroupTasks,GetMyTasks,GetMyGroupsTasks} = require("../controllers/Group/CreateGroup");
 const {GetKanbanTasks,GetTaskDetails} = require("../controllers/page view/kanbanview");
 const authorizeRoles = require("../middleware/authroles");
 
@@ -53,7 +53,9 @@ userRouter.post("/groups/:groupId/members/:userId/remove",verifyToken,authorizeR
 userRouter.get("/groups", verifyToken, showGroups);
 //show group members route
 userRouter.get("/groups/:groupId/members",verifyToken,showGroupMembers);
-// SHOW TASk of all group
+// get groupwise tasks
+userRouter.post("/groups/groupwise/tasks",verifyToken,GetMyGroupsTasks);
+// SHOW TASk of all group one by one: 
 userRouter.post("/groups/:groupId/tasks", verifyToken,GetGroupTasks);
 // show my tasks 
 userRouter.post("/groups/tasks", verifyToken,GetMyTasks);

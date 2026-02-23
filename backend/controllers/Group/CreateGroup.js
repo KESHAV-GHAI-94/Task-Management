@@ -107,6 +107,62 @@ const GetGroupTasks = async (req, res) => {
         });
     }
 };
+
+const GetMyGroupsTasks = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const memberships = await GroupMember.findAll({
+      where: { user_id: userId },
+      attributes: ["group_id"],
+    });
+    const groupIds = memberships.map(m => m.group_id);
+    if (groupIds.length === 0) {
+      return res.status(200).json({
+        message: "User is not part of any group",
+        groups: []
+      });
+    }
+    const groupsWithTasks = await Group.findAll({
+      where: {
+        id: groupIds
+      },
+      attributes: ["id", "name"],
+      include: [
+        {
+          model: GroupMember,
+          as: "groupMembers",
+          where: {
+            user_id: userId
+          },
+          attributes: ["role"],
+          required: false
+        },
+        {
+          model: Task,
+          as: "tasks",
+          include: [
+            {
+              model: User,
+              as: "assignedUsers",
+              attributes: ["id", "name", "email"],
+              through: { attributes: [] }
+            }
+          ]
+        },
+      ]
+    });
+    res.status(200).json({
+      success: true,
+      groups: groupsWithTasks
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      success: false,
+      message: err.message
+    });
+  }
+};
 const GetMyTasks = async (req, res) => {
 
   try {
@@ -168,4 +224,4 @@ const GetMyTasks = async (req, res) => {
     });
   }
 };
-module.exports = {createGroup ,GetGroupTasks,showGroups,GetMyTasks};
+module.exports = {createGroup ,GetGroupTasks,GetMyGroupsTasks,showGroups,GetMyTasks};

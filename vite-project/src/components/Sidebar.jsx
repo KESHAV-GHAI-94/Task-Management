@@ -56,7 +56,7 @@ const Sidebar = () => {
             }`}
         >
           <CheckSquare size={18} />
-          My Tasks
+          Tasks
         </Link>
         
         <Link
