@@ -5,6 +5,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
+import {Eye} from "lucide-react";
 const MainGroupPage = () => {
   const { id } = useParams();
   const [groupMember, setgroupMember] = useState(null);
@@ -63,8 +64,8 @@ const MainGroupPage = () => {
     <div className="flex-1">
       <Navbar />
       {groupMember && (
-        <div className="bg-white p-8 m-4 sm: rounded shadow flex justify-between items-center">
-          <div className="flex items-center gap-3">
+        <div className="bg-white p-4 sm:p-6 m-2 sm:m-4 rounded shadow flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
+          <div className="flex items-center gap-3 flex-wrap">
             <div className="w-12 h-12 bg-blue-500 text-white flex items-center justify-center rounded-full">
               {groupMember.name.charAt(0)}
             </div>
@@ -77,15 +78,19 @@ const MainGroupPage = () => {
               </p>
             </div>
           </div>
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2 w-full sm:w-auto">
+            <Link to={`/groups/${id}/tasks`}>
+            <button className="bg-taupe-500 flex hover:bg-taupe-600 text-white cursor-pointer px-3 py-2 rounded w-full sm:w-auto text-center">
+                <Eye className="pe-1"/> View Task
+            </button></Link>
             <Link to={`/groups/${id}/create-task`} >
-            <button className="bg-taupe-500 hover:bg-taupe-600 text-white cursor-pointer px-3 py-1 rounded">
+            <button className="bg-taupe-500 hover:bg-taupe-600 text-white cursor-pointer px-3 py-2 rounded w-full sm:w-auto text-center">
               + Create Task
             </button>
             </Link>
             {isOwner && (
             <Link to={`/groups/${id}/members/add`} >
-            <button className="bg-taupe-700 hover:bg-taupe-500 text-white cursor-pointer px-3 py-1 rounded">
+            <button className="bg-taupe-500 hover:bg-taupe-600 text-white cursor-pointer px-3 py-2 rounded w-full sm:w-auto text-center">
               Add Member
             </button>
             </Link>

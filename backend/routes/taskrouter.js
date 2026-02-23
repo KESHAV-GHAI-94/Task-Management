@@ -13,7 +13,7 @@ taskRouter.get("/", (req, res) => {
 taskRouter.post("/:groupId/create-task",verifyToken,authorizeRoles("Owner","Maintainer","Developer","Tester"),createTask);
 
 //delete task - only Owner and Maintainer can delete task
-taskRouter.post("/delete-task/:taskId",verifyToken,authorizeRoles("Owner","Maintainer"),DeleteTask);
+taskRouter.post("/delete-task/:taskId",verifyToken,authorizeRoles("Owner"),DeleteTask);
 
 //view task - all roles can view task except Guest
 taskRouter.get("/view-task/:taskId",verifyToken,authorizeRoles("Owner","Maintainer","Developer","Tester"),ViewTask);

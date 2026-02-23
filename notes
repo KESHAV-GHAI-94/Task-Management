@@ -1,0 +1,70 @@
+// const [comments, setComments] = useState([]);
+// const [newComment, setNewComment] = useState("");
+// const [commentLoading, setCommentLoading] = useState(false);
+
+// <div className="space-y-3 max-h-80 overflow-y-auto">
+
+//     {comments.length > 0 ? (
+//       comments.map((comment) => (
+//         <div
+//           key={comment.id}
+//           className="bg-gray-50 border rounded-lg p-3"
+//         >
+//           <div className="flex justify-between">
+//             <p className="font-semibold text-sm">
+//               {comment.user?.name}
+//             </p>
+
+//             <p className="text-xs text-gray-500">
+//               {new Date(comment.createdAt).toLocaleString()}
+//             </p>
+//           </div>
+
+//           <p className="text-gray-700 mt-1">
+//             {comment.comment}
+//           </p>
+//         </div>
+//       ))
+//     ) : (
+//       <p className="text-gray-500">No comments yet</p>
+//     )}
+
+//   </div>
+// const fetchComments = async () => {
+//   try {
+//     const res = await axios.get(
+//       `http://localhost:4000/task/${id}/comments`,
+//       { withCredentials: true }
+//     );
+
+//     setComments(res.data.comments);
+//   } catch (err) {
+//     console.error(err);
+//   }
+// };
+// useEffect(() => {
+//   fetchTask();
+//   fetchComments();
+// }, [id]);
+
+// const handleAddComment = async () => {
+//   if (!newComment.trim()) return;
+
+//   try {
+//     setCommentLoading(true);
+
+//     await axios.post(
+//       `http://localhost:4000/task/${id}/add-comment`,
+//       { comment: newComment },
+//       { withCredentials: true }
+//     );
+
+//     setNewComment("");
+//     fetchComments();
+
+//   } catch (err) {
+//     console.error(err);
+//   } finally {
+//     setCommentLoading(false);
+//   }
+// };

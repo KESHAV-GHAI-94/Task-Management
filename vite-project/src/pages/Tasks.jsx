@@ -17,7 +17,7 @@ const Tasks = () => {
           <nav className="flex">
             <button
               onClick={() => setActiveTab("myTasks")}
-              className={`w-1/2 py-4 text-center border-b-2 font-medium text-sm transition ${
+              className={`w-1/2 py-3 text-center border-b-2 font-medium text-sm transition ${
                 activeTab === "myTasks"
                   ? "text-indigo-400"
                   : "border-transparent text-gray-400 hover:text-white"
@@ -27,7 +27,7 @@ const Tasks = () => {
             </button>
             <button
               onClick={() => setActiveTab("teamTasks")}
-              className={`w-1/2 py-4 text-center border-b-2 font-medium text-sm transition ${
+              className={`w-1/2 py-3 text-center border-b-2 font-medium text-sm transition ${
                 activeTab === "teamTasks"
                   ? "text-indigo-400"
                   : "border-transparent text-gray-400 hover:text-white"

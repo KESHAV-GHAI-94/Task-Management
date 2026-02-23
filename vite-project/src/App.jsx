@@ -13,6 +13,8 @@ import Settings from './pages/Settings';
 import MainGroupPage from './pages/MainGroupPage';
 import AddMemberGroup from './pages/AddMemberGroup';
 import CreateTask from './pages/CreateTask';
+import DetailedTaskPage from './pages/DetailedTaskPage';
+import IndividualGroupTask from './pages/IndividualGroupTask';
 const App = () => {
   return (
     <div>
@@ -29,6 +31,8 @@ const App = () => {
     <Route path="/groups/:id/members" element={<MainGroupPage/>} />
     <Route path ="/groups/:id/members/add" element={<AddMemberGroup/>}/>
     <Route path ="/groups/:id/create-task" element={<CreateTask/>}/>
+    <Route path="/tasks/:id" element={<DetailedTaskPage/>}/>
+    <Route path="/groups/:id/tasks"element={<IndividualGroupTask/>}/>
     {/* </Route> */}
     </Routes>
   </div>

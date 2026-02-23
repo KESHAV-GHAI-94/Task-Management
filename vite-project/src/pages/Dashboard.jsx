@@ -7,7 +7,7 @@ import KanbanViewSection from "../components/dashboard Components/KanbanViewSect
 import Progressbar from "../components/dashboard Components/Progressbar";
 import TasksSection from "../components/dashboard Components/TasksSection";
 import { Link } from "react-router-dom";
-const Dashboard = (tasksPerPage) => {
+const Dashboard = () => {
   return (
     <div className="flex min-h-screen w-full bg-gray-100 overflow-x-hidden">
       <div className="hidden md:block">

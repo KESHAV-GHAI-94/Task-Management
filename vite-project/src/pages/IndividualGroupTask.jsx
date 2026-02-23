@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import {useNavigate} from "react-router-dom";
-const TasksSection = ({tasksPerPage}) => {
+import {useParams ,useNavigate} from "react-router-dom";
+import Sidebar from "../components/Sidebar";
+import Navbar from "../components/Navbar";
+const IndividualGroupTask = ({tasksPerPage=10}) => {
   const navigate= useNavigate();
+  const {id} = useParams();
   const [tasks, setTasks] = useState([]);
   const [currentTaskPage, setCurrentTaskPage] = useState(0);
   const totalTaskPages = Math.ceil(tasks.length / tasksPerPage);
@@ -14,18 +17,28 @@ const TasksSection = ({tasksPerPage}) => {
 
   const fetchTasks = async () => {
     const res = await axios.post(
-      "http://localhost:4000/user/groups/tasks",
+      `http://localhost:4000/user/groups/${id}/tasks`,
       {},
       {
         withCredentials: true,
       },
     );
-    setTasks(res.data.tasks);
+    const filteredTasks = res.data.tasks.filter(
+      task => task.group_id === Number(id)
+    );
+    setTasks(filteredTasks);
   };
   useEffect(() => {
     fetchTasks();
-  },[]);
+  },[id]);
+
   return (
+    <div className="flex min-h-screen w-full bg-gray-100 overflow-x-hidden">
+      <div className="hidden md:block">
+        <Sidebar />
+      </div>    
+      <div className="flex-1">
+        <Navbar />
     <div className="bg-white rounded-xl shadow-sm md:p-2 sm:p-5 mt-4">
       <div className="flex justify-between p-3 lg:py-0  items-center ">
         <div className="flex gap-3 items-center">
@@ -59,15 +72,14 @@ const TasksSection = ({tasksPerPage}) => {
           </div>
         )}
       </div>
-
+      
       {/* desktop */}
       <div className="hidden md:block px-4 overflow-x-auto">
         <table className="w-full  border-collapse">
           <thead>
             <tr className="text-gray-500 text-sm border-b border-taupe-500">
               <th className="text-left py-3">Title</th>
-              <th className="text-left py-3">Group</th>
-              <th className="text-left py-3">Role</th>
+              <th className="text-left py-3">Group Id</th>
               <th className="text-center py-3">Status</th>
               <th className="text-center py-3">Priority</th>
             </tr>
@@ -85,13 +97,8 @@ const TasksSection = ({tasksPerPage}) => {
                   <td className="py-2.5 font-medium">{task.title}</td>
                   <td className="py-3">
                     <div className="flex items-center gap-2">
-                      {task.group?.name || "No group"}
+                      Group #{task.group_id}
                     </div>
-                  </td>
-                  <td className="py-3">
-                    <span className="text-xs bg-gray-100 px-2 py-1 rounded-md">
-                      {task.role || "Member"}
-                    </span>
                   </td>
                   <td className="py-2.75 text-center">
                     <StatusBadge status={task.status} />
@@ -105,7 +112,9 @@ const TasksSection = ({tasksPerPage}) => {
             )}
           </tbody>
         </table>
+        </div>
       </div>
+      
       {/* mobile */}
       <div className="block p-3 pt-3  md:hidden">
         {tasks.length === 0 ? (
@@ -124,12 +133,12 @@ const TasksSection = ({tasksPerPage}) => {
                 <div className="flex justify-between">
                   <span className="text-gray-500 text-sm">Group</span>
                   <span className="flex items-center gap-1">
-                    {task.group?.name || "No group"}
+                    Group #{task.group_id}
                   </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-500 text-sm">Role</span>
-                  <span>{task.role || "Member"}</span>
+                  <span>{task.role}</span>
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-gray-500 text-sm">Status</span>
@@ -145,9 +154,9 @@ const TasksSection = ({tasksPerPage}) => {
         )}
       </div>
     </div>
+</div>
   );
 };
-
 const StatusBadge = ({ status }) => {
   const colors = {
     todo: "bg-yellow-100 text-yellow-700",
@@ -178,4 +187,4 @@ const PriorityBadge = ({ priority }) => {
   );
 };
 
-export default TasksSection;
+export default IndividualGroupTask;

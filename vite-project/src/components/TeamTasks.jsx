@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-
+import {useNavigate} from "react-router-dom";
 const TeamTasks = () => {
   const [groups, setGroups] = useState([]);
+  const navigate = useNavigate();
   const fetchGroupwiseTasks = async () => {
     try {
       const res = await axios.post(
@@ -38,7 +39,7 @@ const TeamTasks = () => {
             .filter((groupData) => groupData.tasks.length > 0)
             .map((groupData) => (
               <div
-                key={groupData.id}
+                key={groupData.id} 
                 className="mb-6 border rounded-lg overflow-hidden"
               >
                 <div className="bg-gray-100 px-4 py-2 flex justify-between items-center">
@@ -57,7 +58,8 @@ const TeamTasks = () => {
                   </thead>
                   <tbody>
                     {groupData.tasks.map((task) => (
-                      <tr key={task.id} className="border-b">
+                        
+                      <tr key={task.id} className="border-b" onClick={() => navigate(`/tasks/${task.id}`)} >
                         <td className="pl-4 py-3">{task.title}</td>
                         <td className="text-center">
                           <StatusBadge status={task.status} />
@@ -93,7 +95,7 @@ const TeamTasks = () => {
                   </div>
                   <div className="p-3 flex flex-col gap-3">
                     {groupData.tasks.map((task) => (
-                      <div key={task.id} className="border rounded-lg p-3">
+                      <div key={task.id} className="border rounded-lg p-3" onClick={() => navigate(`/tasks/${task.id}`)}>
                         <div className="flex justify-between">
                           <span className="text-xs text-gray-500">Title</span>
                           <span className="text-sm font-medium">
