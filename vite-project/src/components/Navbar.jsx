@@ -40,11 +40,6 @@ const Navbar = ({ onCreateGroup }) => {
               <span className="sm:hidden">+ Group</span>
             </button>
           )}
-          {/* <Link to="/tasks">
-            <button className="hidden md:block bg-taupe-700 hover:bg-taupe-800 text-white px-4 py-1.5 rounded-lg text-sm transition">
-              + Create Task
-            </button>
-          </Link> */}
         </div>
       </div>
     </div>

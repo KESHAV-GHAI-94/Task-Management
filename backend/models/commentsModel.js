@@ -41,10 +41,6 @@ const Comment = sequelize.define(
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
     },
-    is_deleted: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false,
-    }
   },
   {
     tableName: "comments",

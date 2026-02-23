@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import {useParams ,useNavigate} from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
-const IndividualGroupTask = ({tasksPerPage=10}) => {
-  const navigate= useNavigate();
-  const {id} = useParams();
+const IndividualGroupTask = ({ tasksPerPage = 10 }) => {
+  const navigate = useNavigate();
+  const { id } = useParams();
   const [tasks, setTasks] = useState([]);
+  const [currentUserId, setCurrentUserId] = useState(null);
   const [currentTaskPage, setCurrentTaskPage] = useState(0);
   const totalTaskPages = Math.ceil(tasks.length / tasksPerPage);
   const visibleTasks = tasks.slice(
     currentTaskPage * tasksPerPage,
     currentTaskPage * tasksPerPage + tasksPerPage,
   );
-
   const fetchTasks = async () => {
     const res = await axios.post(
       `http://localhost:4000/user/groups/${id}/tasks`,
@@ -24,137 +24,161 @@ const IndividualGroupTask = ({tasksPerPage=10}) => {
       },
     );
     const filteredTasks = res.data.tasks.filter(
-      task => task.group_id === Number(id)
+      (task) => task.group_id === Number(id),
     );
     setTasks(filteredTasks);
   };
+  const fetchCurrentUser = async () => {
+    try {
+      const res = await axios.get("http://localhost:4000/user/me", {
+        withCredentials: true,
+      });
+      setCurrentUserId(res.data.id);
+    } catch (err) {
+      console.error("Failed to fetch current user", err);
+    }
+  };
   useEffect(() => {
+    fetchCurrentUser();
     fetchTasks();
-  },[id]);
-
+  }, [id]);
+  const isUserInvolved = (task) => {
+    if (!currentUserId) return false;
+    const isCreator = task.created_by === currentUserId;
+    const isAssigned = task.assignedUsers?.some(
+      (user) => user.id === currentUserId,
+    );
+    return isCreator || isAssigned;
+  };
   return (
     <div className="flex min-h-screen w-full bg-gray-100 overflow-x-hidden">
       <div className="hidden md:block">
         <Sidebar />
-      </div>    
+      </div>
       <div className="flex-1">
         <Navbar />
-    <div className="bg-white rounded-xl shadow-sm md:p-2 sm:p-5 mt-4">
-      <div className="flex justify-between p-3 lg:py-0  items-center ">
-        <div className="flex gap-3 items-center">
-          <h2 className="font-semibold text-lg">My Tasks</h2>
-          <span className="rounded-xl bg-zinc-200 px-2 text-gray-500 text-sm">
-            Total: {tasks.length}
-          </span>
-        </div>
-        {tasks.length > tasksPerPage && (
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() =>
-                setCurrentTaskPage((prev) => Math.max(prev - 1, 0))
-              }
-              disabled={currentTaskPage === 0}
-              className="w-8 h-8 flex items-center justify-center rounded-md border border-gray-200 hover:bg-gray-100 disabled:opacity-40"
-            >
-              <ChevronLeft size={18} />
-            </button>
-            <button
-              onClick={() =>
-                setCurrentTaskPage((prev) =>
-                  Math.min(prev + 1, totalTaskPages - 1),
-                )
-              }
-              disabled={currentTaskPage === totalTaskPages - 1}
-              className="w-8 h-8 flex items-center justify-center rounded-md border border-gray-200 hover:bg-gray-100 disabled:opacity-40"
-            >
-              <ChevronRight size={18} />
-            </button>
-          </div>
-        )}
-      </div>
-      
-      {/* desktop */}
-      <div className="hidden md:block px-4 overflow-x-auto">
-        <table className="w-full  border-collapse">
-          <thead>
-            <tr className="text-gray-500 text-sm border-b border-taupe-500">
-              <th className="text-left py-3">Title</th>
-              <th className="text-left py-3">Group Id</th>
-              <th className="text-center py-3">Status</th>
-              <th className="text-center py-3">Priority</th>
-            </tr>
-          </thead>
-          <tbody>
-            {tasks.length === 0 ? (
-              <tr>
-                <td colSpan="5" className="text-center py-6 text-gray-400">
-                  No tasks found
-                </td>
-              </tr>
-            ) : (
-              visibleTasks.map((task) => (
-                <tr key={task.id} onClick={() => navigate(`/tasks/${task.id}`)} className="border-b hover:bg-gray-50 cursor-pointer">
-                  <td className="py-2.5 font-medium">{task.title}</td>
-                  <td className="py-3">
-                    <div className="flex items-center gap-2">
-                      Group #{task.group_id}
-                    </div>
-                  </td>
-                  <td className="py-2.75 text-center">
-                    <StatusBadge status={task.status} />
-                  </td>
-                  <td className="py-3 text-center">
-                    <PriorityBadge priority={task.priority} />
-                  </td>
-                </tr>
-                
-              ))
-            )}
-          </tbody>
-        </table>
-        </div>
-      </div>
-      
-      {/* mobile */}
-      <div className="block p-3 pt-3  md:hidden">
-        {tasks.length === 0 ? (
-          <div className="text-center py-6 text-gray-400">No tasks found</div>
-        ) : (
-          <div className="flex flex-col  gap-3">
-            {visibleTasks.map((task) => (
-              <div
-                key={task.id} onClick={() => navigate(`/tasks/${task.id}`)}
-                className="border rounded-lg p-4 mt-2 space-y-2"
-              >
-                <div className="flex justify-between">
-                  <span className="text-gray-500 text-sm">Title</span>
-                  <span className="font-medium text-right">{task.title}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-500 text-sm">Group</span>
-                  <span className="flex items-center gap-1">
-                    Group #{task.group_id}
-                  </span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-500 text-sm">Role</span>
-                  <span>{task.role}</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-gray-500 text-sm">Status</span>
-                  <StatusBadge status={task.status} />
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-gray-500 text-sm">Priority</span>
-                  <PriorityBadge priority={task.priority} />
-                </div>
+        <div className="bg-white rounded-xl shadow-sm md:p-2 sm:p-5 mt-4">
+          <div className="flex justify-between p-3 lg:py-0  items-center ">
+            <div className="flex gap-3 items-center">
+              <h2 className="font-semibold text-lg">Group Tasks</h2>
+              <span className="rounded-xl bg-zinc-200 px-2 text-gray-500 text-sm">
+                Total: {tasks.length}
+              </span>
+            </div>
+            {tasks.length > tasksPerPage && (
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() =>
+                    setCurrentTaskPage((prev) => Math.max(prev - 1, 0))
+                  }
+                  disabled={currentTaskPage === 0}
+                  className="w-8 h-8 flex items-center justify-center rounded-md border border-gray-200 hover:bg-gray-100 disabled:opacity-40"
+                >
+                  <ChevronLeft size={18} />
+                </button>
+                <button
+                  onClick={() =>
+                    setCurrentTaskPage((prev) =>
+                      Math.min(prev + 1, totalTaskPages - 1),
+                    )
+                  }
+                  disabled={currentTaskPage === totalTaskPages - 1}
+                  className="w-8 h-8 flex items-center justify-center rounded-md border border-gray-200 hover:bg-gray-100 disabled:opacity-40"
+                >
+                  <ChevronRight size={18} />
+                </button>
               </div>
-            ))}
+            )}
           </div>
-        )}
+          {/* desktop */}
+          <div className="hidden md:block px-4 overflow-x-auto">
+            <table className="w-full  border-collapse">
+              <thead>
+                <tr className="text-gray-500 text-sm border-b border-taupe-500">
+                  <th className="text-left py-3">Title</th>
+                  <th className="text-left py-3">Group Id</th>
+                  <th className="text-center py-3">Status</th>
+                  <th className="text-center py-3">Priority</th>
+                </tr>
+              </thead>
+              <tbody>
+                {tasks.length === 0 ? (
+                  <tr>
+                    <td colSpan="5" className="text-center py-6 text-gray-400">
+                      No tasks found
+                    </td>
+                  </tr>
+                ) : (
+                  visibleTasks.map((task) => (
+                    <tr
+                      key={task.id}
+                      onClick={() => navigate(`/tasks/${task.id}`)}
+                      className={`border-b cursor-pointer hover:bg-gray-50
+  ${isUserInvolved(task) ? "bg-blue-50  " : ""}
+  `}
+                    >
+                      <td className="py-2.5 font-medium">{task.title}</td>
+                      <td className="py-3">
+                        <div className="flex items-center gap-2">
+                          Group #{task.group_id}
+                        </div>
+                      </td>
+                      <td className="py-2.75 text-center">
+                        <StatusBadge status={task.status} />
+                      </td>
+                      <td className="py-3 text-center">
+                        <PriorityBadge priority={task.priority} />
+                      </td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        {/* mobile */}
+        <div className="block p-3 pt-3  md:hidden">
+          {tasks.length === 0 ? (
+            <div className="text-center py-6 text-gray-400">No tasks found</div>
+          ) : (
+            <div className="flex flex-col  gap-3">
+              {visibleTasks.map((task) => (
+                <div
+                  key={task.id}
+                  onClick={() => navigate(`/tasks/${task.id}`)}
+                  className={`border rounded-lg p-4 mt-2 space-y-2 cursor-pointer
+  ${isUserInvolved(task) ? "bg-blue-50  border-blue-500" : ""}
+  `}
+                >
+                  <div className="flex justify-between">
+                    <span className="text-gray-500 text-sm">Title</span>
+                    <span className="font-medium text-right">{task.title}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-500 text-sm">Group</span>
+                    <span className="flex items-center gap-1">
+                      Group #{task.group_id}
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-500 text-sm">Role</span>
+                    <span>{task.role}</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-500 text-sm">Status</span>
+                    <StatusBadge status={task.status} />
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-500 text-sm">Priority</span>
+                    <PriorityBadge priority={task.priority} />
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
     </div>
-</div>
   );
 };
 const StatusBadge = ({ status }) => {

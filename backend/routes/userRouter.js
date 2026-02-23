@@ -33,7 +33,7 @@ userRouter.post("/change-password",changePassword);
 
 //logout
 userRouter.post("/logout", (req, res) => {
-  res.clearCookie("token");
+  res.clearCookie("authToken");
   res.json({ message: "Logged out successfully" });
 });
 
@@ -63,5 +63,17 @@ userRouter.post("/groups/tasks", verifyToken,GetMyTasks);
 userRouter.post("/groups/:groupId/kanbanSection",verifyToken,authorizeRoles("Owner", "Maintainer", "Developer", "Tester"),GetKanbanTasks);
 //get task details
 userRouter.post("/tasks/:taskId/details",verifyToken,authorizeRoles("Owner", "Maintainer", "Developer", "Tester"),GetTaskDetails);
-
+userRouter.get("/me", verifyToken, async (req, res) => {
+  try {
+    res.status(200).json({
+      id: req.user.id,
+      name: req.user.name,
+      email: req.user.email
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: err.message
+    });
+  }
+});
 module.exports = userRouter;

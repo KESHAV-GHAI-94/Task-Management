@@ -176,9 +176,7 @@ const deleteComment = async (req, res) => {
         message: "You can delete only your comment"
       });
     }
-    await comment.update({
-      is_deleted: true
-    });
+    await comment.destroy();
     res.status(200).json({
       message: "Comment deleted successfully"
     });
