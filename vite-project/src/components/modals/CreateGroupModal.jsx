@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import axios from "axios";
+import Api from "../../Api";
 import {toast} from "react-toastify";
 const CreateGroupModal = ({ onClose }) => {
   const [gname, setgname] = useState("");
   const [loading, setLoading] = useState(false);
+
   const handleCreateGroup = async () => {
     if (!gname.trim()) {
       toast.error("Group name required");
@@ -11,8 +12,7 @@ const CreateGroupModal = ({ onClose }) => {
     }
     try {
       setLoading(true);
-      const res = await axios.post(
-        "http://localhost:4000/user/groups",
+      const res = await Api.post("/user/groups",
         {
           name: gname,
         },

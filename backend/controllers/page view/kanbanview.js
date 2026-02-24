@@ -7,8 +7,6 @@ const GetKanbanTasks = async (req, res) => {
   try {
     const groupId = req.group_id;
     const userId = req.user.id;
-    console.log("Group ID:", groupId);
-    console.log("User ID:", userId);
     const tasks = await Task.findAll({
       where: {
         group_id: groupId,

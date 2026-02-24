@@ -1,21 +1,9 @@
-import React,{useState,useEffect} from "react";
-import axios from "axios";
+
 import {ListTodo,Clock,Activity,CheckCircle2} from "lucide-react"
-const Stats = () => {
-const [stats, setStats] = useState({});
- const fetchStats = async () => {
-  const res = await axios.get("http://localhost:4000/admin/dashboard", {
-    withCredentials: true,
-  });
-  setStats(res.data);
-};
-  useEffect(() => {
-      fetchStats()
-    }, []);
-    
+const Stats = ({stats}) => {
   return (
     <div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-3">
             <StatCard
               title="Total Tasks"
               value={stats.totalAssigned}

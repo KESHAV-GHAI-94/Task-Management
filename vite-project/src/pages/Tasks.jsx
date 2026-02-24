@@ -7,12 +7,6 @@ const Tasks = () => {
   const [activeTab, setActiveTab] = useState("myTasks");
   return (
     <div>
-        <div className="flex min-h-screen w-full bg-gray-100 overflow-x-hidden">
-      <div className="hidden md:block">
-        <Sidebar />
-      </div>
-      <div className="flex-1">
-        <Navbar />
         <div className="border-b border-gray-200 bg-taupe-800/88">
           <nav className="flex">
             <button
@@ -46,8 +40,6 @@ const Tasks = () => {
           )}
         </div>
       </div>
-    </div>
-    </div>
   );
 };
 

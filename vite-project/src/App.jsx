@@ -9,12 +9,11 @@ import Groups from './pages/Groups';
 import Tasks from './pages/Tasks';
 import Kanban from "./pages/Kanban";
 // import ProtectedRoutes from './routes/ProtectedRoutes';
-import Settings from './pages/Settings';
 import MainGroupPage from './pages/MainGroupPage';
-import AddMemberGroup from './pages/AddMemberGroup';
 import CreateTask from './pages/CreateTask';
 import DetailedTaskPage from './pages/DetailedTaskPage';
 import IndividualGroupTask from './pages/IndividualGroupTask';
+import Layout from './components/Layout';
 const App = () => {
   return (
     <div>
@@ -23,16 +22,16 @@ const App = () => {
     <Route path="/signup" element={<Signup/>}/>
     <Route path ="/login" element={<Signin/>}/>
     {/* <Route element={<ProtectedRoutes />}> */}
+    <Route element={<Layout />}>
     <Route path="/dashboard" element={<Dashboard/>}/>
     <Route path="/groups" element={<Groups/>}/>
     <Route path="/tasks" element={<Tasks/>}/>
-    <Route path="/kanban" element={<Kanban/>}/>
-    <Route path="/settings" element={<Settings/>}/>
+    <Route path="/kanban/:id" element={<Kanban/>}/>
     <Route path="/groups/:id/members" element={<MainGroupPage/>} />
-    <Route path ="/groups/:id/members/add" element={<AddMemberGroup/>}/>
     <Route path ="/groups/:id/create-task" element={<CreateTask/>}/>
     <Route path="/tasks/:id" element={<DetailedTaskPage/>}/>
     <Route path="/groups/:id/tasks"element={<IndividualGroupTask/>}/>
+    </Route>
     {/* </Route> */}
     </Routes>
   </div>

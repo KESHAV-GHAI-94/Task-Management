@@ -1,7 +1,5 @@
 import React, { useState, useEffect,useContext } from "react";
-import Sidebar from "../components/Sidebar";
-import Navbar from "../components/Navbar";
-import axios from "axios";
+import Api from "../Api";
 import { useParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import {TaskContext} from "../Context/TaskContext";
@@ -20,9 +18,11 @@ const [form, setForm] = useState({
   useEffect(() => { 
     const fetchMembers = async () => {
       try {
-        const res = await axios.get(
-          `http://localhost:4000/user/groups/${id}/members`,
-          { withCredentials: true }
+        const res = await Api.get(`/user/groups/${id}/members`,
+          { withCredentials: true,
+          headers: {
+        "Cache-Control": "no-cache"
+      }}
         );
         setMembers(res.data.members);
       } catch (err) {
@@ -57,8 +57,7 @@ const [form, setForm] = useState({
     }
     try {
       setLoading(true);
-      const res = await axios.post(
-        `http://localhost:4000/task/${id}/create-task`,
+      const res = await Api.post(`/task/${id}/create-task`,
         form,
         { withCredentials: true }
       );
@@ -72,12 +71,6 @@ const [form, setForm] = useState({
     }
   };
   return (
-    <div className="flex min-h-screen w-full bg-gray-100 overflow-x-hidden">
-    <div className="hidden md:block">
-      <Sidebar />
-    </div>
-    <div className="flex-1">
-      <Navbar />
       <div className="max-w-2xl mx-auto p-6">
           <h2 className="text-2xl font-semibold mb-4">
             Create Task
@@ -155,8 +148,6 @@ const [form, setForm] = useState({
             </button>
           </form>
         </div>
-      </div>
-    </div>
   );
 };
 

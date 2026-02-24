@@ -14,6 +14,9 @@ const Groupsection = () => {
   const fetchGroups = async () => {
     const res = await axios.get("http://localhost:4000/user/groups", {
       withCredentials: true,
+      headers: {
+        "Cache-Control": "no-cache"
+      }
     });
     setGroups(res.data.groups);
   };

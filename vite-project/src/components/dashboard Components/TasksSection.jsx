@@ -26,8 +26,8 @@ const TasksSection = ({tasksPerPage}) => {
     fetchTasks();
   },[]);
   return (
-    <div className="bg-white rounded-xl shadow-sm md:p-2 sm:p-5 mt-4">
-      <div className="flex justify-between p-3 lg:py-0  items-center ">
+    <div className="bg-white rounded-xl shadow-sm md:p-2 sm:p-5 mt-3">
+      <div className="flex justify-between  p-3  lg:py-0  items-center ">
         <div className="flex gap-3 items-center">
           <h2 className="font-semibold text-lg">My Tasks</h2>
           <span className="rounded-xl bg-zinc-200 px-2 text-gray-500 text-sm">
@@ -59,53 +59,81 @@ const TasksSection = ({tasksPerPage}) => {
           </div>
         )}
       </div>
-
-      {/* desktop */}
-      <div className="hidden md:block px-4 overflow-x-auto">
-        <table className="w-full  border-collapse">
-          <thead>
-            <tr className="text-gray-500 text-sm border-b border-taupe-500">
-              <th className="text-left py-3">Title</th>
-              <th className="text-left py-3">Group</th>
-              <th className="text-left py-3">Role</th>
-              <th className="text-center py-3">Status</th>
-              <th className="text-center py-3">Priority</th>
+      <div className="hidden md:block px-4 mt-2">
+  <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+    <div className="overflow-x-auto">
+      <table className="w-full border-collapse">
+        <thead className="bg-taupe-200">
+          <tr className="text-gray-500 text-xs   uppercase tracking-wider">
+            <th className="text-left px-4 py-3 font-medium">Title</th>
+            <th className="text-left px-4 py-3 font-medium">Group</th>
+            <th className="text-left px-4 py-3 font-medium">Role</th>
+            <th className="text-center px-4 py-3 font-medium">Status</th>
+            <th className="text-center px-4 py-3 font-medium">Priority</th>
+          </tr>
+        </thead>
+        <tbody className="divide-y divide-gray-100">
+          {tasks.length === 0 ? (
+            <tr>
+              <td
+                colSpan="5"
+                className="text-center py-10 text-gray-400 text-sm"
+              >
+                No tasks found
+              </td>
             </tr>
-          </thead>
-          <tbody>
-            {tasks.length === 0 ? (
-              <tr>
-                <td colSpan="5" className="text-center py-6 text-gray-400">
-                  No tasks found
+          ) : (
+            visibleTasks.map((task) => (
+              <tr
+                key={task.id}
+                onClick={() => navigate(`/tasks/${task.id}`)}
+                className="
+                  group
+                  cursor-pointer
+                  transition
+                  hover:bg-blue-50
+                "
+              >
+                <td className="px-4 py-3">
+                  <span className="
+                    font-medium
+                    text-gray-800
+                    group-hover:text-blue-600
+                    transition
+                  ">
+                    {task.title}
+                  </span>
+                </td>
+                <td className="px-4 py-3 text-gray-600 text-sm">
+                  {task.group?.name || "No group"}
+                </td>
+                <td className="px-4 py-3">
+                  <span className="
+                    text-xs
+                    font-medium
+                    bg-gray-100
+                    text-gray-600
+                    px-2.5
+                    py-1
+                    rounded-md
+                  ">
+                    {task.role || "Guest"}
+                  </span>
+                </td>
+                <td className="px-4 py-3 text-center">
+                  <StatusBadge status={task.status} />
+                </td>
+                <td className="px-4 py-3 text-center">
+                  <PriorityBadge priority={task.priority} />
                 </td>
               </tr>
-            ) : (
-              visibleTasks.map((task) => (
-                <tr key={task.id} onClick={() => navigate(`/tasks/${task.id}`)} className="border-b hover:bg-gray-50 cursor-pointer">
-                  <td className="py-2.5 font-medium">{task.title}</td>
-                  <td className="py-3">
-                    <div className="flex items-center gap-2">
-                      {task.group?.name || "No group"}
-                    </div>
-                  </td>
-                  <td className="py-3">
-                    <span className="text-xs bg-gray-100 px-2 py-1 rounded-md">
-                      {task.role || "Member"}
-                    </span>
-                  </td>
-                  <td className="py-2.75 text-center">
-                    <StatusBadge status={task.status} />
-                  </td>
-                  <td className="py-3 text-center">
-                    <PriorityBadge priority={task.priority} />
-                  </td>
-                </tr>
-                
-              ))
-            )}
-          </tbody>
-        </table>
-      </div>
+            ))
+          )}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
       {/* mobile */}
       <div className="block p-3 pt-3  md:hidden">
         {tasks.length === 0 ? (
