@@ -78,7 +78,7 @@ const handleLogout = async () => {
           Tasks
         </Link>
         
-        <Link
+        {/* <Link
           to="/kanban"
           className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition
             ${
@@ -89,7 +89,7 @@ const handleLogout = async () => {
         >
           <Columns size={18} />
           Kanban
-        </Link>
+        </Link> */}
       </div>
       <div className="px-3 py-3 border-t border-taupe-800 space-y-2">
         <button

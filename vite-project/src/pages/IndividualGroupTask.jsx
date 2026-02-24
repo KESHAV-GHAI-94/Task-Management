@@ -1,46 +1,16 @@
-import React, { useState, useEffect } from "react";
-import Api from "../api";
-import { useAuth } from "../context/AuthContext";
+import useIndividualTask from "../hooks/useIndividualTask";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useParams, useNavigate } from "react-router-dom";
 const IndividualGroupTask = ({ tasksPerPage = 10 }) => {
-  const navigate = useNavigate();
-  const { id } = useParams();
-  const [tasks, setTasks] = useState([]);
-  const { user } = useAuth();
-  const currentUserId = user?.id;
-  const [currentTaskPage, setCurrentTaskPage] = useState(0);
-  const totalTaskPages = Math.ceil(tasks.length / tasksPerPage);
-  const visibleTasks = tasks.slice(
-    currentTaskPage * tasksPerPage,
-    currentTaskPage * tasksPerPage + tasksPerPage,
-  );
-  const fetchTasks = async () => {
-    const res = await Api.post(`/user/groups/${id}/tasks`,
-      {},
-      {
-        withCredentials: true,
-        headers: {
-          "Cache-Control": "no-cache",
-        },
-      },
-    );
-    const filteredTasks = res.data.tasks.filter(
-      (task) => task.group_id === Number(id),
-    );
-    setTasks(filteredTasks);
-  };
-  useEffect(() => {
-    fetchTasks();
-  }, [id]);
-  const isUserInvolved = (task) => {
-    if (!currentUserId) return false;
-    const isCreator = task.created_by === currentUserId;
-    const isAssigned = task.assignedUsers?.some(
-      (user) => user.id === currentUserId,
-    );
-    return isCreator || isAssigned;
-  };
+  const {
+    tasks,
+    visibleTasks,
+    loading,
+    currentTaskPage,
+    setCurrentTaskPage,
+    totalTaskPages,
+    isUserInvolved,
+    navigate,
+  } = useIndividualTask(tasksPerPage);
   return (
     <div className="px-4">
       <div className="bg-white rounded-xl shadow-sm md:p-2 sm:p-5 mt-4">

@@ -26,7 +26,7 @@ const App = () => {
     <Route path="/dashboard" element={<Dashboard/>}/>
     <Route path="/groups" element={<Groups/>}/>
     <Route path="/tasks" element={<Tasks/>}/>
-    <Route path="/kanban/:id" element={<Kanban/>}/>
+    <Route path="/groups/:id/kanban" element={<Kanban/>}/>
     <Route path="/groups/:id/members" element={<MainGroupPage/>} />
     <Route path ="/groups/:id/create-task" element={<CreateTask/>}/>
     <Route path="/tasks/:id" element={<DetailedTaskPage/>}/>

@@ -1,26 +1,47 @@
-import React from "react";
+const KanbanColumn = ({ title, tasks, color, onTaskClick }) => {
 
-const KanbanColumn = ({ title, tasks }) => {
+  const columnColors = {
+    gray: {
+      bg: "bg-gray-100",
+      header: "bg-gray-200 text-gray-700",
+      border: "border-gray-300",
+    },
+    yellow: {
+      bg: "bg-yellow-50",
+      header: "bg-yellow-200 text-yellow-800",
+      border: "border-yellow-300",
+    },
+    green: {
+      bg: "bg-green-50",
+      header: "bg-green-200 text-green-800",
+      border: "border-green-300",
+    },
+  };
+  const selected = columnColors[color] || columnColors.gray;
   return (
-    <div className="bg-gray-200 lg:h-[400px]  p-4 rounded-lg">
-      <h2 className="text-lg font-bold text-center mb-4">
-        {title}
-      </h2>
-      <div className="space-y-8">
+    <div
+      className={`${selected.bg} lg:h-[450px] p-3 rounded-xl border ${selected.border} flex flex-col`}>
+      <div
+        className={`${selected.header} text-sm font-semibold text-center py-2 rounded-lg mb-3 `}>
+        {title} ({tasks.length})
+      </div>
+      <div className="space-y-3 overflow-y-auto flex-1 pr-1">
         {tasks.length === 0 && (
-          <p className="text-gray-500 mt-20 text-center  text-sm">
+          <p className="text-gray-400 text-center text-sm mt-10">
             No tasks
           </p>
         )}
         {tasks.map((task) => (
           <div
             key={task.id}
-            className="bg-white p-3 rounded shadow"
-          >
-            <h3 className="font-semibold">
+            onClick={() => {
+              if (onTaskClick) onTaskClick(task.id);
+            }}
+            className="bg-white p-3 rounded-lg shadow-sm border border-gray-200 hover:shadow-md hover:bg-blue-50 hover:border-blue-300 transition cursor-pointer">
+            <h3 className="font-semibold text-sm text-gray-800">
               {task.title}
             </h3>
-            <p className="text-sm text-gray-600">
+            <p className="text-xs text-gray-500 mt-1 line-clamp-2">
               {task.description}
             </p>
           </div>

@@ -1,10 +1,9 @@
 import React from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link,useNavigate} from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import Api from "../Api"
 import { toast } from "react-toastify";
-import { Eye } from "lucide-react";
+import { Eye,FolderKanban} from "lucide-react";
 import DeleteModal from "../components/modals/DeleteModal";
 import AddMemberGroupModal from "../components/modals/AddMemberGroupModal";
 const MainGroupPage = () => {
@@ -18,7 +17,7 @@ const MainGroupPage = () => {
   const [selectedMemberId, setSelectedMemberId] = useState(null);
   const [showAddMemberModal, setShowAddMemberModal] = useState(false);
   const isOwner = groupMember?.owner_id === currentUserId;
-  
+  const navigate = useNavigate();
   const fetchMember = async () => {
     try {
       const res = await Api.get(`/user/groups/${id}/members`,
@@ -41,7 +40,6 @@ const MainGroupPage = () => {
       setloading(false);
     }
   };
-
   const removeMember = async (userId) => {
     try {
       const res = await Api.post(`/user/groups/${id}/members/${userId}/remove`,
@@ -61,13 +59,11 @@ const MainGroupPage = () => {
     setSelectedMemberId(userId);
     setShowDeleteModal(true);
   };
-
   const confirmRemoveMember = async () => {
     await removeMember(selectedMemberId);
     setShowDeleteModal(false);
     setSelectedMemberId(null);
   };
-
   useEffect(() => {
     fetchMember();
   }, [id]);
@@ -102,6 +98,10 @@ const MainGroupPage = () => {
                 View Tasks
               </button>
             </Link>
+            <button onClick={() => navigate(`/groups/${id}/kanban`)} className="flex items-center gap-2 bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition">
+                <FolderKanban size={16} />
+                View kanban
+              </button>
             <Link to={`/groups/${id}/create-task`}>
               <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition">
                 Create Task
