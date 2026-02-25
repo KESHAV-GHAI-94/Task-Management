@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
-import Api from "../Api";
-import { GroupContext } from "../Context/GroupContext";
+import Api from "../../Api";
+import { GroupContext } from "../../Context/GroupContext";
 
 export default function useGroups() {
   const { setSelectedGroup } = useContext(GroupContext);

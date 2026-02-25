@@ -2,6 +2,7 @@ const { Op } = require("sequelize");
 const GroupMember = require("../../models/groupmembersmodel");
 const User = require("../../models/userModel");
 const Group = require("../../models/groupmodel");
+const Task = require("../../models/tasksModel");
 
 const searchUsers = async (req, res) => {
   try {
@@ -183,16 +184,40 @@ const removeGroupMember = async (req, res) => {
   try {
     const { groupId, userId } = req.params;
     const loggedInUserId = req.user.id;
-
     if (parseInt(userId) === loggedInUserId) {
       return res.status(400).json({
         message: "Owner cannot remove himself"
       });
     }
+    const unfinishedTasks = await Task.count({
+      where: {
+        group_id: parseInt(groupId),
+        status: {
+          [Op.ne]: "completed"
+        }
+      },
+      include: [
+        {
+          model: User,
+          as: "assignedUsers",
+          where: {
+            id: parseInt(userId)
+          },
+          attributes: [],
+          through: { attributes: [] },
+          required: true
+        }
+      ]
+    });
+    if (unfinishedTasks > 0) {
+      return res.status(400).json({
+        message: `Cannot remove member. ${unfinishedTasks} unfinished task(s) remaining.`
+      });
+    }
     const member = await GroupMember.findOne({
       where: {
-        group_id: groupId,
-        user_id: userId
+        group_id: parseInt(groupId),
+        user_id: parseInt(userId)
       }
     });
     if (!member) {
@@ -200,14 +225,24 @@ const removeGroupMember = async (req, res) => {
         message: "Member not found in this group"
       });
     }
-    await member.destroy();
+    await GroupMember.destroy({
+      where: {
+        group_id: parseInt(groupId),
+        user_id: parseInt(userId)
+      }
+    });
     res.status(200).json({
       message: "Member removed successfully"
     });
+
   } catch (err) {
+
+    console.error(err);
+
     res.status(500).json({
       message: err.message
     });
+
   }
 };
 

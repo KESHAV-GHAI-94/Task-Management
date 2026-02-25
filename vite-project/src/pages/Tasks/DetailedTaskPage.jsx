@@ -1,7 +1,7 @@
-import Comments from "../components/Task/Comments";
-import RightSideBar from "../components/Task/RightSideBar";
-import DeleteModal from "../components/modals/DeleteModal";
-import useTaskDetails from "../hooks/useTaskdetail"
+import Comments from "../../components/Task/Comments";
+import RightSideBar from "../../components/Task/RightSideBar";
+import DeleteModal from "../../components/modals/DeleteModal";
+import useTaskDetails from "../../hooks/Tasks/useTaskdetail"
 const DetailedTaskPage = () => {
   const {
     id,

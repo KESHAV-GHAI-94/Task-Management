@@ -1,18 +1,18 @@
-import useGroups from "../hooks/useGroups";
+import useGroups from "../../hooks/Groups/useGroups";
 import { Link } from "react-router-dom";
 import { UsersRound } from "lucide-react";
 const Groups = () => {
 
  const { groups, loading, setSelectedGroup } = useGroups();
   return (
-    <div className="p-4 sm:p-6">
+    <div className="p-4 sm:p-6 ">
       <h2 className="text-xl font-semibold mb-3.5">Your Groups</h2>
       {loading ? (
         <p>Loading...</p>
       ) : groups.length === 0 ? (
         <p>No groups found</p>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-1 gap-4 sm:gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-1 gap-4 sm:gap-5 ">
           {groups.map((group) => (
             <Link
               key={group.id}

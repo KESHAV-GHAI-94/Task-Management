@@ -1,10 +1,9 @@
-import useIndividualTask from "../hooks/useIndividualTask";
+import useIndividualTask from "../../hooks/Tasks/useIndividualTask";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 const IndividualGroupTask = ({ tasksPerPage = 10 }) => {
   const {
     tasks,
     visibleTasks,
-    loading,
     currentTaskPage,
     setCurrentTaskPage,
     totalTaskPages,

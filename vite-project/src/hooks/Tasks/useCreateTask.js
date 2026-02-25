@@ -1,8 +1,8 @@
 import React, { useState, useEffect,useContext } from "react";
-import Api from "../Api";
+import Api from "../../Api";
 import { useParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import {TaskContext} from "../Context/TaskContext";
+import {TaskContext} from "../../Context/TaskContext";
 
 export default function useCreateTask(){
     const {id} = useParams();

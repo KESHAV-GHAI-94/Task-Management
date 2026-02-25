@@ -1,8 +1,9 @@
-import React from "react";
-import UseSignin from "../hooks/UseSignin";
+import UseSignin from "../../hooks/AuthHooks/UseSignin";
 import { Link } from "react-router-dom";
 import {Eye,EyeOff} from "lucide-react";
+// import MainLayout from "./MainLayout";
 const Login = () => {
+
   const {
     errors,
     showPass,
@@ -14,9 +15,11 @@ const Login = () => {
     touched,
     loading,
   } = UseSignin();
+
   return (
     <>
-      <div className="flex flex-col md:flex-row justify-center md:justify-between items-center min-h-screen px-4 sm:px-6 md:px-10 lg:px-20 py-6 bg-[#F4F4F9]">
+    {/* <MainLayout> */}
+      <div className="flex flex-col md:flex-row justify-center md:justify-between items-center min-h-screen  px-4 sm:px-6 md:px-10 lg:px-20 bg-[#F4F4F9]">
         <form
           onSubmit={handleSubmit}
           className="bg-white/88 p-4 sm:p-6 md:p-10 rounded-xl shadow-lg w-full max-w-md"
@@ -79,7 +82,7 @@ const Login = () => {
             </div>
             <Link
               className="text-blue-600 hover:underline"
-              to="/login/forget-password"
+              to="/forget-password"
             >
               Forgot Password?
             </Link>
@@ -90,6 +93,7 @@ const Login = () => {
   <p className="hero-tagline text-left">Plan less, accomplish more. Streamline your workflow with our intuitive, clutter-free dashboard.</p>
 </div>
       </div>
+    {/* </MainLayout> */}
     </>
   );
 };

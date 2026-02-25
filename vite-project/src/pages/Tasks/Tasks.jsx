@@ -1,8 +1,6 @@
-import React,{useState} from 'react';
-import Sidebar from "../components/Sidebar";
-import Navbar from "../components/Navbar";
-import TasksSection from '../components/dashboard Components/TasksSection';
-import TeamTasks from '../components/TeamTasks';
+import {useState} from 'react';
+import TasksSection from '../../components/dashboard Components/TasksSection';
+import TeamTasks from '../../components/TeamTasks';
 const Tasks = () => {
   const [activeTab, setActiveTab] = useState("myTasks");
   return (

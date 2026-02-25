@@ -235,6 +235,9 @@ const UpdateTaskStatus = async (req, res) => {
   try {
     const { taskId } = req.params;
     const { status } = req.body;
+    console.log("User:", req.user);
+    console.log("Params:", req.params);
+    console.log("Body:", req.body);
     const task = await Task.findByPk(taskId);
     if (!task) {
       return res.status(404).json({

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import Api from "../api";
-import { useAuth } from "../context/AuthContext";
+import Api from "../../api";
+import { useAuth } from "../../context/AuthContext";
 import { useParams, useNavigate } from "react-router-dom";
 export default function useIndividualTask(tasksPerPage){
 const navigate = useNavigate();

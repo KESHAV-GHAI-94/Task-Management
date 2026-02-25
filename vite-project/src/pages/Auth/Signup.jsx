@@ -1,9 +1,8 @@
-import React from "react";
-import useSignup from "../hooks/useSignup";
+import useSignup from "../../hooks/AuthHooks/UseSignup";
 import { Link } from "react-router-dom";
-import OtpModal from "../components/modals/Otpmodal";
-import {Eye,EyeOff} from "lucide-react";
-
+import OtpModal from "../../components/modals/Otpmodal";
+import {Eye,EyeOff, Import} from "lucide-react";
+// import MainLayout from "./MainLayout";
 const Signup = () => {
   const {
     showOtpModal,
@@ -25,10 +24,11 @@ const Signup = () => {
   } = useSignup();
   return (
     <>
-      <div className="flex flex-col md:flex-row justify-center md:justify-between items-center min-h-screen p-2 lg:px-20 bg-[#F4F4F9]">
+    {/* <MainLayout> */}
+      <div className="min-h-screen p-4 gap-10 flex md:flex-row justify-center md:justify-between items-center bg-[#F4F4F9]">
         <form
           onSubmit={handleSubmit}
-          className="bg-white/88 p-4 md:p-8 lg:p-10 rounded-xl shadow-lg w-full max-w-md"
+          className="bg-white/88 md:ms-10 p-4 md:p-8   lg:px8 lg:py-4 rounded-xl shadow-lg w-full max-w-md"
         >
           <h2 className="text-2xl font-bold mb-4 text-center">
             Create Account
@@ -41,7 +41,7 @@ const Signup = () => {
               value={form.name}
               onChange={handleChange}
               onBlur={handleBlur}
-              className="w-full p-1.5 sm:p-3 border rounded-lg text-lg"
+              className="w-full p-1.5 sm:p-2 border rounded-lg text-lg"
             />
             <p className="text-red-500 text-sm">{errors.name}</p>
           </div>
@@ -53,7 +53,7 @@ const Signup = () => {
               value={form.email}
               onChange={handleChange}
               onBlur={handleBlur}
-              className="w-full p-1.5 sm:p-3 border rounded-lg text-lg"
+              className="w-full p-1.5 sm:p-2 border rounded-lg text-lg"
             />
             <p className="text-red-500 text-sm">{errors.email}</p>
           </div>
@@ -66,7 +66,7 @@ const Signup = () => {
               value={form.phone}
               onChange={handleChange}
               onBlur={handleBlur}
-              className="w-full p-1.5 sm:p-3 border rounded-lg text-lg"
+              className="w-full p-1.5 sm:p-2 border rounded-lg text-lg"
             />
             <p className="text-red-500 text-sm">{errors.phone}</p>
           </div>
@@ -79,7 +79,7 @@ const Signup = () => {
               value={form.password}
               onChange={handleChange}
               onBlur={handleBlur}
-              className="w-full p-1.5 sm:p-3 border rounded-lg text-lg"
+              className="w-full p-1.5 sm:p-2 border rounded-lg text-lg"
             />
             <button
               type="button"
@@ -99,7 +99,7 @@ const Signup = () => {
               value={form.cpassword}
               onChange={handleChange}
               onBlur={handleBlur}
-              className="w-full p-1.5 sm:p-3 border rounded-lg text-lg"
+              className="w-full p-1.5 sm:p-2 border rounded-lg text-lg"
             />
             <button
               type="button"
@@ -113,7 +113,7 @@ const Signup = () => {
           <button
             type="submit"
             disabled={loading}
-            className={`w-full p-2 md:p-3 mb-3 md:mb-5 mt-4 md:mt-5 rounded-lg text-lg font-semibold text-white 
+            className={`w-full p-1 md:p-2 mb-3 md:mb-5 mt-2  rounded-lg text-lg font-semibold text-white 
   ${
     loading ? "bg-gray-400 cursor-not-allowed" : "bg-taupe-800 hover:bg-taupe-600"
   }`}
@@ -127,7 +127,7 @@ const Signup = () => {
             </Link>
           </div>
         </form>
-        <div className="hidden md:flex flex-col justify-center ml-10 max-w-lg">
+        <div className="hidden md:flex flex-col justify-center ml-2 max-w-xl">
   <h1 className="hero-title">From <span className="text-taupe-700">Chaos</span> to <span className="highlight text-[#3b82f6]">Clarity.</span></h1>
   <p className="hero-tagline text-center">Master your day with effortless tracking. Your journey to peak productivity starts right here.</p>
 </div>
@@ -144,6 +144,7 @@ const Signup = () => {
   />
 )}
       </div>
+      {/* </MainLayout> */}
     </>
   );
 };

@@ -1,21 +1,21 @@
-import React from "react";
+import React,{useContext} from "react";
 import { Link, useLocation,useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { AuthContext } from "../../context/AuthContext";
 
 import {
   LayoutDashboard,
   FolderKanban,
   CheckSquare,
   Columns,
-  Users,
-  Settings,
   LogOut
 } from "lucide-react";
 
 const Sidebar = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const { user, setUser } = useContext(AuthContext);
 const handleLogout = async () => {
     try {
       await axios.post(
@@ -23,9 +23,8 @@ const handleLogout = async () => {
         {},
         { withCredentials: true }
       );
-
+      setUser(null);
       toast.success("Logged out successfully");
-
       navigate("/login");
     } catch (err) {
       toast.error(err);
@@ -78,7 +77,7 @@ const handleLogout = async () => {
           Tasks
         </Link>
         
-        {/* <Link
+        <Link
           to="/kanban"
           className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition
             ${
@@ -89,7 +88,7 @@ const handleLogout = async () => {
         >
           <Columns size={18} />
           Kanban
-        </Link> */}
+        </Link>
       </div>
       <div className="px-3 py-3 border-t border-taupe-800 space-y-2">
         <button
@@ -101,8 +100,10 @@ const handleLogout = async () => {
           Logout
         </button>
       <div className="px-4 py-4 border-t border-taupe-800 text-xs text-taupe-400">
-        Logged in as User
-      </div></div>
+        <div>
+          Logged in as {user?.name || "Guest"}</div>
+          <div className="px-4.5">{user?.email}</div>
+        </div></div>
     </div>
   );
 };

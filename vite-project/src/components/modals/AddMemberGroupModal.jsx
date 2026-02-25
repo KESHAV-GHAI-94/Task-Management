@@ -51,12 +51,12 @@ const AddMemberGroupModal = ({ isOpen, onClose,fetchMember }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center">
+    <div className="fixed  inset-0 z-50 flex items-center justify-center">
       <div
         className="absolute inset-0 bg-black/40"
         onClick={onClose}
       ></div>
-      <div className="relative bg-white w-full max-w-lg rounded-xl shadow-lg p-5">
+      <div className="relative bg-white mx-4 w-full max-w-lg rounded-xl shadow-lg p-5">
         <div className="flex justify-between items-center border-b pb-3">
           <h2 className="text-lg font-semibold">
             Add Member to Group
@@ -106,7 +106,6 @@ const AddMemberGroupModal = ({ isOpen, onClose,fetchMember }) => {
                     onChange={(e) => setSelectedRole(e.target.value)}
                     className="border p-2 rounded-md flex-1"
                   >
-                    <option value="Guest">Guest</option>
                     <option value="Developer">Developer</option>
                     <option value="Tester">Tester</option>
                     <option value="Maintainer">Maintainer</option>
