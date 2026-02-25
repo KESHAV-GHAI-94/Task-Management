@@ -257,12 +257,9 @@ const axiosConfig = {
         );
       })}
     </div>
-    {/* Add Comment */}
-    <div className="border-t border-taupe-300 p-4 bg-gray-50">
-      <div className="flex gap-3">
-        <div className="w-9 h-9 rounded-full bg-blue-600 text-white flex items-center justify-center font-semibold">
-          {currentUser?.name?.charAt(0).toUpperCase()}
-        </div>
+    
+    <div className="border-t border-taupe-300 py-4 px-4 bg-gray-50">
+      <div className="flex gap-3 ">
         <div className="flex-1 flex gap-2">
           <input
             value={newComment}
@@ -270,11 +267,11 @@ const axiosConfig = {
               setNewComment(e.target.value)
             }
             placeholder="Write a comment..."
-            className="flex-1 border rounded-lg px-4 py-2 text-sm focus:ring-2 focus:ring-blue-200 outline-none"
+            className="flex-1 border rounded-lg   py-2  text-sm focus:ring-2 focus:ring-blue-200 outline-none"
           />
           <button
             onClick={handleAddComment}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-5 rounded-lg text-sm font-medium"
+            className="bg-blue-600 hover:bg-blue-700 text-white px-2 md:px-5 rounded-lg text-sm font-medium"
           >
             Send
           </button>

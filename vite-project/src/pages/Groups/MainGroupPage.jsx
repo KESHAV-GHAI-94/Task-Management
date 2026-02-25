@@ -1,10 +1,13 @@
-import {  Link} from "react-router-dom";
-import { Eye,FolderKanban} from "lucide-react";
+import { Link } from "react-router-dom";
+import { Eye, FolderKanban } from "lucide-react";
 import DeleteModal from "../../components/modals/DeleteModal";
 import AddMemberGroupModal from "../../components/modals/AddMemberGroupModal";
 import { useMainGroup } from "../../hooks/Groups/useMainGroup";
+import { useState } from "react";
+import CreateTaskModal from "../../components/modals/CreateTaskModal";
 const MainGroupPage = () => {
-const {
+  const [showCreateTaskModal, setShowCreateTaskModal] = useState(false);
+  const {
     id,
     navigate,
     groupMember,
@@ -25,7 +28,7 @@ const {
 
   if (loading) return <h2 className="text-center mt-10">Loading...</h2>;
   if (error) return <h2 className="text-center mt-10 text-red-500">{error}</h2>;
-  
+
   return (
     <div className="max-w-5xl md:mx-auto">
       {groupMember && (
@@ -49,19 +52,16 @@ const {
             </div>
           </div>
           <div className="flex flex-wrap gap-2">
+            <button
+              onClick={() => setShowCreateTaskModal(true)}
+              className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition"
+            >
+              Create Task
+            </button>
             <Link to={`/groups/${id}/tasks`}>
               <button className="flex items-center gap-2 bg-gray-700 hover:bg-gray-800 text-white px-4 py-2 rounded-lg text-sm font-medium transition">
                 <Eye size={16} />
                 View Tasks
-              </button>
-            </Link>
-            <button onClick={() =>navigate("/kanban", {state: { groupId: id }})} className="flex items-center gap-2 bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition">
-                <FolderKanban size={16} />
-                View kanban
-              </button>
-            <Link to={`/groups/${id}/create-task`}>
-              <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition">
-                Create Task
               </button>
             </Link>
             {isOwner && (
@@ -79,6 +79,13 @@ const {
                 />
               </>
             )}
+            <button
+              onClick={() => navigate("/kanban", { state: { groupId: id } })}
+              className="flex items-center gap-2 bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition"
+            >
+              <FolderKanban size={16} />
+              View kanban
+            </button>
           </div>
         </div>
       )}
@@ -151,6 +158,10 @@ const {
           message="Are you sure you want to remove this member from the group?"
         />
       </div>
+      <CreateTaskModal
+        isOpen={showCreateTaskModal}
+        onClose={() => setShowCreateTaskModal(false)}
+      />
     </div>
   );
 };

@@ -10,7 +10,7 @@ import Tasks from './pages/Tasks/Tasks';
 import KanbanViewSection from './pages/Tasks/KanbanViewSection';
 import ProtectedRoutes from './routes/ProtectedRoutes';
 import MainGroupPage from './pages/Groups/MainGroupPage';
-import CreateTask from './pages/Tasks/CreateTask';
+import CreateTask from './components/Task/CreateTask';
 import DetailedTaskPage from './pages/Tasks/DetailedTaskPage';
 import IndividualGroupTask from './pages/Groups/IndividualGroupTask';
 import ForgetPassword from './pages/Auth/Forgetpassword';

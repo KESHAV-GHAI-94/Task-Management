@@ -17,15 +17,6 @@ const KanbanViewSection = () => {
   } = useKanbanTabs();
 const currentGroup = groups.find(g => g.id === activeGroup);
 const userRole = currentGroup?.role;
-  const handleDragEnd = async (event) => {
-    const { active, over } = event;
-    if (!over) return;
-    const taskId = active.id;
-    const newStatus = over.id;
-    if (!taskId || !newStatus) return;
-    await updateTaskStatus(taskId, newStatus);
-  };
-
 useEffect(() => {
     if (groups.length === 0) return;
     if (location.state?.groupId) {
@@ -41,8 +32,8 @@ useEffect(() => {
     }
   }, [groups, location.state, groupId]);
   return (
-    <div className="p-6">
-      <div className="flex gap-3 border-b mb-6">
+    <div className="p-3 sm:p-6">
+      <div className="flex gap-2 sm:gap-3 border-b mb-4 sm:mb-6 overflow-x-auto pb-2 scrollbar-hide">
         {groups.map(group => (
           <button
             key={group.id}
