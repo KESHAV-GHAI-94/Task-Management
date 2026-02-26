@@ -19,7 +19,7 @@ const SortDropdown = ({ sortType, setSortType }) => {
         <ChevronDown size={14} />
       </button>
       {open && (
-        <div className="absolute mt-2 w-28 sm:w-29 bg-white border border-taupe-200 rounded-lg shadow-md overflow-hidden">
+        <div className="absolute mt-2 text-center w-28 sm:w-29 bg-white border border-taupe-200 rounded-lg shadow-md overflow-hidden">
           {options.map((option) => (
             <div
               key={option.value}
