@@ -30,8 +30,8 @@ const DetailedTaskPage = () => {
   }
   return (
     <div>
-      <div className="flex flex-col lg:flex-row gap-5 p-3 sm:p-5">
-        <div className="bg-white  w-full shadow-lg rounded-xl py-4 sm:py-4 px-4 sm:px-6 lg:px-8">
+      <div className="flex flex-col lg:flex-row items-stretch gap-5 p-3 sm:p-5">
+        <div className="bg-white w-full shadow-lg rounded-xl py-4 sm:py-5.5 px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col text-center sm:flex-row sm:justify-between sm:items-center gap-3">
             <h1 className="text-2xl font-bold ">{task.title}</h1>
             <div className="mb-4 flex  gap-2">

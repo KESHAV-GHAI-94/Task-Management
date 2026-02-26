@@ -1,4 +1,4 @@
-import {DndContext,closestCorners,DragOverlay} from "@dnd-kit/core";
+import {DndContext,closestCorners,DragOverlay,useSensor,useSensors,PointerSensor,TouchSensor} from "@dnd-kit/core";
 import { useKanbanTabs } from "../../hooks/useKanbanTabs";
 import { useParams,useLocation } from "react-router-dom";
 import { useEffect,useState } from "react";
@@ -15,8 +15,8 @@ const KanbanViewSection = () => {
     tasks,
     updateTaskStatus
   } = useKanbanTabs();
-const currentGroup = groups.find(g => g.id === activeGroup);
-const userRole = currentGroup?.role;
+  const currentGroup = groups.find(g => g.id === activeGroup);
+  const userRole = currentGroup?.role;
 useEffect(() => {
     if (groups.length === 0) return;
     if (location.state?.groupId) {
@@ -31,6 +31,22 @@ useEffect(() => {
       setActiveGroup(groups[0].id);
     }
   }, [groups, location.state, groupId]);
+  
+  // mobile 
+  const sensors = useSensors(
+  useSensor(PointerSensor, {
+    activationConstraint: {
+      distance: 10,
+    },
+  }),
+  useSensor(TouchSensor, {
+    activationConstraint: {
+      delay: 20,
+      tolerance: 5,
+    },
+  })
+);
+
   return (
     <div className="p-3 sm:p-6">
       <div className="flex gap-2 sm:gap-3 border-b mb-4 sm:mb-6 overflow-x-auto pb-2 scrollbar-hide">
@@ -39,17 +55,41 @@ useEffect(() => {
             key={group.id}
             onClick={() => setActiveGroup(group.id)}
             className={`
-              px-4 py-2 rounded-t-lg font-medium
+              px-4 py-0 md:py-2 rounded-t-lg font-medium
               ${activeGroup === group.id
-                ? "bg-blue-600 text-white"
-                : "bg-gray-200 text-gray-700"}
+                ? "bg-taupe-500 text-white"
+                : "bg-taupe-200 text-gray-700"}
             `}
           >
-            {group.name}
+            <div class="text-center ">
+            <div className=" text-center"><p>{group.name}</p></div>
+            <span className={`inline-block mt-1 text-xs px-2 py-0.5 rounded-full font-medium
+                ${
+                  group.role === "Owner"
+                    ? "bg-purple-100 text-purple-700"
+                    : group.role === "Maintainer"
+                      ? "bg-blue-100 text-blue-700"
+                      : group.role === "Developer"
+                        ? "bg-green-100 text-green-700"
+                        : group.role === "Tester"
+                          ? "bg-yellow-100 text-yellow-700"
+                          : group.role === "Guest"
+                            ? "bg-pink-100 text-pink-700"
+                            : group.role === "Designer"
+                            ? "bg-pink-100 text-pink-700"
+                            : group.role === "Seo"
+                            ? "bg-gray-100 text-gray-700"
+                            : group.role === "Project Manager"
+                            ? "bg-yellow-100 text-yellow-700"
+                            : "bg-gray-200 text-gray-700"
+                }
+              `}>{group.role}</span>
+            </div>
           </button>
         ))}
       </div>
       <DndContext
+      sensors={sensors}
   collisionDetection={closestCorners}
   onDragStart={(event) => {
     const taskId = event.active.id;
@@ -86,7 +126,7 @@ useEffect(() => {
 
     <KanbanColumn
       id="in_progress"
-      title="IN_PROGRESS"
+      title="IN PROGRESS"
       tasks={tasks.in_progress}
       color="yellow"
       onTaskClick={handleTaskClick}

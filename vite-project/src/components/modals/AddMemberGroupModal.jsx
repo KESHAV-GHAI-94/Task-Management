@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { X } from "lucide-react";
@@ -9,7 +8,7 @@ const AddMemberGroupModal = ({ isOpen, onClose,fetchMember }) => {
   const [query, setQuery] = useState("");
   const [users, setUsers] = useState([]);
   const [selectedUserId, setSelectedUserId] = useState(null);
-  const [selectedRole, setSelectedRole] = useState("Guest");
+  const [selectedRole, setSelectedRole] = useState("Developer");
 
   if (!isOpen) return null;
   const handleSearch = async (e) => {
@@ -43,7 +42,7 @@ const AddMemberGroupModal = ({ isOpen, onClose,fetchMember }) => {
       toast.success(res.data.message);
       setUsers(users.filter((u) => u.id !== userId));
       setSelectedUserId(null);
-      setSelectedRole("Guest");
+      setSelectedRole("Developer");
       fetchMember();
     } catch (err) {
       toast.error(err.response?.data?.message || "Error adding member");
@@ -109,6 +108,9 @@ const AddMemberGroupModal = ({ isOpen, onClose,fetchMember }) => {
                     <option value="Developer">Developer</option>
                     <option value="Tester">Tester</option>
                     <option value="Maintainer">Maintainer</option>
+                    <option value="Designer">Designer</option>
+                    <option value="Seo">Seo</option>
+                    <option value="Project Manager">Project Manager</option>
                   </select>
                   <button
                     onClick={() => AddMember(user.id)}

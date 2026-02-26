@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, Link } from "react-router-dom";
-import { Clock } from "lucide-react";
+import { Clock,Menu  } from "lucide-react";
 
-const Navbar = ({ onCreateGroup }) => {
+const Navbar = ({ onCreateGroup, onToggleSidebar }) => {
   const location = useLocation();
   const [desktopTime, setDesktopTime] = useState("");
   useEffect(() => {
@@ -20,9 +20,17 @@ const Navbar = ({ onCreateGroup }) => {
   };
   return (
     <div className="bg-taupe-100 border-b border-taupe-200 px-3 sm:px-6 py-2 sm:py-3 flex justify-between items-center shadow-sm">
-      <h1 className="text-lg sm:text-xl md:text-2xl font-semibold text-taupe-800">
-        {getTitle()}
-      </h1>
+  <div className="flex items-center gap-3">
+    <button
+      onClick={onToggleSidebar}
+      className="md:hidden p-2 rounded-lg hover:bg-taupe-200"
+    >
+      <Menu size={22} />
+    </button>
+    <h1 className="text-base sm:text-xl md:text-2xl font-semibold text-taupe-800">
+      {getTitle()}
+    </h1>
+  </div>
       <div className="flex items-center gap-2 sm:gap-6">
         <div className="flex items-center gap-2">
           <Clock size={18} className="hidden sm:block" />
@@ -34,7 +42,7 @@ const Navbar = ({ onCreateGroup }) => {
           {location.pathname === "/groups" && (
             <button
               onClick={onCreateGroup}
-              className="bg-taupe-500 hover:bg-taupe-600 text-white px-2 sm:px-4 py-1 rounded-lg text-xs sm:text-sm transition"
+              className="bg-taupe-500 hover:bg-taupe-600 text-white px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm transition"
             >
               <span className="hidden sm:inline">+ Create Group</span>
               <span className="sm:hidden">+ Group</span>

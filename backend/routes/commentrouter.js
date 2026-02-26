@@ -1,7 +1,7 @@
 const express = require('express')
 const commentRouter = express.Router();
 const verifyToken = require("../middleware/authmiddleware")
-const {addComment,getTaskComments,replyToComment, deleteComment, updatecomment} = require("../controllers/Comments")
+const {addComment,getTaskComments,replyToComment, deleteComment,addReply, updatecomment} = require("../controllers/Comments")
 commentRouter.get("/", (req, res) => {
   res.send("Comment route is working");
 }); 
@@ -17,6 +17,8 @@ commentRouter.post("/:commentId/reply",verifyToken,replyToComment);
 
 //delete comment:
 commentRouter.post("/:commentId/delete",verifyToken,deleteComment);
+// replt to reply
+commentRouter.post("/:commentId/reply", verifyToken, addReply);
 
 //update comment:
 commentRouter.post("/:commentId/update",verifyToken,updatecomment)

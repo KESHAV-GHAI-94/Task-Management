@@ -43,7 +43,6 @@ const addComment = async (req, res) => {
 //check comments
 const getTaskComments = async (req, res) => {
   try {
-
     const { taskId } = req.params;
     const userId = req.user.id;
 
@@ -61,41 +60,52 @@ const getTaskComments = async (req, res) => {
         user_id: userId,
       },
     });
+
     if (!membership) {
       return res.status(403).json({
         message: "You are not a member of this group",
       });
     }
 
-    const comments = await Comment.findAll({
-      where: {
-        task_id: taskId,
-        parent_comment_id: null,
-      },
-      attributes: ["id", "comment", "created_at"],
+    // Fetch ALL comments (flat)
+    const flatComments = await Comment.findAll({
+      where: { task_id: taskId },
+      attributes: [
+        "id",
+        "comment",
+        "created_at",
+        "parent_comment_id",
+      ],
       include: [
         {
           model: User,
           as: "author",
           attributes: ["id", "name"],
         },
-        {
-          model: Comment,
-          as: "replies",
-          attributes: ["id", "comment", "created_at"],
-          include: [
-            {
-              model: User,
-              as: "author",
-              attributes: ["id", "name"],
-            },
-          ],
-        },
       ],
-      order: [["created_at", "DESC"]],
+      order: [["created_at", "ASC"]],
+      raw: false,
+      nest: true,
+    });
+    const comments = flatComments.map(c => c.toJSON());
+    const commentMap = {};
+    const rootComments = [];
+    comments.forEach(comment => {
+      comment.replies = [];
+      commentMap[comment.id] = comment;
+    });
+    comments.forEach(comment => {
+      if (comment.parent_comment_id === null) {
+        rootComments.push(comment);
+      } else {
+        const parent = commentMap[comment.parent_comment_id];
+        if (parent) {
+          parent.replies.push(comment);
+        }
+      }
     });
     res.status(200).json({
-      comments,
+      comments: rootComments.reverse(),
     });
   } catch (err) {
     res.status(500).json({
@@ -126,7 +136,6 @@ const replyToComment = async (req, res) => {
       });
     }
     const task = await Task.findByPk(parentComment.task_id);
-
     if (!task) {
       return res.status(404).json({
         message: "Task not found"
@@ -138,7 +147,6 @@ const replyToComment = async (req, res) => {
         user_id: userId
       }
     });
-
     if (!membership) {
       return res.status(403).json({
         message: "You are not a member of this group"
@@ -157,6 +165,43 @@ const replyToComment = async (req, res) => {
   } catch (err) {
     res.status(500).json({
       message: err.message,
+    });
+  }
+};
+const addReply = async (req, res) => {
+  try {
+    const { commentId } = req.params;
+    const { comment } = req.body;
+    const userId = req.user.id;
+    if (!comment?.trim()) {
+      return res.status(400).json({
+        message: "Reply cannot be empty"
+      });
+    }
+    const parent = await Comment.findByPk(commentId);
+    if (!parent) {
+      return res.status(404).json({
+        message: "Parent not found"
+      });
+    }
+    if (parent.is_deleted) {
+      return res.status(403).json({
+        message: "Cannot reply to deleted comment"
+      });
+    }
+    const reply = await Comment.create({
+      task_id: parent.task_id,
+      user_id: userId,
+      comment: comment.trim(),
+      parent_comment_id: parent.id
+    });
+    res.status(201).json({
+      message: "Reply added successfully",
+      reply
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: err.message
     });
   }
 };
@@ -246,4 +291,4 @@ const updatecomment = async(req,res)=>{
     });
   }
 };
-module.exports = { addComment,getTaskComments,replyToComment,deleteComment,updatecomment };
+module.exports = { addComment,getTaskComments,replyToComment,addReply,deleteComment,updatecomment };

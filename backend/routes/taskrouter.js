@@ -10,13 +10,13 @@ taskRouter.get("/", (req, res) => {
 );
 
 //all roles who can create task - Owner, Maintainer, Developer, Tester, Designer
-taskRouter.post("/:groupId/create-task",verifyToken,authorizeRoles("Owner","Maintainer","Developer","Tester"),createTask);
+taskRouter.post("/:groupId/create-task",verifyToken,authorizeRoles("Owner","Maintainer","Developer","Tester","Seo","Project Manager","Designer"),createTask);
 
 //delete task - only Owner and Maintainer can delete task
 taskRouter.post("/delete-task/:taskId",verifyToken,authorizeRoles("Owner"),DeleteTask);
 
 //view task - all roles can view task except Guest
-taskRouter.get("/view-task/:taskId",verifyToken,authorizeRoles("Owner","Maintainer","Developer","Tester"),ViewTask);
+taskRouter.get("/view-task/:taskId",verifyToken,authorizeRoles("Owner","Maintainer","Developer","Tester","Seo","Project Manager","Designer"),ViewTask);
 
 //update task - only Owner and Maintainer can update task
 taskRouter.post("/update-task/:taskId",verifyToken,authorizeRoles("Owner","Maintainer"), UpdateTask);

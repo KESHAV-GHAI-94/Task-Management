@@ -64,8 +64,8 @@ const RightSideBar = ({
     }
   };
   return (
-    <div className="hidden md:block w-full lg:w-[300px]">
-      <div className="bg-white shadow-lg rounded-xl p-4 sm:p-6">
+    <div className="hidden lg:block me-5 w-full lg:w-[300px]">
+      <div className="bg-white fixed me-8 shadow-lg rounded-xl p-4 sm:p-6">
         <div className="flex flex-col sm:flex-row sm:justify-between gap-4">
           <div className="mb-4 flex-col">
             <h3 className="font-semibold text-gray-600">Status</h3>
@@ -116,7 +116,7 @@ const RightSideBar = ({
       </div>
       {showUpdateModal && (
         <div className="fixed inset-0 bg-black/50 flex justify-center items-center z-50 p-3">
-          <div className="bg-white rounded-xl shadow-lg w-[95%] sm:w-[500px] max-h-[90vh] overflow-y-auto p-4 sm:p-6">
+          <div className="bg-white fixed rounded-xl shadow-lg w-[95%] sm:w-[500px] max-h-[90vh] overflow-y-auto p-4 sm:p-6">
             <h2 className="text-xl font-bold mb-2">Update Task</h2>
             <input
               type="text"

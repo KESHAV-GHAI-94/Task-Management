@@ -1,26 +1,51 @@
 import useGroups from "../../hooks/Groups/useGroups";
+import { useMemo,useState } from "react";
 import { Link } from "react-router-dom";
 import { UsersRound } from "lucide-react";
+import SortDropdown from "../../components/SortDropdown"
 const Groups = () => {
+  const [sortType, setSortType] = useState("dateDesc");
+  const { groups, loading, setSelectedGroup } = useGroups();
+const sortedGroups = useMemo(()=>{
+  const sorted = [...groups];
+  switch (sortType) {
+      case "nameAsc":
+        return sorted.sort((a, b) =>
+          a.name.localeCompare(b.name)
+        );
+      case "nameDesc":
+        return sorted.sort((a, b) =>
+          b.name.localeCompare(a.name)
+        );
+      case "dateDesc":
+        return sorted.sort(
+          (a, b) => new Date(b.created_at) - new Date(a.created_at)
+        );
+      default:
+        return sorted;
+    }
+  }, [groups, sortType]);
 
- const { groups, loading, setSelectedGroup } = useGroups();
   return (
     <div className="p-4 sm:p-6 ">
-      <h2 className="text-xl font-semibold mb-3.5">Your Groups</h2>
+      <div className="flex justify-between items-center mb-4">
+  <h2 className="text-xl font-semibold">Your Groups</h2>
+  <SortDropdown sortType={sortType} setSortType={setSortType}/>
+</div>
       {loading ? (
         <p>Loading...</p>
       ) : groups.length === 0 ? (
         <p>No groups found</p>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-1 gap-4 sm:gap-5 ">
-          {groups.map((group) => (
+          {sortedGroups.map((group) => (
             <Link
               key={group.id}
               to={`/groups/${group.id}/members`}
               onClick={() => setSelectedGroup(group)}
               className="group block"
             >
-              <div className="bg-white rounded-2xl border border-gray-200 p-4 sm:p-5 transition-all duration-200 hover:shadow-lg hover:border-taupe-400 hover:-translate-y-1">
+              <div className="bg-white rounded-2xl border border-gray-200 p-4 sm:p-5 transition-all duration-200 hover:shadow-lg hover:border-taupe-400 hover:-translate">
                 <div className="flex items-center gap-3">
                   <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-linear-to-r from-taupe-400 to-taupe-600 text-white flex items-center justify-center font-semibold text-sm sm:text-lg">
                     {group.name.charAt(0).toUpperCase()}

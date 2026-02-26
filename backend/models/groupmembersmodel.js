@@ -34,6 +34,9 @@ const GroupMember = sequelize.define(
         "Developer",
         "Tester",
         "Guest",
+        "Designer",
+        "Seo",
+        "Project Manager"
       ),
     },
   },

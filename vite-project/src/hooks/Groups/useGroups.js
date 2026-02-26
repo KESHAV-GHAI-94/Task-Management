@@ -14,7 +14,7 @@ export default function useGroups() {
           "Cache-Control": "no-cache",
         },
       });
-      setGroups(res.data.groups);
+      setGroups(res.data.groups.reverse());
     } catch (err) {
       console.error(err);
     } finally {

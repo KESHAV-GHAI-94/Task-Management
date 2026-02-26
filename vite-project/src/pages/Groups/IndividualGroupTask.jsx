@@ -120,10 +120,6 @@ const IndividualGroupTask = ({ tasksPerPage = 10 }) => {
                     Group #{task.group_id}
                   </span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-500 text-sm">Role</span>
-                  <span>{task.role}</span>
-                </div>
                 <div className="flex justify-between items-center">
                   <span className="text-gray-500 text-sm">Status</span>
                   <StatusBadge status={task.status} />

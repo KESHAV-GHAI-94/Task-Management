@@ -125,6 +125,12 @@ const MainGroupPage = () => {
                           ? "bg-yellow-100 text-yellow-700"
                           : m.role === "Guest"
                             ? "bg-pink-100 text-pink-700"
+                            : m.role === "Designer"
+                            ? "bg-pink-100 text-pink-700"
+                            : m.role === "Seo"
+                            ? "bg-gray-100 text-gray-700"
+                            : m.role === "Project Manager"
+                            ? "bg-yellow-100 text-yellow-700"
                             : "bg-gray-200 text-gray-700"
                 }
               `}

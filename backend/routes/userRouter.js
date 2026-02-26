@@ -60,9 +60,9 @@ userRouter.post("/groups/:groupId/tasks", verifyToken,GetGroupTasks);
 // show my tasks 
 userRouter.post("/groups/tasks", verifyToken,GetMyTasks);
 //kanban section view
-userRouter.post("/groups/:groupId/kanbanSection",verifyToken,authorizeRoles("Owner", "Maintainer", "Developer", "Tester"),GetKanbanTasks);
+userRouter.post("/groups/:groupId/kanbanSection",verifyToken,authorizeRoles("Owner", "Maintainer", "Developer", "Tester","Seo","Project Manager","Designer",),GetKanbanTasks);
 //get task details
-userRouter.post("/tasks/:taskId/details",verifyToken,authorizeRoles("Owner", "Maintainer", "Developer", "Tester"),GetTaskDetails);
+userRouter.post("/tasks/:taskId/details",verifyToken,authorizeRoles("Owner", "Maintainer", "Developer", "Tester","Seo","Project Manager","Designer"),GetTaskDetails);
 userRouter.get("/me", verifyToken, async (req, res) => {
   try {
     res.status(200).json({

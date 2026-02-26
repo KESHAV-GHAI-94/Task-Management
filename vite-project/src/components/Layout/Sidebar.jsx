@@ -12,7 +12,7 @@ import {
   LogOut,
 } from "lucide-react";
 
-const Sidebar = () => {
+const Sidebar = ({ closeSidebar }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const { user, setUser } = useContext(AuthContext);
@@ -31,16 +31,16 @@ const Sidebar = () => {
     }
   };
   return (
-    <div className="w-64 h-full bg-taupe-800 text-taupe-100 flex flex-col border-r border-taupe-800">
+    <div className="w-64 h-full  bg-taupe-800 text-taupe-100 flex flex-col border-r border-taupe-800">
       <div className="px-5 py-6 border-b border-taupe-800">
         <h1 className="text-xl font-semibold text-taupe-50">
           Quick Task Manager
         </h1>
       </div>
-
       <div className="flex-1 px-3 py-4 space-y-4">
         <Link
           to="/dashboard"
+          onClick={closeSidebar}
           className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition
             ${
               location.pathname === "/dashboard"
@@ -75,7 +75,6 @@ const Sidebar = () => {
           <CheckSquare size={18} />
           Tasks
         </Link>
-
         <Link
           to="/kanban"
           className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition
