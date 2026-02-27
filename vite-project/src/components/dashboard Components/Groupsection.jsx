@@ -13,7 +13,6 @@ const Groupsection = () => {
   );
   const fetchGroups = async () => {
     const res = await Api.get("/user/groups", {
-      withCredentials: true,
       headers: {
         "Cache-Control": "no-cache"
       }

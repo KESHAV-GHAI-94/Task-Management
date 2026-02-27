@@ -9,10 +9,7 @@ const Comments = ({ taskId, currentUser }) => {
   const fetchComments = async () => {
     try {
       const res = await Api.post(
-        `/comment/${taskId}/comments`,
-        {},
-        { withCredentials: true }
-      );
+        `/comment/${taskId}/comments`);
       setComments(res.data.comments.reverse());
     } catch (err) {
       console.error(err);
@@ -28,8 +25,7 @@ const Comments = ({ taskId, currentUser }) => {
     try {
       await Api.post(
         `/comment/${taskId}/addcomment`,
-        { comment: newComment },
-        { withCredentials: true }
+        { comment: newComment }
       );
       setNewComment("");
       fetchComments();

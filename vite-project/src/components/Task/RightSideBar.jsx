@@ -50,11 +50,7 @@ const RightSideBar = ({
         {
           ...updateData,
           assigned_to: numericAssignees,
-        },
-        {
-          withCredentials: true,
-        },
-      );
+        });
       toast.success("Task updated successfully");
       setShowUpdateModal(false);
       fetchTask();

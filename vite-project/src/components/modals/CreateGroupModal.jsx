@@ -15,9 +15,6 @@ const CreateGroupModal = ({ onClose }) => {
       const res = await Api.post("/user/groups",
         {
           name: gname,
-        },
-        {
-          withCredentials: true,
         }
       );
       toast.success(res.data.message);

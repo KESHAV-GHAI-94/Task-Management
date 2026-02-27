@@ -7,16 +7,16 @@ import Progressbar from "../components/dashboard Components/Progressbar";
 import TasksSection from "../components/dashboard Components/TasksSection";
 const Dashboard = () => {
 const [stats, setStats] = useState({});
+
+  useEffect(() => {
 const fetchStats = async () => {
   const res = await Api.get("/admin/dashboard",{
-    withCredentials: true,
     headers: {
         "Cache-Control": "no-cache"
       }
   });
   setStats(res.data);
 };
-  useEffect(() => {
       fetchStats()
     }, []);
   return (

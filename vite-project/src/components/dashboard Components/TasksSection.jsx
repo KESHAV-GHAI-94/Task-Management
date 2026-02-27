@@ -13,12 +13,7 @@ const TasksSection = ({ tasksPerPage }) => {
   );
   useEffect(() => {
     const fetchTasks = async () => {
-    const res = await Api.post("/user/groups/tasks",
-      {},
-      {
-        withCredentials: true,
-      },
-    );
+    const res = await Api.post("/user/groups/tasks");
     setTasks(res.data.tasks);
   };
   fetchTasks();

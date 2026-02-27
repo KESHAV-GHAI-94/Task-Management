@@ -33,7 +33,6 @@ userRouter.post("/change-password",changePassword);
 
 //logout
 userRouter.post("/logout", (req, res) => {
-  res.clearCookie("authToken");
   res.json({ message: "Logged out successfully" });
 });
 

@@ -18,10 +18,8 @@ const Sidebar = ({ closeSidebar }) => {
   const { user, setUser } = useContext(AuthContext);
   const handleLogout = async () => {
     try {
-      await Api.post("/user/logout",
-        {},
-        { withCredentials: true },
-      );
+      await Api.post("/user/logout");
+      localStorage.removeItem("token");
       setUser(null);
       toast.success("Logged out successfully");
       navigate("/login");

@@ -19,12 +19,11 @@ const AddMemberGroupModal = ({ isOpen, onClose,fetchMember }) => {
       return;
     }
     try {
-      const res = await Api.get(`/user/search?query=${value}&groupId=${id}`,
-        { withCredentials: true ,
+      const res = await Api.get(`/user/search?query=${value}&groupId=${id}`,{
         headers: {
-        "Cache-Control": "no-cache"
-      }}
-      );
+          "Cache-Control": "no-cache",
+        },
+      });
       setUsers(res.data.users);
     } catch (err) {
       console.error(err);
@@ -36,8 +35,7 @@ const AddMemberGroupModal = ({ isOpen, onClose,fetchMember }) => {
         {
           userId,
           role: selectedRole,
-        },
-        { withCredentials: true }
+        }
       );
       toast.success(res.data.message);
       setUsers(users.filter((u) => u.id !== userId));

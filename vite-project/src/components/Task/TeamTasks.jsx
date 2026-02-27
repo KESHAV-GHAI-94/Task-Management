@@ -8,10 +8,7 @@ const TeamTasks = () => {
   useEffect(() => {
     const fetchGroupwiseTasks = async () => {
     try {
-      const res = await Api.post("/user/groups/groupwise/tasks",
-        {},
-        { withCredentials: true },
-      );
+      const res = await Api.post("/user/groups/groupwise/tasks");
       setGroups(res.data.groups || []);
     } catch (error) {
       console.error("Failed to fetch tasks", error);

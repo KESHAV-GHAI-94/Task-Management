@@ -95,11 +95,8 @@ export default function UseSignin() {
         {
           email: form.email,
           password: form.password,
-        },
-        {
-          withCredentials: true,
-        },
-      );
+        });
+        localStorage.setItem("token", res.data.token);
       toast.success(res.data.message);
       setUser(res.data.user);
       navigate("/dashboard", { state: { email: form.email } });

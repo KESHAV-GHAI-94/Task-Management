@@ -16,7 +16,6 @@ export default function useTaskDetails(){
         fetchTask();
       }, [id]);
       const axiosConfig = {
-        withCredentials: true,
         headers: { "Cache-Control": "no-cache" },
       };
       const fetchTask = async () => {
@@ -44,12 +43,7 @@ export default function useTaskDetails(){
       const handleDelete = async (taskId) => {
         try {
           await Api.post(
-            `/task/delete-task/${taskId}`,
-            {},
-            {
-              withCredentials: true,
-            },
-          );
+            `/task/delete-task/${taskId}`);
           toast.success("Task deleted");
           navigate(`/tasks`);
         } catch (err) {

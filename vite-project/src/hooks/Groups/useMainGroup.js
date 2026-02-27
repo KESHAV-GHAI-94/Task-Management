@@ -19,7 +19,6 @@ export function useMainGroup() {
   const fetchMember = async () => {
     try {
       const res = await Api.get(`/user/groups/${id}/members`, {
-        withCredentials: true,
         headers: {
           "Cache-Control": "no-cache",
         },
@@ -39,12 +38,7 @@ export function useMainGroup() {
   const removeMember = async (userId) => {
     try {
       const res = await Api.post(
-        `/user/groups/${id}/members/${userId}/remove`,
-        {},
-        {
-          withCredentials: true,
-        },
-      );
+        `/user/groups/${id}/members/${userId}/remove`);
       toast.success(res.data.message);
       setmember((prev) => prev.filter((m) => m.id !== userId));
     } catch (err) {

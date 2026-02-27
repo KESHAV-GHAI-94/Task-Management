@@ -42,14 +42,9 @@ const loginuser = async (req, res) => {
         expiresIn: "1d",
       },
     );
-    res.cookie("authToken", token, {
-      maxAge: 24*60 * 60 * 1000,
-      httpOnly: true,
-      secure: false,
-      sameSite:"Lax"
-    });
     res.status(200).json({
       message: "Login successful",
+      token,
       user: {
         id: user.id,
         name: user.name,
@@ -59,7 +54,6 @@ const loginuser = async (req, res) => {
     });
   }catch (err) {
   console.error("LOGIN ERROR:", err.message);
-  console.error(err);
 
   res.status(500).json({
     message: err.message,

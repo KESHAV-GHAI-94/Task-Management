@@ -9,7 +9,6 @@ export default function useGroups() {
   const fetchGroups = async () => {
     try {
       const res = await Api.get("/user/groups", {
-        withCredentials: true,
         headers: {
           "Cache-Control": "no-cache",
         },

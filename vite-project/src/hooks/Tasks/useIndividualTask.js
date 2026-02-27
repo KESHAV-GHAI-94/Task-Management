@@ -20,9 +20,7 @@ const navigate = useNavigate();
       setLoading(true);
       const res = await Api.post(
         `/user/groups/${id}/tasks`,
-        {},
         {
-          withCredentials: true,
           headers: { "Cache-Control": "no-cache" },
         }
       );

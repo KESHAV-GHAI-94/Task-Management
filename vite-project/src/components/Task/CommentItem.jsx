@@ -23,9 +23,8 @@ const CommentItem = ({ comment, fetchComments, currentUser, depth = 0 }) => {
     try {
       await Api.post(
         `/comment/${comment.id}/reply`,
-        { comment: replyText },
-        { withCredentials: true },
-      );
+        { comment: replyText }
+        );
       setReplyText("");
       setShowReply(false);
       fetchComments();
@@ -36,10 +35,7 @@ const CommentItem = ({ comment, fetchComments, currentUser, depth = 0 }) => {
   const deleteComment = async () => {
     try {
       await Api.post(
-        `/comment/${comment.id}/delete`,
-        {},
-        { withCredentials: true },
-      );
+        `/comment/${comment.id}/delete`);
       fetchComments();
     } catch {
       toast.error("Delete failed");

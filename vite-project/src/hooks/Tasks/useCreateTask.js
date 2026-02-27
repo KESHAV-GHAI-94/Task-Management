@@ -20,7 +20,7 @@ export default function useCreateTask(){
         const fetchMembers = async () => {
           try {
             const res = await Api.get(`/user/groups/${id}/members`,
-              { withCredentials: true,
+              {
               headers: {
             "Cache-Control": "no-cache"
           }}
@@ -59,8 +59,7 @@ export default function useCreateTask(){
         try {
           setLoading(true);
           const res = await Api.post(`/task/${id}/create-task`,
-            form,
-            { withCredentials: true }
+            form
           );
           toast.success(res.data.message);
           setTasks(res.data.message);

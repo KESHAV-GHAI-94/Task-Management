@@ -13,7 +13,6 @@ export function useKanbanTabs() {
   const fetchGroups = async () => {
     try {
       const res = await Api.get("/user/groups", {
-        withCredentials: true,
         headers: {
         "Cache-Control": "no-cache"
       }
@@ -27,9 +26,7 @@ export function useKanbanTabs() {
   const fetchTasksByGroup = async (groupId) => {
   try {
     const res = await Api.get(
-      `/groups/${groupId}/tasks`,
-      { withCredentials: true }
-    );
+      `/groups/${groupId}/tasks`);
     const groupedTasks = {
       todo: [],
       in_progress: [],
@@ -49,10 +46,7 @@ export function useKanbanTabs() {
   const fetchKanban = async (groupId) => {
   try {
     const res = await Api.post(
-      `/user/groups/${groupId}/kanbanSection`,
-      {},
-      { withCredentials: true }
-    );
+      `/user/groups/${groupId}/kanbanSection`);
     const groupedTasks = {
       todo: res.data?.TODO || [],
       in_progress: res.data?.IN_PROGRESS || [],
@@ -89,8 +83,7 @@ export function useKanbanTabs() {
       return updated;
     });
     await Api.post(`/task/update-task-status/${taskId}`,
-      { status: newStatus },
-      { withCredentials: true }
+      { status: newStatus }
     );
   } catch (err) {
     console.error(err);
