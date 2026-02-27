@@ -3,6 +3,7 @@ const TaskCard = ({ task, onTaskClick,userRole }) => {
     const canDrag =
   userRole === "Owner" ||
   userRole === "Maintainer";
+  
 const {
   attributes,
   listeners,

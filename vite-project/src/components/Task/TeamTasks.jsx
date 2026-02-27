@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import Api from "../../Api"
 import { useNavigate } from "react-router-dom";
 const TeamTasks = () => {
   const [groups, setGroups] = useState([]);
@@ -8,8 +8,7 @@ const TeamTasks = () => {
   useEffect(() => {
     const fetchGroupwiseTasks = async () => {
     try {
-      const res = await axios.post(
-        "http://localhost:4000/user/groups/groupwise/tasks",
+      const res = await Api.post("/user/groups/groupwise/tasks",
         {},
         { withCredentials: true },
       );

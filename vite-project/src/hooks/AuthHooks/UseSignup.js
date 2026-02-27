@@ -1,4 +1,4 @@
-import axios from "axios";
+import Api from "../../Api";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -61,8 +61,7 @@ export default function useSignup() {
     if (!otp.trim()) return toast.error("Enter OTP");
     try {
       setLoadingOtp(true);
-      const res = await axios.post(
-        "http://localhost:4000/user/verify-otp",
+      const res = await Api.post("/user/verify-otp",
         {
           email: form.email,
           otp,
@@ -111,7 +110,8 @@ export default function useSignup() {
     if (hasError) return;
     try {
       setLoading(true);
-      const res = await axios.post("http://localhost:4000/user/register", {
+      
+      const res = await Api.post("/user/register", {
         name: form.name,
         email: form.email,
         phone: form.phone,

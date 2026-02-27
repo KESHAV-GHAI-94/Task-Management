@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useLocation, Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useLocation} from "react-router-dom";
 import { Clock,Menu  } from "lucide-react";
 
 const Navbar = ({ onCreateGroup, onToggleSidebar }) => {

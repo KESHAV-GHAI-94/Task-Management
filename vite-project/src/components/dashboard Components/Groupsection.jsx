@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { useEffect, useState } from "react";
+import Api from "../../Api"
 import { ChevronLeft, ChevronRight, UsersRound } from "lucide-react";
 import {Link} from "react-router-dom"
 const Groupsection = () => {
@@ -12,7 +12,7 @@ const Groupsection = () => {
     currentGroupPage * groupsPerPage + groupsPerPage,
   );
   const fetchGroups = async () => {
-    const res = await axios.get("http://localhost:4000/user/groups", {
+    const res = await Api.get("/user/groups", {
       withCredentials: true,
       headers: {
         "Cache-Control": "no-cache"

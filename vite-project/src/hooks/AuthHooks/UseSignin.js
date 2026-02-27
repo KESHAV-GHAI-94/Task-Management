@@ -2,7 +2,7 @@ import React, { useState,useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { toast } from "react-toastify";
-import axios from "axios";
+import Api from "../../Api"
 export default function UseSignin() {
   const navigate = useNavigate();
   const { setUser } = useContext(AuthContext);
@@ -91,8 +91,7 @@ export default function UseSignin() {
     }
     try {
       setLoading(true);
-      const res = await axios.post(
-        "http://localhost:4000/user/login",
+      const res = await Api.post("/user/login",
         {
           email: form.email,
           password: form.password,

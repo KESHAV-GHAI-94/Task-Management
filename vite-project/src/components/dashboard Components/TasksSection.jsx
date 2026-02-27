@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import Api from "../../Api";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 const TasksSection = ({ tasksPerPage }) => {
@@ -13,8 +13,7 @@ const TasksSection = ({ tasksPerPage }) => {
   );
   useEffect(() => {
     const fetchTasks = async () => {
-    const res = await axios.post(
-      "http://localhost:4000/user/groups/tasks",
+    const res = await Api.post("/user/groups/tasks",
       {},
       {
         withCredentials: true,

@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import axios from "axios";
+import Api from "../../Api"
 import { toast } from "react-toastify";
 import { AuthContext } from "../../context/AuthContext";
 
@@ -18,8 +18,7 @@ const Sidebar = ({ closeSidebar }) => {
   const { user, setUser } = useContext(AuthContext);
   const handleLogout = async () => {
     try {
-      await axios.post(
-        "http://localhost:4000/user/logout",
+      await Api.post("/user/logout",
         {},
         { withCredentials: true },
       );
