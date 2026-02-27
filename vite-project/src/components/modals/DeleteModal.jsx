@@ -5,22 +5,22 @@ const DeleteModal = ({ isOpen, onClose, onConfirm, title, message }) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/50 bg-opacity-40 z-50">
       <div className="bg-white rounded-lg shadow-lg m-4 p-6 w-96">
-        <h2 className="text-lg font-semibold text-gray-800 mb-2">
+        <h2 className="text-sm md:text-lg font-semibold text-gray-800 mb-2">
           {title}
         </h2>
-        <p className="text-sm text-gray-600 mb-4">
+        <p className="text-xs md:text-sm text-gray-600 mb-4">
           {message}
         </p>
         <div className="flex justify-end gap-3">
           <button
             onClick={onClose}
-            className="px-4 py-1.5 rounded-md border text-gray-600 hover:bg-gray-100"
+            className="px-1.5 py-1 md:px-4 md:py-1.5 text-sm md:text-base cursor-pointer rounded-md border text-gray-600 hover:bg-gray-100"
           >
             Cancel
           </button>
           <button
             onClick={onConfirm}
-            className="px-4 py-1.5 rounded-md bg-red-600 text-white hover:bg-red-700"
+            className="px-1.5 py-1 md:px-4 md:py-1.5 text-sm md:text-base rounded-md cursor-pointer bg-red-600 text-white hover:bg-red-700"
           >
             Delete
           </button>

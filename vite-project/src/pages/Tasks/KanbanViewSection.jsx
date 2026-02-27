@@ -7,6 +7,7 @@ const KanbanViewSection = () => {
   const { groupId } = useParams();
   const location= useLocation();
   const [activeTask, setActiveTask] = useState(null);
+  
   const {
     groups,
     activeGroup,
@@ -15,22 +16,21 @@ const KanbanViewSection = () => {
     tasks,
     updateTaskStatus
   } = useKanbanTabs();
+
   const currentGroup = groups.find(g => g.id === activeGroup);
   const userRole = currentGroup?.role;
 useEffect(() => {
-    if (groups.length === 0) return;
-    if (location.state?.groupId) {
-      setActiveGroup(Number(location.state.groupId));
-      return;
-    }
-    if (groupId) {
-      setActiveGroup(Number(groupId));
-      return;
-    }
-    if (!activeGroup) {
-      setActiveGroup(groups[0].id);
-    }
-  }, [groups, location.state, groupId]);
+  if (!groups.length) return;
+  let initialGroup = null;
+  if (location.state?.groupId) {
+    initialGroup = Number(location.state.groupId);
+  } else if (groupId) {
+    initialGroup = Number(groupId);
+  } else {
+    initialGroup = groups[0].id;
+  }
+  setActiveGroup(initialGroup);
+}, [groups, location.state?.groupId, groupId,setActiveGroup]);
   
   // mobile 
   const sensors = useSensors(
@@ -39,12 +39,6 @@ useEffect(() => {
       distance: 10,
     },
   }),
-  useSensor(TouchSensor, {
-    activationConstraint: {
-      delay: 20,
-      tolerance: 5,
-    },
-  })
 );
 
   return (
@@ -55,15 +49,15 @@ useEffect(() => {
             key={group.id}
             onClick={() => setActiveGroup(group.id)}
             className={`
-              px-4 py-0 md:py-2 rounded-t-lg font-medium
+              px-2 py-0 md:py-2 rounded-t-lg cursor-pointer font-medium
               ${activeGroup === group.id
                 ? "bg-taupe-500 text-white"
                 : "bg-taupe-200 text-gray-700"}
             `}
           >
-            <div class="text-center ">
-            <div className=" text-center"><p>{group.name}</p></div>
-            <span className={`inline-block mt-1 text-xs px-2 py-0.5 rounded-full font-medium
+            <div className="text-center ">
+            <div className=" text-center"><p className="text-xs md:text-sm">{group.name}</p></div>
+            <span className={`inline-block my-1 text-xs px-1 md:px-2 py-0.5 rounded-full font-medium
                 ${
                   group.role === "Owner"
                     ? "bg-purple-100 text-purple-700"
@@ -144,7 +138,7 @@ useEffect(() => {
   </div>
   <DragOverlay>
     {activeTask ? (
-      <div className="bg-white p-3 rounded-lg shadow-lg border border-gray-300 w-[250px]">
+      <div className="bg-white p-3 rounded-lg shadow-lg border border-gray-300 w-auto">
         <h3 className="font-semibold text-sm text-gray-800">
           {activeTask.title}
         </h3>

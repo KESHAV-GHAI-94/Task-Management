@@ -5,10 +5,7 @@ import CommentItem from "./CommentItem";
 const Comments = ({ taskId, currentUser }) => {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
-  useEffect(() => {
-    fetchComments();
-  }, [taskId]);
-
+  
   const fetchComments = async () => {
     try {
       const res = await Api.post(
@@ -21,6 +18,10 @@ const Comments = ({ taskId, currentUser }) => {
       console.error(err);
     }
   };
+  
+  useEffect(() => {
+    fetchComments();
+  }, [taskId]);
 
   const addComment = async () => {
     if (!newComment.trim()) return;
@@ -69,7 +70,7 @@ const Comments = ({ taskId, currentUser }) => {
             className="flex-1 border border-taupe-300 rounded-lg px-3 py-2 text-xs md:text-sm focus:ring-2 focus:ring-taupe-400 outline-none"/>
           <button
             onClick={addComment}
-            className="bg-taupe-500 hover:bg-taupe-600 active:scale-95 text-white px-3 md:px-4 py-2 rounded-lg text-xs md:text-sm font-medium transition whitespace-nowrap"
+            className="bg-taupe-500 cursor-pointer hover:bg-taupe-600 active:scale-95 text-white px-3 md:px-4 py-2 rounded-lg text-xs md:text-sm font-medium transition whitespace-nowrap"
           >
             Send
           </button>

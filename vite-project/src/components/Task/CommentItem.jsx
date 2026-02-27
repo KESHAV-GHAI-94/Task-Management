@@ -69,14 +69,14 @@ const CommentItem = ({ comment, fetchComments, currentUser, depth = 0 }) => {
           <div className="flex gap-3 text-[11px] md:text-xs mt-1 flex-wrap ">
             <button
               onClick={() => setShowReply(!showReply)}
-              className="text-taupe-500 active:scale-95"
+              className="text-taupe-500 cursor-pointer active:scale-95"
             >
               Reply
             </button>
             {isMine && (
               <button
                 onClick={deleteComment}
-                className="text-red-500 active:scale-95"
+                className="text-red-500 cursor-pointer active:scale-95"
               >
                 Delete
               </button>
@@ -84,7 +84,7 @@ const CommentItem = ({ comment, fetchComments, currentUser, depth = 0 }) => {
             {flattenedReplies.length > 0 && (
               <button
                 onClick={() => setShowReplies((prev) => !prev)}
-                className="text-taupe-600 active:scale-95"
+                className="text-taupe-600 cursor-pointer active:scale-95"
               >
                 {showReplies
                   ? "Hide replies"
@@ -102,9 +102,9 @@ const CommentItem = ({ comment, fetchComments, currentUser, depth = 0 }) => {
               />
               <button
                 onClick={addReply}
-                className="flex-shrink-0 text-taupe-600 font-medium text-xs md:text-sm px-2 active:scale-95 "
+                className="flex-shrink-0 cursor-pointer bg-taupe-300 rounded-xl text-taupe-600 font-medium text-xs md:text-sm px-2 active:scale-95 "
               >
-                Send
+                Reply
               </button>
             </div>
           )}

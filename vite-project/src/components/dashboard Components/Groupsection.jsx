@@ -25,12 +25,12 @@ const Groupsection = () => {
   }, []);
   return (
     <div>
-      <div className="bg-white rounded-xl shadow-sm p-4 sm:p-5">
+      <div className="bg-white rounded-xl mt-3 md:mt-0 shadow-sm p-4 sm:p-5">
         <div className="flex items-center justify-between pe-1 mb-2">
             <Link to="/groups">
           <div className="flex items-center gap-2">
             <UsersRound className="text-blue-500" size={20} />
-            <h2 className="font-semibold text-lg text-gray-800">Groups</h2>
+            <h2 className="font-semibold text-sm md:text-lg text-gray-800">Groups</h2>
           </div></Link>
           {groups.length > groupsPerPage && (
             <div className="flex items-center gap-2">
@@ -39,7 +39,7 @@ const Groupsection = () => {
                   setCurrentGroupPage((prev) => Math.max(prev - 1))
                 }
                 disabled={currentGroupPage === 0}
-                className="flex items-center  justify-center w-8 h-8 rounded-md border border-gray-200 hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed transition"
+                className="flex items-center cursor-pointer justify-center h-6 w-6  md:w-8 md:h-8 rounded-md border border-gray-200 hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed transition"
               >
                 <ChevronLeft size={18} />
               </button>
@@ -50,7 +50,7 @@ const Groupsection = () => {
                   )
                 }
                 disabled={currentGroupPage === totalGroupPages - 1}
-                className="flex items-center  justify-center w-8 h-8 rounded-md border border-gray-200 hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed transition"
+                className="flex items-center cursor-pointer justify-center h-6 w-6  md:w-8 md:h-8 rounded-md border border-gray-200 hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed transition"
               >
                 <ChevronRight size={18} />
               </button>

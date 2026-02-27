@@ -17,7 +17,6 @@ const MainGroupPage = () => {
     isOwner,
     showDeleteModal,
     setShowDeleteModal,
-    selectedMemberId,
     setSelectedMemberId,
     showAddMemberModal,
     setShowAddMemberModal,
@@ -34,15 +33,15 @@ const MainGroupPage = () => {
       {groupMember && (
         <div className="bg-white rounded-xl shadow-sm sm:px-4 px-6 py-5  m-4 flex flex-col md:flex-row md:justify-between md:items-center gap-5">
           <div className="flex items-center gap-4">
-            <div className="w-14 h-14 bg-linear-to-br from-blue-500 to-blue-600 text-white flex items-center justify-center rounded-full text-xl font-semibold">
+            <div className="w-12 md:w-14 h-12 md:h-14 bg-linear-to-br from-blue-500 to-blue-600 text-white flex items-center justify-center rounded-full text-md md:text-xl font-semibold">
               {groupMember.name.charAt(0).toUpperCase()}
             </div>
             <div>
-              <h2 className="text-xl font-semibold text-gray-800">
+              <h2 className="text-md md:text-xl font-semibold text-gray-800">
                 {groupMember.name}
               </h2>
               <div className="flex items-center gap-3 mt-1">
-                <span className="text-sm text-gray-500">
+                <span className="text-xs md:text-sm text-gray-500">
                   {member.length} members
                 </span>
                 <span className="text-xs bg-gray-200 text-gray-700 px-2 py-1 rounded-full">
@@ -54,12 +53,12 @@ const MainGroupPage = () => {
           <div className="flex flex-wrap gap-2">
             <button
               onClick={() => setShowCreateTaskModal(true)}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition"
+              className="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white px-2 md:px-4 py-1.5 md:py-2 rounded-lg text-xs md:text-sm font-bold transition"
             >
               Create Task
             </button>
-            <Link to={`/groups/${id}/tasks`}>
-              <button className="flex items-center gap-2 bg-gray-700 hover:bg-gray-800 text-white px-4 py-2 rounded-lg text-sm font-medium transition">
+            <Link className="" to={`/groups/${id}/tasks`}>
+              <button className="cursor-pointer flex items-center gap-2 bg-taupe-700 hover:bg-taupe-800 text-white px-2 md:px-4 py-1.5 md:py-2 rounded-lg text-sm font-medium transition">
                 <Eye size={16} />
                 View Tasks
               </button>
@@ -68,7 +67,7 @@ const MainGroupPage = () => {
               <>
                 <button
                   onClick={() => setShowAddMemberModal(true)}
-                  className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition"
+                  className="cursor-pointer flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-2 md:px-4 py-1.5 md:py-2 rounded-lg text-xs md:text-sm font-medium transition"
                 >
                   Add Member
                 </button>
@@ -81,7 +80,7 @@ const MainGroupPage = () => {
             )}
             <button
               onClick={() => navigate("/kanban", { state: { groupId: id } })}
-              className="flex items-center gap-2 bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition"
+            className="flex cursor-pointer items-center gap-2 bg-orange-600 hover:bg-orange-700 text-white px-2 md:px-4 py-1.5 md:py-2 rounded-lg text-xs md:text-sm font-medium transition"
             >
               <FolderKanban size={16} />
               View kanban
@@ -97,10 +96,10 @@ const MainGroupPage = () => {
           {member.map((m) => (
             <div
               key={m.id}
-              className="flex items-center justify-between px-3 md:px-4 py-3 rounded-lg hover:bg-gray-50 transition"
+              className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 px-4 py-4 rounded-xl hover:bg-gray-50 transition"
             >
               <div className="flex items-center gap-4">
-                <div className="w-11 h-11 bg-gray-500 text-white flex items-center justify-center rounded-full font-semibold">
+                <div className="w-10 h-10 bg-gray-500 text-white flex items-center justify-center rounded-full font-semibold text-sm">
                   {m.name.charAt(0).toUpperCase()}
                 </div>
                 <div>
@@ -113,7 +112,7 @@ const MainGroupPage = () => {
                     <div>
                       <span
                         className={`
-                inline-block mt-1 text-xs px-2 py-0.5 rounded-full font-medium
+                inline-block mt-1 text-xs px-2 py-1 rounded-full bg-gray-200 text-gray-700
                 ${
                   m.role === "Owner"
                     ? "bg-purple-100 text-purple-700"
@@ -126,12 +125,12 @@ const MainGroupPage = () => {
                           : m.role === "Guest"
                             ? "bg-pink-100 text-pink-700"
                             : m.role === "Designer"
-                            ? "bg-pink-100 text-pink-700"
-                            : m.role === "Seo"
-                            ? "bg-gray-100 text-gray-700"
-                            : m.role === "Project Manager"
-                            ? "bg-yellow-100 text-yellow-700"
-                            : "bg-gray-200 text-gray-700"
+                              ? "bg-pink-100 text-pink-700"
+                              : m.role === "Seo"
+                                ? "bg-gray-100 text-gray-700"
+                                : m.role === "Project Manager"
+                                  ? "bg-yellow-100 text-yellow-700"
+                                  : "bg-gray-200 text-gray-700"
                 }
               `}
                       >
@@ -145,7 +144,7 @@ const MainGroupPage = () => {
               {isOwner && m.id !== groupMember.owner_id && (
                 <button
                   onClick={() => handleRemoveClick(m.id)}
-                  className="text-red-600 hover:text-red-700 text-sm font-medium px-3 py-1 rounded-md hover:bg-red-50 transition"
+                  className="text-red-600 cursor-pointer hover:text-red-700  text-sm font-medium px-3 py-1 rounded-md hover:bg-red-50 transition"
                 >
                   Remove
                 </button>

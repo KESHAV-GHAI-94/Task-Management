@@ -32,8 +32,8 @@ const Sidebar = ({ closeSidebar }) => {
   };
   return (
     <div className="w-64 h-full  bg-taupe-800 text-taupe-100 flex flex-col border-r border-taupe-800">
-      <div className="px-5 py-6 border-b border-taupe-800">
-        <h1 className="text-xl font-semibold text-taupe-50">
+      <div className="px-3 md:px-5 py-6 border-b border-taupe-800">
+        <h1 className="text-base md:text-xl  font-semibold text-taupe-50">
           Quick Task Manager
         </h1>
       </div>
@@ -91,7 +91,7 @@ const Sidebar = ({ closeSidebar }) => {
       <div className="px-3 py-3 border-t border-taupe-800 space-y-2">
         <button
           onClick={handleLogout}
-          className="flex items-center gap-2 w-full px-3 py-2 rounded-lg text-sm
+          className="flex cursor-pointer items-center gap-2 w-full px-3 py-2 rounded-lg text-sm
           text-red-300 hover:bg-red-500/10 hover:text-red-400 transition"
         >
           <LogOut size={16} />
@@ -99,7 +99,7 @@ const Sidebar = ({ closeSidebar }) => {
         </button>
         <div className="px-4 py-4 border-t border-taupe-700 ">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-taupe-500 flex items-center justify-center text-white font-semibold">
+            <div className="md:w-10 w-8 h-8 md:h-10 rounded-full bg-taupe-500 flex items-center justify-center text-white font-semibold">
               {user?.name ? user.name.charAt(0).toUpperCase() : "G"}
             </div>
             <div className="flex flex-col">
@@ -107,7 +107,7 @@ const Sidebar = ({ closeSidebar }) => {
                 {user?.name || "Guest"}
               </span>
               <span className="text-xs text-gray-400">
-                {user?.email || "guest@example.com"}
+                {user?.email || "guest@yopmail.com"}
               </span>
             </div>
           </div>

@@ -53,7 +53,7 @@ const ForgetPassword = () => {
         >
           {loading ? "Sending..." : "Send OTP"}
         </button>
-        <div className="text-blue-600 mt-3 text-end px-10 cursor-pointer" onClick={() => Navigate("/login")}>login</div>
+        <div className="mt-3 text-start md:text-center px-0.5 md:px-10 "><p>If remember Login Back? <span className="text-blue-600 cursor-pointer ps-4" onClick={() => Navigate("/login")}>login</span></p></div>
       </form>
 
       <div className="hidden md:flex flex-col justify-center ml-10 max-w-lg">

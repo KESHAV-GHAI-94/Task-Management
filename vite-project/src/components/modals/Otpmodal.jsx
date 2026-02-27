@@ -18,9 +18,9 @@ const OtpModal = ({
         >
           ✕
         </button>
-        <h2 className="text-xl font-semibold text-center mb-4">{title}</h2>
+        <h2 className="text-base md:text-lg font-semibold text-center mb-4">{title}</h2>
         {email && (
-          <p className="text-sm text-gray-500 text-center mb-4">
+          <p className="text-xs md:text-sm text-gray-500 text-center mb-4">
             OTP sent to <span className="font-medium">{email}</span>
           </p>
         )}
@@ -29,12 +29,12 @@ const OtpModal = ({
           placeholder="Enter OTP"
           value={otp}
           onChange={(e) => setOtp(e.target.value)}
-          className="w-full border border-gray-300 rounded-lg p-3 mb-4 focus:outline-none focus:ring-2 focus:ring-taupe-600"
+          className="w-full border border-gray-300 rounded-lg p-1.5 md:p-3 mb-3 md:mb-4 focus:outline-none focus:ring-2 focus:ring-taupe-600"
         />
         <button
           onClick={onVerify}
           disabled={loading}
-          className={`w-full p-3 rounded-lg text-white font-semibold
+          className={`w-full p-1.5 md:p-3 rounded-lg text-white font-semibold
             ${loading ? "bg-gray-400" : "bg-taupe-800 hover:bg-taupe-600"}
           `}
         >

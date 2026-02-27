@@ -21,7 +21,7 @@ const fetchStats = async () => {
     }, []);
   return (
         <div className="p-4 lg:pt-0">
-          <h3 className="m-2 text-xl font-semibold text-taupe-800">
+          <h3 className="m-2 text-lg md:text-xl font-semibold text-taupe-800">
             Stats View
           </h3>
           <Stats stats={stats}/>

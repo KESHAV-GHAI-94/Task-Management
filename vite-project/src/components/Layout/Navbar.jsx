@@ -42,7 +42,7 @@ const Navbar = ({ onCreateGroup, onToggleSidebar }) => {
           {location.pathname === "/groups" && (
             <button
               onClick={onCreateGroup}
-              className="bg-taupe-500 hover:bg-taupe-600 text-white px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm transition"
+              className="bg-taupe-500 cursor-pointer hover:bg-taupe-600 text-white px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm transition"
             >
               <span className="hidden sm:inline">+ Create Group</span>
               <span className="sm:hidden">+ Group</span>

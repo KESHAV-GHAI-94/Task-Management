@@ -75,7 +75,7 @@ export function useKanbanTabs() {
         completed: []
       };
       Object.values(prev)
-        .flat()
+        .flat().reverse()
         .forEach(task => {
           if (task.id === taskId) {
             updated[newStatus].push({
@@ -96,15 +96,20 @@ export function useKanbanTabs() {
     console.error(err);
   }
 };
-
   useEffect(() => {
-    fetchGroups();
+    const loadgroups =async()=>{
+      fetchGroups();
+    };
+    loadgroups();
   }, []);
   useEffect(() => {
     if (activeGroup) {
-      fetchKanban(activeGroup);
+      (async()=>{
+        await fetchKanban(activeGroup);
+      })();
     }
   }, [activeGroup]);
+  
   return {
     groups,
     activeGroup,            

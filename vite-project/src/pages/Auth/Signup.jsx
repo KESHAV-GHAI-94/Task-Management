@@ -1,7 +1,7 @@
 import useSignup from "../../hooks/AuthHooks/UseSignup";
 import { Link } from "react-router-dom";
 import OtpModal from "../../components/modals/Otpmodal";
-import {Eye,EyeOff, Import} from "lucide-react";
+import {Eye,EyeOff} from "lucide-react";
 // import MainLayout from "./MainLayout";
 const Signup = () => {
   const {
@@ -24,11 +24,10 @@ const Signup = () => {
   } = useSignup();
   return (
     <>
-    {/* <MainLayout> */}
-      <div className="min-h-screen p-4 gap-10 flex md:flex-row justify-center md:justify-between items-center bg-[#F4F4F9]">
+      <div className="min-h-screen flex flex-col md:flex-row justify-center md:justify-between items-center bg-[#F4F4F9] px-4 sm:px-6 md:px-10 lg:px-20 py-6">
         <form
           onSubmit={handleSubmit}
-          className="bg-white/88 md:ms-10 p-4 md:p-8   lg:px8 lg:py-4 rounded-xl shadow-lg w-full max-w-md"
+          className="bg-white/88 md:ms-10 p-4 md:p-8   lg:px-8 lg:py-4 rounded-xl shadow-lg w-full max-w-md"
         >
           <h2 className="text-2xl font-bold mb-4 text-center">
             Create Account
@@ -41,7 +40,7 @@ const Signup = () => {
               value={form.name}
               onChange={handleChange}
               onBlur={handleBlur}
-              className="w-full p-1.5 sm:p-2 border rounded-lg text-lg"
+              className="w-full p-1 sm:p-2 border rounded-lg text-lg"
             />
             <p className="text-red-500 text-sm">{errors.name}</p>
           </div>
@@ -53,7 +52,7 @@ const Signup = () => {
               value={form.email}
               onChange={handleChange}
               onBlur={handleBlur}
-              className="w-full p-1.5 sm:p-2 border rounded-lg text-lg"
+              className="w-full p-1 sm:p-2 border rounded-lg text-lg"
             />
             <p className="text-red-500 text-sm">{errors.email}</p>
           </div>
@@ -66,7 +65,7 @@ const Signup = () => {
               value={form.phone}
               onChange={handleChange}
               onBlur={handleBlur}
-              className="w-full p-1.5 sm:p-2 border rounded-lg text-lg"
+              className="w-full p-1 sm:p-2 border rounded-lg text-lg"
             />
             <p className="text-red-500 text-sm">{errors.phone}</p>
           </div>
@@ -79,12 +78,12 @@ const Signup = () => {
               value={form.password}
               onChange={handleChange}
               onBlur={handleBlur}
-              className="w-full p-1.5 sm:p-2 border rounded-lg text-lg"
+              className="w-full p-1 sm:p-2 border rounded-lg text-lg"
             />
             <button
               type="button"
               onClick={() => setShowPass(!showPass)}
-              className="absolute right-3 top-8 sm:top-10"
+              className="absolute right-3 top-8 sm:top-9"
             >
               {showPass ? <Eye /> : <EyeOff />}
             </button>
@@ -99,12 +98,12 @@ const Signup = () => {
               value={form.cpassword}
               onChange={handleChange}
               onBlur={handleBlur}
-              className="w-full p-1.5 sm:p-2 border rounded-lg text-lg"
+              className="w-full p-1 sm:p-2 border rounded-lg text-lg"
             />
             <button
               type="button"
               onClick={() => setShowCPass(!showCPass)}
-              className="absolute right-3 top-8 sm:top-10"
+              className="absolute right-3 top-8 sm:top-9"
             >
               {showCPass ? <Eye /> : <EyeOff />}
             </button>
@@ -144,7 +143,6 @@ const Signup = () => {
   />
 )}
       </div>
-      {/* </MainLayout> */}
     </>
   );
 };

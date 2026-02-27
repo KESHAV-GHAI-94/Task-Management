@@ -12,14 +12,14 @@ const SortDropdown = ({ sortType, setSortType }) => {
     <div className="relative  inline-block text-left">
       <button
         onClick={() => setOpen(!open)}
-        className="flex items-center  gap-2 bg-taupe-100 hover:bg-taupe-200 border border-taupe-300 text-taupe-800 px-3 py-2 rounded-lg shadow-sm text-sm transition"
+        className="flex items-center  gap-1 md:gap-2 bg-taupe-100 hover:bg-taupe-200 border border-taupe-300 text-taupe-800 px-1 md:px-3 py-1 md:py-2 rounded-lg shadow-sm text-sm transition"
       >
         <ArrowUpDown size={14} />
         {selected?.label}
         <ChevronDown size={14} />
       </button>
       {open && (
-        <div className="absolute mt-2 text-center w-28 sm:w-29 bg-white border border-taupe-200 rounded-lg shadow-md overflow-hidden">
+        <div className="absolute mt-2 text-center w-25 sm:w-29 bg-white border border-taupe-200 rounded-lg shadow-md overflow-hidden">
           {options.map((option) => (
             <div
               key={option.value}

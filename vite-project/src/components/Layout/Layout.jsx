@@ -17,7 +17,7 @@ const Layout = () => {
         <div className={`absolute inset-0 bg-black transition-opacity duration-300 ${ sidebarOpen ? "opacity-20" : "opacity-0"}`}
           onClick={() => setSidebarOpen(false)}/>
         <div
-          className={`absolute top-0 left-0 h-full w-64 transform bg-taupe-800 transition-transform duration-300 ${
+          className={`absolute top-0 left-0 h-full w-auto transform bg-taupe-800 transition-transform duration-300 ${
             sidebarOpen ? "translate-x-0" : "-translate-x-full"
           }`}
         >

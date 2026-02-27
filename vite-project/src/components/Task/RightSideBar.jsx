@@ -68,38 +68,38 @@ const RightSideBar = ({
       <div className="bg-white fixed me-8 shadow-lg rounded-xl p-4 sm:p-6">
         <div className="flex flex-col sm:flex-row sm:justify-between gap-4">
           <div className="mb-4 flex-col">
-            <h3 className="font-semibold text-gray-600">Status</h3>
+            <h3 className="font-semibold text-center mb-2 text-gray-600">Status</h3>
             <span className="px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-sm">
               {task.status}
             </span>
           </div>
           <div className="mb-4 flex-col gap-2">
             <h3 className="font-semibold text-gray-600">Created By:</h3>
-            <div>
+            <div className="text-center">
               <p className="font-medium">{task.created_by?.name}</p>
               <p className="text-sm text-gray-500">{task.created_by?.email}</p>
               <p className="text-sm text-gray-500">{task.created_by?.role}</p>
             </div>
           </div>
         </div>
-        <div className="mb-4 gap-5">
+        <div className="mb-4 text-center gap-5">
           <h3 className="font-semibold mb-2">Assign Members</h3>
-          <div className="flex flex-wrap gap-2 mb-3">
+          <div className="flex justify-center flex-wrap gap-2 mb-3">
             {task.assigned_to?.map((user) => (
               <span
                 key={user.id}
                 className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm"
               >
-                {`${user.name}-  ${user.role}`}
+                {`${user.name} -  ${user.role}`}
               </span>
             ))}
           </div>
         </div>
-        <div className="flex flex-col sm:flex-row sm:justify-end gap-3 mt-6">
+        <div className="flex flex-col sm:flex-row sm:justify-center gap-3 mt-6">
           {currentUser?.role === "Owner" && (
             <button
               onClick={handleUpdate}
-              className="px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition"
+              className="px-4 py-2 cursor-pointer bg-taupe-500 text-white rounded-lg hover:bg-taupe-600 transition"
             >
               Update
             </button>
@@ -107,7 +107,7 @@ const RightSideBar = ({
           {currentUser?.role === "Owner" && (
             <button
               onClick={onDeleteClick}
-              className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
+              className="px-4 py-2 cursor-pointer bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
             >
               Delete
             </button>

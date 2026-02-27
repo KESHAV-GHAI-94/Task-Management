@@ -64,7 +64,7 @@ const sortedGroups = useMemo(()=>{
                     {group.role}
                   </span>
                   <div className="flex items-center gap-1 text-gray-600">
-                    <UsersRound size={16} className="sm:w-[18px] sm:h-[18px]" />
+                    <UsersRound size={16} className="h-4 md:h-5" />
                     <span className="text-xs sm:text-sm font-medium">
                       {group.memberCount}
                     </span>

@@ -39,10 +39,10 @@ const CreateGroupModal = ({ onClose }) => {
         >
           ✕
         </button>
-        <h2 className="text-xl font-semibold text-center mb-4">
+        <h2 className="text-md md:text-xl font-semibold text-center mb-4">
           Create Your Own Group
         </h2>
-        <label className="block mb-2 text-sm font-medium">
+        <label className="block mb-2 text-xs md:text-sm font-medium">
           Group Name
         </label>
         <input
@@ -50,12 +50,12 @@ const CreateGroupModal = ({ onClose }) => {
           placeholder="Enter Group name"
           value={gname}
           onChange={(e) => setgname(e.target.value)}
-          className="w-full border rounded-lg p-3 mb-4 focus:ring-2 focus:ring-taupe-600"
+          className="w-full border rounded-lg p-1.5 mb-3 md:p-3 md:mb-4 focus:ring-2 focus:ring-taupe-600"
         />
         <button
           onClick={handleCreateGroup}
           disabled={loading}
-          className="w-full bg-taupe-600 hover:bg-taupe-700 text-white p-3 rounded-lg"
+          className="w-full bg-taupe-600 cursor-pointer hover:bg-taupe-700 text-white p-1.5 md:p-3 rounded-lg"
         >
           {loading ? "Creating..." : "Create Group"}
         </button>

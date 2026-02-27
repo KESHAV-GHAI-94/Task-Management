@@ -18,29 +18,28 @@ const Login = () => {
 
   return (
     <>
-    {/* <MainLayout> */}
       <div className="flex flex-col md:flex-row justify-center md:justify-between items-center min-h-screen  px-4 sm:px-6 md:px-10 lg:px-20 bg-[#F4F4F9]">
         <form
           onSubmit={handleSubmit}
           className="bg-white/88 p-4 sm:p-6 md:p-10 rounded-xl shadow-lg w-full max-w-md"
         >
-          <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-5 md:mb-6 text-center">Login</h2>
           <div className="mb-4">
-            <label id="signupl">Email</label>
+            <label id="signupl" className="block text-sm sm:text-base font-medium mb-1">Email</label>
             <input
               name="email"
               placeholder="Email"
               value={form.email}
               onChange={handleChange}
               onBlur={handleBlur}
-              className="w-full p-2 sm:p-3 border rounded-lg text-base sm:text-lg"
+              className="w-full p-2 sm:p-3 border rounded-lg text-sm sm:text-base md:text-lg focus:outline-none focus:ring-2 focus:ring-taupe-400"
             />
             {touched.email && errors.email && (
-              <p className="text-red-500 text-sm">{errors.email}</p>
+              <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.email}</p>
             )}
           </div>
           <div className="mb-4 relative">
-            <label id="signupl">Password</label>
+            <label id="signupl" className="block text-sm sm:text-base font-medium mb-1" >Password</label>
             <input
               type={showPass ? "text" : "password"}
               name="password"
@@ -48,35 +47,36 @@ const Login = () => {
               value={form.password}
               onChange={handleChange}
               onBlur={handleBlur}
-              className="w-full p-1.5 sm:p-3 border rounded-lg text-lg"
+              className="w-full p-2 sm:p-3 border rounded-lg text-sm sm:text-base md:text-lg focus:outline-none focus:ring-2 focus:ring-taupe-400"
             />
             <button
               type="button"
               onClick={() => setShowPass(!showPass)}
-              className="absolute right-3 top-8 sm:top-10"
+              className="absolute right-3 top-8 sm:top-9 md:top-10 text-gray-500"
             >
               {showPass ? <Eye/> : <EyeOff/>}
             </button>
             {touched.password && errors.password && (
-              <p className="text-red-500 text-sm">{errors.password}</p>
+              <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.password}</p>
             )}
           </div>
           <button
             type="submit"
             disabled={loading}
-            className={`w-full p-2 md:p-3 mb-2 mt-3 md:mb-5 rounded-lg text-lg font-semibold text-white 
-            ${
-              loading
-                ? "bg-gray-400 cursor-not-allowed"
-                : "bg-taupe-800 hover:bg-taupe-600"
-            }`}
+            className={`w-full py-2 sm:py-3 mb-3 md:mb-5 rounded-lg 
+          text-sm sm:text-base md:text-lg font-semibold text-white transition
+          ${
+            loading
+              ? "bg-gray-400 cursor-not-allowed"
+              : "bg-taupe-800 hover:bg-taupe-600"
+          }`}
           >
             {loading ? "Logging in..." : "Login"}
           </button>
-          <div className="flex flex-col items-center gap-3 mt-2 md:mt-4">
+          <div className="flex flex-col items-center gap-2 sm:gap-3 mt-3 md:mt-4 text-sm sm:text-base">
             <div className="flex gap-2">
               <p>Not Having an account?</p>
-              <Link className="text-blue-700" to="/signup">
+              <Link className="text-blue-700 hover:underline" to="/signup">
                 Sign up
               </Link>
             </div>
@@ -93,7 +93,6 @@ const Login = () => {
   <p className="hero-tagline text-left">Plan less, accomplish more. Streamline your workflow with our intuitive, clutter-free dashboard.</p>
 </div>
       </div>
-    {/* </MainLayout> */}
     </>
   );
 };

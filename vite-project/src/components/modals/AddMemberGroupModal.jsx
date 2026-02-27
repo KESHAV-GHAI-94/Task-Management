@@ -55,22 +55,22 @@ const AddMemberGroupModal = ({ isOpen, onClose,fetchMember }) => {
         className="absolute inset-0 bg-black/40"
         onClick={onClose}
       ></div>
-      <div className="relative bg-white mx-4 w-full max-w-lg rounded-xl shadow-lg p-5">
-        <div className="flex justify-between items-center border-b pb-3">
-          <h2 className="text-lg font-semibold">
+      <div className="relative bg-taupe-50 px-4 mx-4 w-full max-w-lg rounded-xl shadow-lg p-5">
+        <div className="flex justify-between px-2 items-center border-b border-taupe-300 pb-3">
+          <h2 className="text-sm md:text-lg font-semibold">
             Add Member to Group
           </h2>
           <button onClick={onClose}>
             <X size={20} className="text-gray-500 hover:text-gray-700" />
           </button>
         </div>
-        <div className="mt-4">
+        <div className="mt-4 px-2">
           <input
             type="text"
             value={query}
             onChange={handleSearch}
             placeholder="Search user by name or email..."
-            className="w-full p-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500"
+            className="w-full p-1 md:p-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-taupe-500"
           />
         </div>
         <div className="mt-4 max-h-78 overflow-y-auto">
@@ -82,28 +82,28 @@ const AddMemberGroupModal = ({ isOpen, onClose,fetchMember }) => {
           {users.map((user) => (
             <div
               key={user.id}
-              className="border rounded-lg p-3 mb-2"
+              className="border rounded-lg p-2 md:p-3 mb-2"
             >
               <div className="flex justify-between items-center">
                 <div>
-                  <p className="font-medium">{user.name}</p>
-                  <p className="text-sm text-gray-500">
+                  <p className="text-sm md:text-md font-medium">{user.name}</p>
+                  <p className="text-xs md:text-md text-taupe-500">
                     {user.email}
                   </p>
                 </div>
                 <button
                   onClick={() => setSelectedUserId(user.id)}
-                  className="bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-600"
+                  className="bg-taupe-500 text-white text-sm py-1 px-2 md:px-3 md:py-1 cursor-pointer rounded-md hover:bg-taupe-600"
                 >
                   Add
                 </button>
               </div>
               {selectedUserId === user.id && (
-                <div className="flex gap-2 mt-3">
+                <div className="flex gap-2  mt-2 md:mt-3">
                   <select
                     value={selectedRole}
                     onChange={(e) => setSelectedRole(e.target.value)}
-                    className="border p-2 rounded-md flex-1"
+                    className="border p-1 md:p-2 rounded-md text-sm cursor-pointer flex-1"
                   >
                     <option value="Developer">Developer</option>
                     <option value="Tester">Tester</option>
@@ -114,7 +114,7 @@ const AddMemberGroupModal = ({ isOpen, onClose,fetchMember }) => {
                   </select>
                   <button
                     onClick={() => AddMember(user.id)}
-                    className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600"
+                    className="bg-taupe-400 cursor-pointer text-white text-sm px-1.5 py-1 md:px-3 md:py-2 rounded-md hover:bg-taupe-600"
                   >
                     Confirm
                   </button>
