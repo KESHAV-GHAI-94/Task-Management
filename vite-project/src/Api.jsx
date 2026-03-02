@@ -2,6 +2,7 @@ import axios from "axios";
 const Api = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
 });
+
 Api.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
   if (token) {
@@ -9,6 +10,7 @@ Api.interceptors.request.use((config) => {
   }
   return config;
 });
+
 Api.interceptors.response.use(
   (response) => response,
   (error) => {

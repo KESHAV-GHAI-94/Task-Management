@@ -11,15 +11,15 @@ const Groupsection = () => {
     currentGroupPage * groupsPerPage,
     currentGroupPage * groupsPerPage + groupsPerPage,
   );
-  const fetchGroups = async () => {
-    const res = await Api.get("/user/groups", {
-      headers: {
-        "Cache-Control": "no-cache"
-      }
-    });
-    setGroups(res.data.groups);
-  };
   useEffect(() => {
+    const fetchGroups = async () => {
+      const res = await Api.get("/user/groups", {
+        headers: {
+          "Cache-Control": "no-cache"
+        }
+      });
+      setGroups(res.data.groups);
+    };
     fetchGroups();
   }, []);
   return (

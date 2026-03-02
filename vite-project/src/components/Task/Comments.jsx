@@ -17,7 +17,10 @@ const Comments = ({ taskId, currentUser }) => {
   };
   
   useEffect(() => {
-    fetchComments();
+    const loadComments = async () => {
+      await fetchComments();
+    };
+    loadComments();
   }, [taskId]);
 
   const addComment = async () => {

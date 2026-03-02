@@ -1,25 +1,21 @@
 import useGroups from "../../hooks/Groups/useGroups";
-import { useMemo,useState } from "react";
+import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { UsersRound } from "lucide-react";
-import SortDropdown from "../../components/SortDropdown"
+import SortDropdown from "../../components/SortDropdown";
 const Groups = () => {
   const [sortType, setSortType] = useState("dateDesc");
   const { groups, loading, setSelectedGroup } = useGroups();
-const sortedGroups = useMemo(()=>{
-  const sorted = [...groups];
-  switch (sortType) {
+  const sortedGroups = useMemo(() => {
+    const sorted = [...groups];
+    switch (sortType) {
       case "nameAsc":
-        return sorted.sort((a, b) =>
-          a.name.localeCompare(b.name)
-        );
+        return sorted.sort((a, b) => a.name.localeCompare(b.name));
       case "nameDesc":
-        return sorted.sort((a, b) =>
-          b.name.localeCompare(a.name)
-        );
+        return sorted.sort((a, b) => b.name.localeCompare(a.name));
       case "dateDesc":
         return sorted.sort(
-          (a, b) => new Date(b.created_at) - new Date(a.created_at)
+          (a, b) => new Date(b.created_at) - new Date(a.created_at),
         );
       default:
         return sorted;
@@ -29,9 +25,9 @@ const sortedGroups = useMemo(()=>{
   return (
     <div className="p-4 sm:p-6 ">
       <div className="flex justify-between items-center mb-4">
-  <h2 className="text-xl font-semibold">Your Groups</h2>
-  <SortDropdown sortType={sortType} setSortType={setSortType}/>
-</div>
+        <h2 className="text-xl font-semibold">Your Groups</h2>
+        <SortDropdown sortType={sortType} setSortType={setSortType} />
+      </div>
       {loading ? (
         <p>Loading...</p>
       ) : groups.length === 0 ? (

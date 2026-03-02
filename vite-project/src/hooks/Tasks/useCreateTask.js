@@ -26,8 +26,8 @@ export default function useCreateTask(){
           }}
             );
             setMembers(res.data.members);
-          } catch (err) {
-            toast.error("Failed to load members");
+          }catch(err) {
+            toast.error(err.message);
           }
         };
         fetchMembers();
