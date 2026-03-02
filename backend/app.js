@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require('express');
 const app = express();
 const cors = require('cors');
+app.use(cors());
 app.use(cors({
   origin: "http://localhost:5173"
 }));
@@ -21,5 +22,5 @@ app.get('/', (req, res) => {
 }
 );
 app.listen(process.env.PORT || 4000, () => {
-  console.log('listening on port 4000!');
+  console.log(`listening on port ${process.env.PORT}`);
 });

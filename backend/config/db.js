@@ -1,16 +1,17 @@
 const { Sequelize } = require("sequelize");
 
-const sequelize = new Sequelize(
-  "taskmanagement",
-  "postgres",
-  "1234",
-  {
-    host: "localhost",
-    port: 5432,
-    dialect: "postgres",
-    logging: false,
-  }
-);
+const sequelize = new Sequelize(process.env.DATABASE_URL, {
+  dialect: "postgres",
+  protocol: "postgres",
+  logging: false,
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false,
+    },
+  },
+});
+
 module.exports = sequelize;
 
 require("../models/userModel");
