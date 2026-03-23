@@ -1,6 +1,6 @@
 import React, { useState,useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../../context/AuthContext";
+import { AuthContext } from "../../Context/AuthContext";
 import { toast } from "react-toastify";
 import Api from "../../Api"
 export default function UseSignin() {
