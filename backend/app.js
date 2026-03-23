@@ -17,6 +17,7 @@ app.use("/admin", adminRouter);
 app.use("/user", userRouter);
 app.use("/task", taskRouter);
 app.use("/comment", commentRouter);
+console.log("DATABASE_URL:", process.env.DATABASE_URL);
 app.get('/', (req, res) => {
   res.send('Hello World!');
 }
