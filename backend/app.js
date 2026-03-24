@@ -1,9 +1,13 @@
 require("dotenv").config();
 const express = require('express');
 const app = express();
-const cors = require('cors');
+const cors = require("cors");
+
 app.use(cors({
-  origin: "https://task-management-1-pahq.onrender.com/"
+  origin: "https://task-management-1-pahq.onrender.com", // ❗ remove /
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"]
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
