@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 const sequelize = require("./config/db");
 const userRouter = require('./routes/userRouter');
 const taskRouter = require('./routes/taskrouter');
-const commentRouter = require('./routes/commentrouter');
+const commentRouter = require('./routes/commentRouter');
 const adminRouter = require("./routes/AdminRouter");
 app.use("/admin", adminRouter);
 app.use("/user", userRouter);
