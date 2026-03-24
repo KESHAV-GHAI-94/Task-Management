@@ -38,12 +38,9 @@ const signup = async (req, res) => {
         signup_otp_expiry: otpExpiry,
         is_verified: false,
       });
-      try {
-        await sendEmailotp(email, otp);
-      } catch (err) {
-        console.error("Email error:", err);
-        // ❗ DO NOT throw error
-      }
+      sendEmailotp(email, otp).catch(err => {
+  console.error("Email error:", err.message);
+});
       return res.status(200).json({
         success: true,
         message: "OTP resent. Verify your account.",
