@@ -4,8 +4,7 @@ const app = express();
 const cors = require("cors");
 
 app.use(cors({
-  origin: "https://task-management-1-pahq.onrender.com", // ❗ remove /
-  credentials: true,
+  origin: "https://task-management-1-pahq.onrender.com",
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"]
 }));
