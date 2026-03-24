@@ -29,16 +29,18 @@
 //     }
 // };
 // module.exports = {sendEmailotp};
-const { Resend } = require('resend');
+
+const { Resend } = require("resend");
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-export const sendEmailotp = async (email, otp) => {
+const sendEmailotp = async (email, otp) => {
   await resend.emails.send({
-    from: 'onboarding@resend.dev',
+    from: "onboarding@resend.dev",
     to: email,
-    subject: 'Your OTP',
+    subject: "Your OTP",
     html: `<h2>Your OTP is ${otp}</h2>`
   });
 };
-module.exports = {sendEmailotp};
+
+module.exports = { sendEmailotp };
