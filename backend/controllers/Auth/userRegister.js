@@ -22,7 +22,7 @@ const signup = async (req, res) => {
         message: "Email already registered",
       });
     }
-    
+
     const saltRounds = 10;
     const password_hash = await bcrypt.hash(password, saltRounds);
 
@@ -38,7 +38,12 @@ const signup = async (req, res) => {
         signup_otp_expiry: otpExpiry,
         is_verified: false,
       });
-      await sendEmailotp(email, otp);
+      try {
+        await sendEmailotp(email, otp);
+      } catch (err) {
+        console.error("Email error:", err);
+        // ❗ DO NOT throw error
+      }
       return res.status(200).json({
         success: true,
         message: "OTP resent. Verify your account.",
