@@ -5,15 +5,17 @@ const cors = require("cors");
 
 app.use(cors({
   origin: "https://task-management-1-pahq.onrender.com",
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  allowedHeaders: ["Content-Type", "Authorization"]
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
 }));
+
+app.options("*", cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 const sequelize = require("./config/db");
 const userRouter = require('./routes/userRouter');
 const taskRouter = require('./routes/taskrouter');
-const commentRouter = require('../backend/routes/commentrouter');
+const commentRouter = require('./routes/commentrouter');
 const adminRouter = require("./routes/AdminRouter");
 app.use("/admin", adminRouter);
 app.use("/user", userRouter);
