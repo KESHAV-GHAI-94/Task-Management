@@ -37,7 +37,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 const sendEmailotp = async (email, otp) => {
   await resend.emails.send({
     from: "messaging@resend.dev",
-    to: email,
+    to: "keshavghai94@gmail.com",
     subject: "Your OTP",
     html: `<h2>Your OTP is ${otp}</h2>`
   });
