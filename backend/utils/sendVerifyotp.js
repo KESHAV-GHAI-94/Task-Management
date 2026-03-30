@@ -29,25 +29,3 @@ const sendEmailotp = async(email,otp)=>{
     }
 };
 module.exports = {sendEmailotp};
-
-// const { Resend } = require("resend");
-
-// const resend = new Resend(process.env.RESEND_API_KEY);
-
-// const sendEmailotp = async (email, otp) => {
-//   try {
-//     const response = await resend.emails.send({
-//       from: "onboarding@resend.dev",
-//       to: "keshavghai94@gmail.com", // ONLY this works in test mode
-//       subject: "Your OTP",
-//       html: `<h2>Your OTP is ${otp}</h2>`
-//     });
-
-//     console.log("✅ Email sent:", response);
-
-//   } catch (err) {
-//     console.error("❌ Error:", err);
-//   }
-// };
-
-// module.exports = { sendEmailotp };
