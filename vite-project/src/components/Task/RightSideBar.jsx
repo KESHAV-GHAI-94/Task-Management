@@ -60,7 +60,7 @@ const RightSideBar = ({
     }
   };
   return (
-    <div className="hidden lg:block me-5 w-full lg:w-[300px]">
+    <div className="hidden lg:block me-10 w-full lg:w-[300px]">
       <div className="bg-white fixed me-8 shadow-lg rounded-xl p-4 sm:p-6">
         <div className="flex flex-col sm:flex-row sm:justify-between gap-4">
           <div className="mb-4 flex-col">

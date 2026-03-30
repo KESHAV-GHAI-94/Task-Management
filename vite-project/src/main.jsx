@@ -7,14 +7,14 @@ import App from './App.jsx'
 import { GroupProvider } from './Context/GroupContext.jsx'
 import { TaskProvider } from './Context/TaskContext.jsx'
 createRoot(document.getElementById('root')).render(
+  <BrowserRouter>
 <AuthProvider>
   <GroupProvider>
     <TaskProvider>
-  <BrowserRouter>
     <App />
-  </BrowserRouter>
   </TaskProvider>
   </GroupProvider>
 </AuthProvider>
+  </BrowserRouter>
   ,
 )
