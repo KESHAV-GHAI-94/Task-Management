@@ -15,9 +15,6 @@ export const AuthProvider = ({ children }) => {
   }
     try {
       const res = await Api.get("/user/me",{
-        headers: {
-        "Cache-Control": "no-cache"
-      }
     });
       setUser(res.data);
     }catch (err) {
