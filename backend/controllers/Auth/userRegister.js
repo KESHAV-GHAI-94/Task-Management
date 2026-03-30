@@ -58,7 +58,9 @@ const signup = async (req, res) => {
       is_verified: false,
       is_active: false,
     });
-    await sendEmailotp(email, otp);
+    sendEmailotp(email, otp).catch(err => {
+  console.error("Email error:", err.message);
+});
     res.status(201).json({
       success: true,
       message: "Signup successful. Verify OTP.",
