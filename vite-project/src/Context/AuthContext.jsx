@@ -25,8 +25,14 @@ export const AuthProvider = ({ children }) => {
     }
   };
   useEffect(() => {
-    fetchUser();
-  }, []);
+  const token = localStorage.getItem("token");
+
+  if (token) {
+    fetchUser(); 
+  } else {
+    setLoading(false);
+  }
+}, []);
   return (
     <AuthContext.Provider value={{ user, setUser, loading }}>
       {children}
