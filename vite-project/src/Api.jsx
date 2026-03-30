@@ -16,9 +16,13 @@ Api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      localStorage.removeItem("token");
-      window.location.href = "/login";
-    }
+  const isAuthRoute = error.config.url.includes("/user/me");
+
+  if (!isAuthRoute) {
+    localStorage.removeItem("token");
+    window.location.href = "/login";
+  }
+}
     return Promise.reject(error);
   }
 );

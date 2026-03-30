@@ -20,9 +20,9 @@ export const AuthProvider = ({ children }) => {
       }
     });
       setUser(res.data);
-    } catch {
-      localStorage.removeItem("token");
-      setUser(null);
+    }catch (err) {
+  console.error("Fetch user error:", err);
+  setUser(null);
     } finally {
       setLoading(false);
     }
