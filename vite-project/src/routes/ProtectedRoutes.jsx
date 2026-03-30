@@ -4,10 +4,17 @@ import { AuthContext } from "../Context/AuthContext";
 
 const ProtectedRoutes = () => {
   const { user, loading } = useContext(AuthContext);
-  if (loading) return null;
+
+  // ⛔ WAIT until auth check completes
+  if (loading) {
+    return <div>Loading...</div>; // or spinner
+  }
+
+  // ⛔ Only redirect AFTER loading is done
   if (!user) {
     return <Navigate to="/login" replace />;
   }
+
   return <Outlet />;
 };
 
