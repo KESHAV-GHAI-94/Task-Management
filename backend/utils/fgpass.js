@@ -1,10 +1,10 @@
-const { Resend } = require("resend");
-const resend = new Resend(process.env.RESEND_API_KEY);
+const sgMail = require("@sendgrid/mail");
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 const fgpass = async(email,otp)=>{
     try{
-        await resend.emails.send({
-            from: "QUICK TASK <onboarding@resend.dev>",
+        await sgMail.send({
+            from: `QUICK TASK <${process.env.SENDER_EMAIL || "keshavghai001@gmail.com"}>`,
             to: email,
             subject: "Forget Password OTP - QUICK TASK",
             html: `
@@ -17,10 +17,9 @@ const fgpass = async(email,otp)=>{
         });
         console.log("OTP email sent to :",email);
     }
-    catch (err) {
-        console.error("email err in fgpass : ", err);
+    catch(err){
+        console.error("email err : ",err);
         throw err;
     }
 };
-
 module.exports = fgpass;
