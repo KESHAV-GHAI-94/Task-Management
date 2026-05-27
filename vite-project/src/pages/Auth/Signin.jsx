@@ -1,6 +1,7 @@
 import UseSignin from "../../hooks/AuthHooks/UseSignin";
 import { Link } from "react-router-dom";
 import {Eye,EyeOff} from "lucide-react";
+import OtpModal from "../../components/modals/Otpmodal";
 // import MainLayout from "./MainLayout";
 const Login = () => {
 
@@ -14,6 +15,13 @@ const Login = () => {
     form,
     touched,
     loading,
+    showOtpModal,
+    setShowOtpModal,
+    otp,
+    setOtp,
+    loadingOtp,
+    verifyLoginOtp,
+    resendLoginOtp,
   } = UseSignin();
 
   return (
@@ -76,7 +84,7 @@ const Login = () => {
           <div className="flex flex-col items-center gap-2 sm:gap-3 mt-3 md:mt-4 text-sm sm:text-base">
             <div className="flex gap-2">
               <p>Not Having an account?</p>
-              <Link className="text-blue-700 hover:underline" to="/signup">
+               <Link className="text-blue-700 hover:underline" to="/signup">
                 Sign up
               </Link>
             </div>
@@ -89,10 +97,23 @@ const Login = () => {
           </div>
         </form>
         <div className="hidden md:flex flex-col justify-center ml-10 max-w-lg">
-  <h1 className="hero-title"><span className="text-taupe-700">Focus</span> on What <span className="h text-[#3b82f6]">Matters.</span></h1>
-  <p className="hero-tagline text-left">Plan less, accomplish more. Streamline your workflow with our intuitive, clutter-free dashboard.</p>
-</div>
+          <h1 className="hero-title"><span className="text-taupe-700">Focus</span> on What <span className="h text-[#3b82f6]">Matters.</span></h1>
+          <p className="hero-tagline text-left">Plan less, accomplish more. Streamline your workflow with our intuitive, clutter-free dashboard.</p>
+        </div>
       </div>
+      {showOtpModal && (
+        <OtpModal
+          otp={otp}
+          setOtp={setOtp}
+          onVerify={verifyLoginOtp}
+          onResend={resendLoginOtp}
+          onClose={() => setShowOtpModal(false)}
+          loading={loadingOtp}
+          email={form.email}
+          title="Verify Login OTP"
+          buttonText="Verify & Login"
+        />
+      )}
     </>
   );
 };

@@ -14,6 +14,10 @@ export default function UseSignin() {
   const [touched, setTouched] = useState({});
   const [showPass, setShowPass] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [showOtpModal, setShowOtpModal] = useState(false);
+  const [otp, setOtp] = useState("");
+  const [loadingOtp, setLoadingOtp] = useState(false);
+
   const validateField = (name, value) => {
     let error = "";
     const trimmedValue = value.trim();
@@ -65,6 +69,34 @@ export default function UseSignin() {
     }));
   }
 };
+
+  const verifyLoginOtp = async () => {
+    if (!otp.trim()) return toast.error("Enter OTP");
+    try {
+      setLoadingOtp(true);
+      const res = await Api.post("/user/verify-otp", {
+        email: form.email,
+        otp,
+      });
+      toast.success(res.data.message);
+      setShowOtpModal(false);
+      
+      // Automatically log the user in since they are now verified
+      const loginRes = await Api.post("/user/login", {
+        email: form.email,
+        password: form.password,
+      });
+      localStorage.setItem("token", loginRes.data.token);
+      toast.success(loginRes.data.message);
+      setUser(loginRes.data.user);
+      navigate("/dashboard", { state: { email: form.email } });
+    } catch (err) {
+      toast.error(err.response?.data?.message || "OTP verification failed");
+    } finally {
+      setLoadingOtp(false);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (loading) return;
@@ -96,7 +128,14 @@ export default function UseSignin() {
           email: form.email,
           password: form.password,
         });
-        localStorage.setItem("token", res.data.token);
+      
+      if (res.data.unverified) {
+        toast.info(res.data.message);
+        setShowOtpModal(true);
+        return;
+      }
+
+      localStorage.setItem("token", res.data.token);
       toast.success(res.data.message);
       setUser(res.data.user);
       navigate("/dashboard", { state: { email: form.email } });
@@ -106,6 +145,19 @@ export default function UseSignin() {
       setLoading(false);
     }
   };
+
+  const resendLoginOtp = async () => {
+    try {
+      const res = await Api.post("/user/login", {
+        email: form.email,
+        password: form.password,
+      });
+      toast.success("A new OTP has been sent successfully!");
+    } catch (err) {
+      toast.error(err.response?.data?.message || "Resend failed");
+    }
+  };
+
   return {
     errors,
     showPass,
@@ -116,5 +168,12 @@ export default function UseSignin() {
     form,
     touched,
     loading,
+    showOtpModal,
+    setShowOtpModal,
+    otp,
+    setOtp,
+    loadingOtp,
+    verifyLoginOtp,
+    resendLoginOtp,
   };
 }

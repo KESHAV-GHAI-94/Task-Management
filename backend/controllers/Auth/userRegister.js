@@ -32,7 +32,7 @@ const signup = async (req, res) => {
     if (existingUser && existingUser.is_active === false) {
       await existingUser.update({
         name,
-        password,
+        password_hash,
         phone,
         signup_otp: otp,
         signup_otp_expiry: otpExpiry,

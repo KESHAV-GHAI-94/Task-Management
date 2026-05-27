@@ -1,6 +1,8 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../../models/userModel");
+const { sendEmailotp } = require("../../utils/sendVerifyotp");
+
 const loginuser = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -18,17 +20,35 @@ const loginuser = async (req, res) => {
         message: "Invalid credentials",
       });
     }
-    if (!user.is_active) {
-      return res.status(403).json({
-        message: "Please verify your email before logging in",
-      });
-    }
+
     const isMatch = await bcrypt.compare(password, user.password_hash);
     if (!isMatch) {
       return res.status(401).json({
-        message: "Invalid password",
+        message: "Invalid credentials",
       });
     }
+
+    if (!user.is_active) {
+      const otp = Math.floor(100000 + Math.random() * 900000).toString();
+      const otpExpiry = new Date(Date.now() + 10 * 60 * 1000);
+      
+      await user.update({
+        signup_otp: otp,
+        signup_otp_expiry: otpExpiry
+      });
+
+      sendEmailotp(user.email, otp).catch(err => {
+        console.error("Email error:", err.message);
+      });
+
+      return res.status(200).json({
+        success: false,
+        unverified: true,
+        email: user.email,
+        message: "Email not verified. A new OTP has been sent.",
+      });
+    }
+
     const token = jwt.sign(
       {
         id: user.id,
@@ -51,13 +71,12 @@ const loginuser = async (req, res) => {
         role: user.role,
       },
     });
-  }catch (err) {
-  console.error("LOGIN ERROR:", err.message);
-
-  res.status(500).json({
-    message: err.message,
-  });
-}
-
+  } catch (err) {
+    console.error("LOGIN ERROR:", err.message);
+    res.status(500).json({
+      message: err.message,
+    });
+  }
 };
+
 module.exports = loginuser;

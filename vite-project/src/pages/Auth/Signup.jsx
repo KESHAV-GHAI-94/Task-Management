@@ -21,6 +21,7 @@ const Signup = () => {
     setShowOtpModal,
     loading,
     otp,
+    resendSignupOtp,
   } = useSignup();
   return (
     <>
@@ -135,6 +136,7 @@ const Signup = () => {
     otp={otp}
     setOtp={setOtp}
     onVerify={verifySignupOtp}
+    onResend={resendSignupOtp}
     onClose={() => setShowOtpModal(false)}
     loading={loadingOtp}
     email={form.email}

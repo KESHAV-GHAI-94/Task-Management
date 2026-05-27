@@ -77,6 +77,20 @@ export default function useSignup() {
     }
   };
 
+  const resendSignupOtp = async () => {
+    try {
+      await Api.post("/user/register", {
+        name: form.name,
+        email: form.email,
+        phone: form.phone,
+        password: form.password,
+      });
+      toast.success("A new OTP has been sent successfully!");
+    } catch (err) {
+      toast.error(err.response?.data?.message || "Resend failed");
+    }
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm((prev) => ({
@@ -143,5 +157,6 @@ export default function useSignup() {
     loading,
     otp,
     setLoading,
+    resendSignupOtp,
   };
 }
